@@ -1,0 +1,71 @@
+<div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a href="/" class="navbar-brand"><img src="/assets/Orange_logo.svg.png" alt="Orange Tunisie" title="Back to homepage" loading="lazy"></a>
+      <a href="#" class="navbar-brand">BLI</a>
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+          <li class="nav-item" *ngIf="showAdminBoard">
+              <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
+            </li>
+          <li class="nav-item" *ngIf="showProducteurBoard">
+              <a href="/prod" class="nav-link" routerLink="prod">Productor Board</a>
+            </li>
+        <li class="nav-item" *ngIf="showPiloteBoard">  
+            <a href="/pilo" class="nav-link" routerLink="pilo">Pilote Board</a>
+        </li>
+        <li class="nav-item" *ngIf="showDirectionBoard">
+            <a href="/dir" class="nav-link" routerLink="dir">Direction Board</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item">
+          <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a href="/login" class="nav-link" routerLink="login">Login</a>
+        </li>
+      </ul>
+  
+      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+        <li class="nav-item">
+          <a href="/profile" class="nav-link" (click)= "hidesidebar()" routerLink="profile">{{collaborateur.nom}} {{collaborateur.prenom}}</a>
+
+        </li>
+        <li class="nav-item">
+          <a href class="nav-link" (click)="logout()">LogOut</a>
+        </li>
+      </ul>
+    </nav>
+  
+    <!DOCTYPE html>
+  <html>
+  <body class="bodys">
+  
+  <div class="navv" *ngIf="issidebar" >
+    <li class="rr"><a routerLink= "ESIMB" class="nav-link" (click)=" afficheEsimOptions()">ESIMB</a></li>
+    <ul class="navbar-nav mr-auto" *ngIf="isesimb" routerLinkActive="active">
+    <ul> <li class="nav-item" >
+              <a href="/Add" class="nav-link" routerLink="Add">Add</a>
+            </li>  
+          </ul>      
+            
+            <ul><li class="nav-item" >
+              <a href="/List" class="nav-link" routerLink="List">Search</a>
+            </li>  
+          </ul>  
+      </ul>
+    <li class="r"><a class="nav-link" href="#">DESAT</a></li>
+    <li class="rrr"><a class="nav-link" href="#">NRO-PM</a></li>
+    <li class="tt"><a class="nav-link" href="#">BRAME</a></li>
+    <li class="t"><a class="nav-link" href="#">GRAPHIC</a></li>
+  </div>
+  
+  
+  
+  </body>
+  </html>
+  
+  
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>

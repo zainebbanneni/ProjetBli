@@ -1,0 +1,32 @@
+.edit-form {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  input{
+    height: 30px;
+    width: 300px;
+    font-size: 3.5em;
+    position: relative;
+
+  }
+  .badge-success{
+      background-color: rgb(233, 104, 29);
+  }
+
+  .table-add{
+    margin-left: auto;
+    margin-right: auto;
+  
+  }
+  .form-control{
+    font-size: 18px;
+  }
+
+  .submit-form {
+    margin-left: auto;
+    margin-right: auto;
+      max-width: 100px;
+      width: 25px;
+  
+    }

@@ -1,0 +1,83 @@
+<br>
+<div class="list row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search by codeIMB"
+              [(ngModel)]="codeIMB"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="searchCodeIMB()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h4>Tickets ESIMB</h4>
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let esimb of esimbs; let i = index"
+              [class.active]="i == currentIndex"
+              (click)="setActiveEsimb(esimb,i)"
+            >
+              {{ esimb.codeIMB }}
+            </li>
+          </ul>
+
+        </div>
+        <div class="col-md-6">
+          <div *ngIf="currentEsimb">
+            <h4>ESIMB</h4>
+            <div>
+              <label><strong>CodeIMB:</strong></label> {{ currentEsimb.codeIMB }}
+            </div>
+            <div>
+              <label><strong>IdActe:</strong></label> {{ currentEsimb.idacte }}
+            </div>
+            <div>
+              <label><strong>Date_verification:</strong></label> {{ currentEsimb.date_verification }}
+            </div>
+          </div>
+
+          <div *ngIf="currentActetraitement">
+              <div>
+                  <label><strong>Type prestation:</strong></label> {{ currentActetraitement.type_prestation }}
+                </div>
+                <div>
+                    <label><strong>Type element:</strong></label> {{ currentActetraitement.type_element }}
+                  </div>
+              <div>
+                <label><strong>Quantite:</strong></label> {{ currentActetraitement.quantite }}
+              </div>
+              <div>
+                  <label><strong>Duree:</strong></label> {{ currentActetraitement.duree }}
+                </div>
+                <div>
+                    <label><strong>Date livraison:</strong></label> {{ currentActetraitement.date_livraison }}
+                  </div>
+                  <div>
+                      <label><strong>Commentaire:</strong></label> {{ currentActetraitement.commentaire }}
+                    </div>
+                    <div>
+                        <label><strong>Motif:</strong></label> {{ currentActetraitement.motif }}
+                      </div>
+     
+              <a *ngIf="currentEsimb.codeIMB!=''" class="badge badge-warning"  routerLink="/MODIF/{{ currentEsimb }}">
+                Edit
+              </a>
+            </div>
+      
+          <div *ngIf="!currentEsimb">
+            <br />
+            <p>Please click on a Esimb...</p>
+          </div>
+        </div>
+      </div>

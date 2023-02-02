@@ -1,0 +1,98 @@
+<br>
+<table class="table-add">
+        <tr><td>Quantite</td><td>
+            <div class="col-sm-10">
+            <input type="text"
+            class="form-control"
+            id="quantite"
+            [(ngModel)]="currentActetraitement.quantite"
+            name="quantite">
+          </div></td></tr>
+<br>
+          <tr><td>Affectation</td><td>
+                <div class="col-sm-10">
+                <input type="text"
+                class="form-control"
+                id="affectation"
+                [(ngModel)]="currentActetraitement.affectation"
+                name="affectation">
+              </div></td></tr>
+<br>
+              <tr><td>Duree</td><td>
+                    <div class="col-sm-10">
+                    <input type="text"
+                    class="form-control"
+                    id="duree"
+                    [(ngModel)]="currentActetraitement.duree"
+                    name="duree">
+                  </div></td></tr>
+<br>
+             <tr><td>Commentaire</td><td>
+                 <div class="col-sm-10">
+                    <input type="text"
+                    class="form-control"
+                    id="commentaire"
+                    [(ngModel)]="currentActetraitement.commentaire"
+                    name="commentaire" 
+                    placeholder={{this.currentEsimb.codeIMB}}>
+                </div></td></tr>
+<br>
+
+     <tr><td>Motif</td>
+        <td><div class="col-sm-10">
+      <select name="pets" id="pet-select"><option value="">
+        --Please choose an option--  </option>
+        <option value="ORT">ORT</option>
+                    <option value="Historique">Historique</option>
+                    <option value="Immeuble">Immeuble</option>
+                    <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
+                    <option value="Inexistence IMB Banbou">Inexistence IMB Banbour</option>
+                    <option value="incohérence">Incohérence</option>
+                    <option value="rami">Rami</option>
+                    <option value="pb inexistant GFI">Pb inexistant GFI</option>
+                    <option value="pb inexistant GFI">Blocage Optimum</option>
+                    <option value="pb inexistant GFI">IMB Raccordable  Optimum</option>
+                    <option value="pb inexistant GFI">Clé en main Client</option>
+                    <option value="pb inexistant GFI">PB saturé</option>
+                    <option value="pb inexistant GFI">Inexistence IMB Ipon</option>
+                    <option value="pb inexistant GFI">Position IMB introuvable</option>
+                    <option value="pb inexistant GFI">PB inexistant Ipon</option>
+                    <option value="pb inexistant GFI">Non evolution statut IMB</option>
+                    <option value="pb inexistant GFI">En attente</option>
+                    <option value="pb inexistant GFI"></option>
+      </select></div></td></tr>
+   <br>             
+                <tr><td>Date verification</td><td>
+                     <div class="col-sm-10">
+                        <input type="date"
+                        class="form-control"
+                        id="date_verification"
+                        [(ngModel)]="currentEsimb.date_verification"
+                        name="date_verification"
+                     
+                        >
+                    </div></td></tr>
+                  
+                  
+</table>
+<br>
+<div>
+        <div class="edit-form">
+
+    <div class="submit-form">
+      <button
+        type="submit"
+        class="badge badge-success mb-2"
+        (click)="updateEsimb()"
+      >
+        Update
+      </button>
+    </div>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentActetraitement.idactetrait">
+      <br/>
+      
+    </div>
+  </div>
