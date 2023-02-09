@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -28,6 +28,10 @@ import { ListComponent } from './cruds/list/list.component';
 import { NROPMComponent } from './nro-pm/nro-pm.component';
 import { DESATComponent } from './desat/desat.component';
 import { EsimbService } from 'src/app/services/esimb.service';
+import { GraphicComponent } from './graphic/graphic.component';
+import { AddgraphicComponent } from './graphic/cruds/addgraphic/addgraphic.component';
+import { ListgraphicComponent } from './graphic/cruds/listgraphic/listgraphic.component';
+import { ModifgraphicComponent } from './graphic/cruds/modifgraphic/modifgraphic.component';
 
 
 @NgModule({
@@ -47,13 +51,19 @@ import { EsimbService } from 'src/app/services/esimb.service';
     ModifComponent,
     ListComponent,
     NROPMComponent,
-    DESATComponent
+    DESATComponent,
+    GraphicComponent,
+    AddgraphicComponent,
+    ListgraphicComponent,
+    ModifgraphicComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule
+
     
   
   ],

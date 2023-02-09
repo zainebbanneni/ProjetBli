@@ -1,83 +1,265 @@
-<br>
-<div class="list row">
-        <div class="col-md-8">
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search by codeIMB"
-              [(ngModel)]="codeIMB"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                (click)="searchCodeIMB()"
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <h4>Tickets ESIMB</h4>
-          <ul class="list-group">
-            <li
-              class="list-group-item"
-              *ngFor="let esimb of esimbs; let i = index"
-              [class.active]="i == currentIndex"
-              (click)="setActiveEsimb(esimb,i)"
-            >
-              {{ esimb.codeIMB }}
-            </li>
-          </ul>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />>
+    <!--Get your code at fontawesome.com-->
+    </head>
+  <body>
+  <br>        
+  <table class="table1" >
+    <tr>
+        <td>
+          <table>
+            <tr>
+              <td><label>
+                <input type="radio" name="searchby" value="idacte" checked [(ngModel)]="searchby">
+                <span class="value">Id Esimb</span>
+              </label></td>
+              <td><label>
+                  <input type="radio" name="searchby" value="codeIMB" [(ngModel)]="searchby">
+                  <span class="value">CodeIMB</span>
+                </label></td>
+              <td><label>
+                <input type="radio" name="searchby" value="dateLivraison" [(ngModel)]="searchby">
+                <span class="value">Date Livraison</span>
+              </label></td>
+              <td><label>
+                  <input type="radio" name="searchby" value="affectation" [(ngModel)]="searchby">
+                  <span class="value">Affectation</span>
+                </label></td>
+              
+            </tr>
+          </table>
+        </td>
+        <td >
+            <input type="text" class="form-control" placeholder="Search by Id Acte" *ngIf="searchby === 'idacte'" [(ngModel)]="searchValue">
+            <input type="text" class="form-control" placeholder="Search by codeIMB" *ngIf="searchby === 'codeIMB'" [(ngModel)]="searchValue">
+            <input type="text" class="form-control" placeholder="Search by affectation" *ngIf="searchby === 'affectation'" [(ngModel)]="searchValue">
+            <input type="date" class="form-control" placeholder="Search by date livraison" *ngIf="searchby === 'dateLivraison'" [(ngModel)]="searchValue">
 
-        </div>
-        <div class="col-md-6">
-          <div *ngIf="currentEsimb">
-            <h4>ESIMB</h4>
-            <div>
-              <label><strong>CodeIMB:</strong></label> {{ currentEsimb.codeIMB }}
-            </div>
-            <div>
-              <label><strong>IdActe:</strong></label> {{ currentEsimb.idacte }}
-            </div>
-            <div>
-              <label><strong>Date_verification:</strong></label> {{ currentEsimb.date_verification }}
-            </div>
-          </div>
 
-          <div *ngIf="currentActetraitement">
-              <div>
-                  <label><strong>Type prestation:</strong></label> {{ currentActetraitement.type_prestation }}
-                </div>
-                <div>
-                    <label><strong>Type element:</strong></label> {{ currentActetraitement.type_element }}
-                  </div>
-              <div>
-                <label><strong>Quantite:</strong></label> {{ currentActetraitement.quantite }}
-              </div>
-              <div>
-                  <label><strong>Duree:</strong></label> {{ currentActetraitement.duree }}
-                </div>
-                <div>
-                    <label><strong>Date livraison:</strong></label> {{ currentActetraitement.date_livraison }}
-                  </div>
-                  <div>
-                      <label><strong>Commentaire:</strong></label> {{ currentActetraitement.commentaire }}
+
+        </td>
+       
+        <td>
+            <button class="btn btn-secondary btn-block" (click)="search()">Search </button>
+        </td>
+    </tr>
+   </table>
+   
+  <hr>
+  
+  <div id="div1" >
+    <table id="users">
+      <thead>
+        <tr>
+          <th>Id acte</th>
+          <th>CodeIMB</th>
+          <th>Duree</th>
+          <th>Quantite</th>
+          <th>Affectation</th>
+          <th>Date de vérification</th>
+          <th>Date de livraison</th>
+          <th>Commentaire</th>
+          <th>Motif</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let esimb of esimbs; let i = index" [class.active]="i == currentIndex" (click)="setActiveEsimb(esimb,i)">
+          <td> {{ esimb.idacte }} </td>
+          <td> {{ esimb.codeIMB }} </td>
+          <td> {{ esimb.duree }} </td>
+          <td> {{ esimb.quantite }} </td>
+          <td> {{ esimb.affectation }} </td>
+          <td> {{ esimb.dateVerification }} </td>
+          <td> {{ esimb.dateLivraison }} </td>
+          <td> {{ esimb.commentaire }} </td>
+          <td> {{ esimb.motif }} </td>
+          
+          <td> <button class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop">edit_note</button> </td>
+        </tr>
+      </tbody>
+    </table>
+  <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Update Ticket</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          
+          <fieldset class="border p-2">
+            <legend class="w-auto">
+            </legend>
+            <table class="table-add">
+                <tr class="tr1">
+                  <td>ID acte</td>
+                  <td><div class="col-sm-10">
+                    <input type="text"
+                    class="form-control"
+                    id="idacte"
+                    required
+                    [(ngModel)]="currentEsimb.idacte"
+                    name="idacte" disabled>
+                  </div></td>
+              
+                  <div class="td2"> 
+                  <td>Code IMB</td>
+                </div>   
+                      <td><div class="col-sm-10">
+                          <input type="text"
+                          class="form-control"
+                          id="codeIMB"
+                          required
+                          [(ngModel)]="currentEsimb.codeIMB"
+                          name="codeIMB">
+                        </div>
+                      </td>
+                 </tr>
+              <br>
+              
+              <tr class="tr1">
+                  <td>Date verification</td>
+                  <td><div class="col-sm-10">
+                    <input type="date"
+                    class="form-control"
+                    id="date_verification"
+                    required
+                    [(ngModel)]="currentEsimb.dateVerification"
+                    name="date_verification">
+                  </div></td>
+              
+                  <div class="td2"> 
+                  <td>Duree</td>
+                </div>   
+                      <td><div class="col-sm-10">
+                          <input type="text"
+                          class="form-control"
+                          id="duree"
+                          required
+                          [(ngModel)]="currentEsimb.duree"
+                          name="duree">
+                        </div>
+                      </td>
+                 </tr>
+              <br>
+              
+              
+              <tr class="tr1">
+                  <td>Date livraison</td>
+                  <td><div class="col-sm-10">
+                    <input type="date"
+                    class="form-control"
+                    id="date_livraison"
+                    required
+                    [(ngModel)]="currentEsimb.dateLivraison"
+                    name="date_livraison">
+                  </div></td>
+              
+                  <div class="td2">
+                      <td>Quantite</td>
                     </div>
-                    <div>
-                        <label><strong>Motif:</strong></label> {{ currentActetraitement.motif }}
+                      <td><div class="col-sm-10">
+                        <input type="text" 
+                        class="form-control"
+                        id="affectation"
+                        required
+                        [(ngModel)]="currentEsimb.affectation"
+                        name="affectation" disabled/>
+                      </div></td>
+                 </tr>
+              <br>
+              
+              
+              <tr class="tr1">
+                  <td>Date de traitement</td>
+                  <td>
+                      <div class="col-sm-10">
+                          <input type="date" class="form-control" id="dateVerification"
+                              required [(ngModel)]="currentEsimb.dateVerification" name="dateVerification"/>
                       </div>
-     
-              <a *ngIf="currentEsimb.codeIMB!=''" class="badge badge-warning"  routerLink="/MODIF/{{ currentEsimb }}">
-                Edit
-              </a>
-            </div>
-      
-          <div *ngIf="!currentEsimb">
-            <br />
-            <p>Please click on a Esimb...</p>
-          </div>
+                  </td>
+              
+                  <div class="td2"><td>Duree</td>
+                  </div>
+                    <td><div class="col-sm-10">
+                      <input type="number"
+                      class="form-control"
+                      id="duree"
+                      required
+                      [(ngModel)]="currentEsimb.duree"
+                      name="duree"
+                    />
+                    </div></td>
+                 </tr>
+              <br>
+              
+              <tr class="tr1">
+                  <td>Type de traitement</td>
+                  <td>
+                      <div class="col-sm-10">
+                          <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.quantite"><option value="">
+                              --Please choose an option--  </option>
+                              <option value="ag">Appel sortant + Grafic</option>
+                              <option value="pg">Pilpro+Grafic</option>
+                              <option value="cg">Classique Grafic</option>
+                          </select>
+                      </div>
+                  </td>
+                  <div class="td2">
+                      <td>Commentaire</td>
+                      </div>
+                          
+              </tr>
+              <br>
+              
+              <tr class="tr1">
+                  <td>Statut Grafic</td>
+                  <td>
+                      <div class="col-sm-10">
+                          <select name="statut_graphic" id="pet-select" [(ngModel)]="currentEsimb.commentaire"><option value="">
+                              --Please choose an option--  </option>
+                              <option value="po">Préparation de l'envoi</option>
+                              <option value="arc">Attente retour client</option>
+                              <option value="l">Libéré</option>
+                          </select>
+                      </div>
+                  </td>
+                  <div class="td2">
+                      <td>Traitement effectué </td>
+                  </div>
+                  <td>
+                      <div class="col-sm-10">
+                          <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.motif"><option value="">
+                              --Please choose an option--  </option>
+                              <option value="ORT"  >Injection avec PTO</option>
+                              <option value="Historique" >Injection sans PTO</option>
+                              <option value="Immeuble" >1er report RDV</option>
+                              <option value="Immeuble" >2eme report RDV</option>
+                              <option value="Immeuble" >Relance SMS + Mise en attente</option>
+                              <option value="Immeuble" >Relance RAI</option>
+                              <option value="Immeuble" >Abandon de la commande</option>
+                          </select>
+                      </div>
+                  </td>
+              </tr>
+              <br>
+              </table>
+          </fieldset>
+       
+  
+  
+  
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Update</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
+    </div>
+  </div>
+  </div>
+  </body>

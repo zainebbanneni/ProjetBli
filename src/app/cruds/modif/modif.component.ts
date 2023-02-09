@@ -3,6 +3,7 @@ import { Esimb } from 'src/app/models/esimb.model';
 import { ActeTraitement } from 'src/app/models/ActeTraitement';
 import { EsimbService } from 'src/app/services/esimb.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CodeNode } from 'source-list-map';
 
 
 @Component({
@@ -12,27 +13,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ModifComponent implements OnInit {
   esimbs?: Esimb[];
-  /*currentEsimb?: Esimb;
+  //currentEsimb?: Esimb;
   currentIndex = -1;
   idacte= '';
   codeIMB = '';
-  date_verification= '';*/
+  date_verification= '';
   
   currentEsimb: Esimb = {
-    date_verification:''
-  };
-
-  currentActetraitement: ActeTraitement = {
+    codeIMB:'',
     type_element:'',
     type_prestation:'',
     quantite:'',
     affectation:'',
-    date_livraison:'',
+    dateLivraison:'',
     duree:'',
     commentaire:'',
-    motif:''
-    
+    motif:'',
+    dateVerification:''
   };
+
   message = '';
 
   constructor(
@@ -42,14 +41,37 @@ export class ModifComponent implements OnInit {
 
   ngOnInit(): void {
     this.message = '';
-    this.currentEsimb= this.route.snapshot.params.esimb;
-    console.log(this.currentEsimb.codeIMB);
-    //this.getEsimb(this.route.snapshot.params.esimb.idacte);
+    /*this.currentEsimb= this.route.snapshot.params.esimb;
+    console.log(this.currentEsimb.codeIMB);*/
+    this.getEsimb(this.route.snapshot.params.idactetrait);
   }
-  //    <div *ngIf="currentActetraitement.idactetrait" class="edit-form">
+
+  getEsimb(idactetrait: string): void {
+    this.esimbService.get(idactetrait)
+      .subscribe(
+        data => {
+          this.currentEsimb= data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  updateEsimb(): void {
+    this.esimbService.update(this.currentEsimb.idactetrait, this.currentEsimb)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.message = response.message;
+        },
+        error => {
+          console.log(error);
+        });
+  }
 
 
-  getEsimb(idacte: string): void {
+  /*getEsimb(idacte: string): void {
     this.esimbService.findByIdacte(idacte)
       .subscribe(
         data => {
@@ -75,6 +97,6 @@ export class ModifComponent implements OnInit {
         error => {
           console.log(error);
         });
-  }
+  }*/
 
 }

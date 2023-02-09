@@ -5,61 +5,63 @@ import { Observable } from 'rxjs';
 import { ActeTraitement } from 'src/app/models/ActeTraitement';
 
 
-const baseUrl = 'http://localhost:8080/api/tickets';
+const baseUrl = 'http://localhost:8080/api/esimbs';
 let idacte;
 let codeIMB;
 let date_verification; 
-let url= 'http://localhost:8080/api/add';
+let url= 'http://localhost:8080/api/';
 //http://localhost:8080/api/add?idacte=6&codeIMB=hjfjflk&date_verification=21/01/2023
 
 @Injectable({
   providedIn: 'root'
 })
 export class EsimbService {
-  actetrait: ActeTraitement = {
+  esimb: Esimb = {
+    idacte: '',
+    codeIMB: '',
+    dateVerification: '',
     idactetrait:'',
-    ref_tacheBPU:'',
+    refTacheBPU:'',
     type_prestation:'',
     type_element:'',
     quantite:'',
-	 date_reception:'',
-	 date_livraison:'',
-	 date_validation:'',
+	 dateReception:'',
+	 dateLivraison:'',
+	 dateValidation:'',
 	 affectation: '',
 	 duree: '',
 	 commentaire: '',
 	 motif: '',
-	 statut_facturation: '',
-	date_reprise: '',
-    reprise_facturable: ''
-
-  };
-  esimb: Esimb = {
-    idacte: '',
-    codeIMB: '',
-    date_verification: ''
+	 statutFacturation: '',
+	dateReprise: '',
+    repriseFacturable: ''
   };
 
   constructor(private http: HttpClient) { }
+
+  create(data: any): Observable<any> {
+    return this.http.post(baseUrl, data);
+  }
 
   getAll(): Observable<Esimb[]> {
     return this.http.get<Esimb[]>(baseUrl);
   }
 
+
   getAllActes(): Observable<Esimb[]> {
     return this.http.get<Esimb[]>(baseUrl+'/actes');
   }
 
-  getActe(id: any): Observable<ActeTraitement> {
-    return this.http.get<ActeTraitement>(`${baseUrl}/actes/${id}`);
+  getActe(id: any): Observable<Esimb> {
+    return this.http.get<Esimb>(`${baseUrl}/actes/${id}`);
   }
 
 
-  get(id: any): Observable<Esimb> {
-    return this.http.get<Esimb>(`${baseUrl}/${id}`);
+  get(idactetrait: string): Observable<Esimb> {
+    return this.http.get<Esimb>(`${baseUrl}/${idactetrait}`);
   }
 
-  create(data: any, esimb1: Esimb): Observable<any> {
+  /*create(data: any, esimb1: Esimb): Observable<any> {
     date_verification = esimb1.date_verification;
     codeIMB= esimb1.codeIMB;
     idacte= esimb1.idacte;
@@ -72,10 +74,10 @@ export class EsimbService {
     //idacte=2&codeIMB=hjfjflk&date_verification=21/01/2023
     //@RequestBody Acte_traitement acte_traitement, @RequestParam String idacte,
     // @RequestParam String codeIMB, @RequestParam String date_verification
-  }
+  }*/
 
-  update(id: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${this.esimb.idacte}`, data);
+  update(idactetrait: any, data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/${idactetrait}`, data);
   }
 
   findByCodeIMB(codeIMB: any): Observable<Esimb[]> {
@@ -88,5 +90,28 @@ export class EsimbService {
 
   findBycodeIMBContaining(codeIMB: any): Observable<Esimb[]> {
     return this.http.get<Esimb[]>(`${baseUrl}/Esimb?codeIMB=${codeIMB}`);
+  }
+
+   //Service de recherche par ID Acte
+   searchByIdActe(idacte: any): Observable<Esimb[]> {
+    const urli= url+"getEsimbById/"+idacte;
+    return  this.http.get<Esimb[]>(urli);
+  }
+
+  //Service de recherche par codeIMB
+  searchBycodeIMB(codeIMB: any): Observable<Esimb[]> {
+    const urli= url+"getEsimbBycodeIMB/"+codeIMB;
+    return  this.http.get<Esimb[]>(urli);
+  }
+  //Service de recherche par affectation
+  searchByAffectation(affectation: any): Observable<Esimb[]> {
+    const urli= url+"getEsimbByAffectation/"+affectation;
+    return  this.http.get<Esimb[]>(urli);
+  }
+
+  //Service de recherche par Date de livraison
+  searchByDateLivraison(dateLivraison: any): Observable<Esimb[]> {
+    const urli= url+"getEsimbByDL/"+dateLivraison;
+    return  this.http.get<Esimb[]>(urli);
   }
 }

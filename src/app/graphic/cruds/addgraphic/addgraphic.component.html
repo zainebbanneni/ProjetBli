@@ -1,0 +1,169 @@
+<br>
+<table class="table-add">
+  <tr class="tr1">
+    <td>ID acte</td>
+    <td><div class="col-sm-10">
+      <input type="text"
+      class="form-control"
+      id="idacte"
+      required
+      [(ngModel)]="actetrait.idactetrait"
+      name="idacte" disabled>
+    </div></td>
+
+    <div class="td2"> 
+    <td>Code IMB</td>
+  </div>   
+        <td><div class="col-sm-10">
+            <input type="text"
+            class="form-control"
+            id="codeIMB"
+            required
+            [(ngModel)]="graphic.code_imb"
+            name="codeIMB">
+          </div>
+        </td>
+   </tr>
+<br>
+
+
+<tr class="tr1">
+    <td>ID Grafic</td>
+    <td><div class="col-sm-10">
+      <input type="text"
+      class="form-control"
+      id="idGrafic"
+      required
+      [(ngModel)]="graphic.idGrafic"
+      name="idGrafic">
+    </div></td>
+
+    <div class="td2"> 
+    <td>IAR</td>
+  </div>   
+        <td><div class="col-sm-10">
+            <input type="text"
+            class="form-control"
+            id="iar"
+            required
+            [(ngModel)]="graphic.iar"
+            name="iar">
+          </div>
+        </td>
+   </tr>
+<br>
+
+
+<tr class="tr1">
+    <td>Groupe d'opérateur (OI)</td>
+    <td><div class="col-sm-10">
+      <input type="text"
+      class="form-control"
+      id="groupe_operation"
+      required
+      [(ngModel)]="graphic.groupe_operation"
+      name="groupe_operation">
+    </div></td>
+
+    <div class="td2">
+        <td>Affectation</td>
+      </div>
+        <td><div class="col-sm-10">
+          <input type="text" value="{{collab.nom}} {{collab.prenom}}"
+          class="form-control"
+          id="affectation"
+          required
+          [(ngModel)]="actetrait.affectation"
+          name="affectation" disabled/>
+        </div></td>
+   </tr>
+<br>
+
+
+<tr class="tr1">
+    <td>Date de traitement</td>
+    <td>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" id="dateTraitement"
+                required [(ngModel)]="graphic.dateTraitement" name="dateTraitement"/>
+        </div>
+    </td>
+
+    <div class="td2"><td>Duree</td>
+    </div>
+      <td><div class="col-sm-10">
+        <input type="number"
+        class="form-control"
+        id="duree"
+        required
+        [(ngModel)]="actetrait.duree"
+        name="duree"
+      />
+      </div></td>
+   </tr>
+<br>
+
+<tr class="tr1">
+    <td>Type de traitement</td>
+    <td>
+        <div class="col-sm-10">
+            <select name="pets" id="pet-select" [(ngModel)]="graphic.type_traitement">
+               <option value="">--Please choose an option--  </option>
+                <option value="ag">Appel sortant + Grafic</option>
+                <option value="pg">Pilpro+Grafic</option>
+                <option value="cg">Classique Grafic</option>
+            </select>
+        </div>
+    </td>
+    <div class="td2">
+        <td>Commentaire</td>
+        </div>
+            <td>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="commentaire"
+                  required [(ngModel)]="actetrait.commentaire" name="commentaire"/>
+                </div>
+            </td>
+</tr>
+<br>
+
+<tr class="tr1">
+    <td>Statut Grafic</td>
+    <td>
+        <div class="col-sm-10">
+            <select name="statut_graphic" id="pet-select" [(ngModel)]="graphic.statut_graphic">
+                <option value="po">Préparation de l'envoi</option>
+                <option value="arc">Attente retour client</option>
+                <option value="l">Libéré</option>
+            </select>
+        </div>
+    </td>
+    <div class="td2">
+        <td>Traitement effectué </td>
+    </div>
+    <td>
+        <div class="col-sm-10">
+            <select name="pets" id="pet-select" [(ngModel)]="graphic.traitement_effectue">
+                <option value="IAPTO" *ngIf="graphic.statut_graphic === 'po'">Injection avec PTO</option>
+                <option value="ISPTO" *ngIf="graphic.statut_graphic === 'po'">Injection sans PTO</option>
+                <option value="1REPRDV" *ngIf="graphic.statut_graphic === 'arc'">1er report RDV</option>
+                <option value="2REPRDV" *ngIf="graphic.statut_graphic === 'arc'">2eme report RDV</option>
+                <option value="RELANCESMS" *ngIf="graphic.statut_graphic === 'arc'">Relance SMS + Mise en attente</option>
+                <option value="RELANCERAI" *ngIf="graphic.statut_graphic === 'arc'">Relance RAI</option>
+                <option value="ABAND" *ngIf="graphic.statut_graphic === 'l'">Abandon de la commande</option>
+            </select>
+        </div>
+    </td>
+</tr>
+<br>
+</table>
+<br>
+<div class="submit-form">
+  <button type="submit" class="badge badge-success mb-2"(click)="savegraphic()">Submit</button>
+</div>
+<div *ngIf="submitted">
+  <div class="alert alert-success" role="alert">
+    <strong>Well done!</strong> This ticket was submitted successfully!.
+  </div>
+  <button class="btn btn-success" (click)="newEsimb()">Add</button>
+</div>

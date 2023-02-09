@@ -20,6 +20,10 @@ export class AppComponent implements OnInit {
   username?: string;
   issidebar= true;
   isesimb = false;
+  isgraphic = false;
+  isdesat = false;
+  isnropm = false;
+  isbrame = false;
   collaborateur : Collaborateur ={ 
        CUID: '',    
        nom: '', 
@@ -30,7 +34,7 @@ export class AppComponent implements OnInit {
        id_equipe: '',
        fonction: ''
     }
-
+  
   constructor(private tokenStorageService: TokenStorageService, private collaborateurService: CollaborateurService) { }
 
   ngOnInit(): void {
@@ -68,11 +72,34 @@ export class AppComponent implements OnInit {
     this.issidebar= false;
   }
 
-  afficheEsimOptions():void {  
+  hideall(): void{
+    this.isesimb = false;
+    this.isgraphic = false;
+    this.isdesat = false;
+    this.isnropm = false;
+    this.isbrame = false;
+  }
+
+  afficheEsimOptions():void {  
+    this.hideall();
+      if (this.isesimb) {  
+      this.isesimb = false;
+        }else
+    {this.isesimb = true;    }     };
+
+    afficheGraphicOptions():void {  
+      this.hideall();
+        if (this.isgraphic) {  
+        this.isgraphic = false;
+          }else
+      {this.isgraphic = true;    }     };
+
+  /*afficheEsimOptions():void {  
       if (this.isesimb) {  
       this.isesimb = false;
         }else
-    {this.isesimb = true;    }     };
+    {this.isesimb = true;    }     };*/
+
 
     getinfoscollaborateur(): void {
             const user = this.tokenStorageService.getUser();

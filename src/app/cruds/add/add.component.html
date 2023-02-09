@@ -1,7 +1,7 @@
 <br>
 <table class="table-add">
   <tr class="tr1">
-    <td>Id acte</td>
+    <td>ID acte</td>
     <td><div class="col-sm-10">
       <input type="text"
       class="form-control"
@@ -19,144 +19,167 @@
             class="form-control"
             id="codeIMB"
             required
+            minlength="5"
+            maxlength="16"
+            pattern="IMB/"
             [(ngModel)]="esimb.codeIMB"
-            name="codeIMB">
-          </div></td>
-        </tr>
+            name="codeIMB"
+            codeIMB
+            #codeIMB="ngModel">
+            <div class="alert-danger" *ngIf="codeIMB.errors">
+                <div *ngIf="codeIMB.errors.maxlength">maximum 16 caracters</div>
+                <div *ngIf="codeIMB.errors.pattern">ce champ doit commencer avec IMB</div>
+
+                </div>
+              </div>
+        </td>
+   </tr>
 <br>
-              <tr>
-                <td>Type prestation</td>
-                <td><div class="col-sm-10">
-                  <input type="text" value="ESIMB" placeholder="ESIMB"
+
+
+<tr class="tr1">
+    <td>Type prestation</td>
+    <td><div class="col-sm-10">
+      <input type="text" value="ESIMB" placeholder="ESIMB"
+      class="form-control"
+      id="type_prestation"
+      required
+      [(ngModel)]="esimb.type_prestation"
+      name="type_prestation" disabled>
+    </div></td>
+
+    <div class="td2"> 
+    <td>Type element</td>
+  </div>   
+        <td><div class="col-sm-10">
+            <input type="text" value="Forfait" placeholder="Forfait"
             class="form-control"
-            id="typeprestation"
+            id="type_element"
             required
-            [(ngModel)]="actetrait.type_prestation"
-            name="typeprestation" disabled >
-          </div></td>
-
-          <div class="td2">
-          <td>Type element</td>
+            [(ngModel)]="esimb.type_element"
+            name="type_element"disabled >
           </div>
-            <td><div class="col-sm-10">
-              <input type="text" value="Forfait" placeholder="Forfait"
-              class="form-control"
-              id="typeelement"
-              required
-              [(ngModel)]="actetrait.type_element"
-              name="typeelement" disabled
-            />
-            </div></td>
-          </tr>
-<br>
-            <tr>
-              <td>Quantite</td>
-              <td><div class="col-sm-10">
-                <input type="number"
-                class="form-control"
-                id="quantite"
-                required
-                [(ngModel)]="actetrait.quantite"
-                name="quantite"
-              />
-              </div></td>
-
-              <div class="td2">
-                <td>Affectation</td>
-              </div>
-                <td><div class="col-sm-10">
-                  <input type="text" value="ZPFK6778" placeholder="ZPFK6778"
-                  class="form-control"
-                  id="affectation"
-                  required
-                  [(ngModel)]="actetrait.affectation"
-                  name="affectation" disabled
-                />
-                </div></td></tr>
-<br>
-                <tr>
-                  <td>Date livraison</td>
-                  <td><div class="col-sm-10">
-                    <input type="date"
-                    class="form-control"
-                            id="datelivraison"
-                            required
-                            [(ngModel)]="actetrait.date_livraison"
-                            name="datelivraison"
-                  />
-                  </div></td>
-                  <div class="td2"><td>Duree</td>
-                  </div>
-                    <td><div class="col-sm-10">
-                      <input type="number"
-                      class="form-control"
-                      id="duree"
-                      required
-                      [(ngModel)]="actetrait.duree"
-                      name="duree"
-                    />
-                    </div></td></tr>
-<br>
-            <tr>
-              <td>Date verification </td>
-              <td><div class="col-sm-10">
-                <input type="date"
-                class="form-control"
-                id="date_verification"
-                required
-                [(ngModel)]="esimb.date_verification"
-                name="date_verification"
-              />
-              </div></td>
-
-              <div class="td2">
-                <td>Commentaire</td>
-              </div>
-                <td><div class="col-sm-10">
-                  <input type="text"
-                  class="form-control"
-                   id="commentaire"
-                  required
-                 [(ngModel)]="actetrait.commentaire"
-                  name="commentaire"
-                />
-                </div></td></tr>
+        </td>
+   </tr>
 <br>
 
-              <tr><td>Motif</td>
-                <td><div class="col-sm-10">
-                  <select name="pets" id="pet-select"><option value="">
-                    --Please choose an option--  </option>
-                    <option value="ORT">ORT</option>
-                    <option value="Historique">Historique</option>
-                    <option value="Immeuble">Immeuble</option>
-                    <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
-                    <option value="Inexistence IMB Banbou">Inexistence IMB Banbour</option>
-                    <option value="incohérence">Incohérence</option>
-                    <option value="rami">Rami</option>
-                    <option value="pb inexistant GFI">Pb inexistant GFI</option>
-                    <option value="pb inexistant GFI">Blocage Optimum</option>
-                    <option value="pb inexistant GFI">IMB Raccordable  Optimum</option>
-                    <option value="pb inexistant GFI">Clé en main Client</option>
-                    <option value="pb inexistant GFI">PB saturé</option>
-                    <option value="pb inexistant GFI">Inexistence IMB Ipon</option>
-                    <option value="pb inexistant GFI">Position IMB introuvable</option>
-                    <option value="pb inexistant GFI">PB inexistant Ipon</option>
-                    <option value="pb inexistant GFI">Non evolution statut IMB</option>
-                    <option value="pb inexistant GFI">En attente</option>
-                    <option value="pb inexistant GFI"></option>
+
+<tr class="tr1">
+    <td>Quantite</td>
+    <td><div class="col-sm-10">
+      <input type="number"
+      class="form-control"
+      id="quantite"
+      required
+      [(ngModel)]="esimb.quantite"
+      name="quantite">
+    </div></td>
+
+    <div class="td2">
+        <td>Affectation</td>
+      </div>
+        <td><div class="col-sm-10">
+          <input type="text" value="{{collaborateur.nom}} {{collaborateur.prenom}}"
+          class="form-control"
+          id="affectation"
+          required
+          [(ngModel)]="esimb.affectation"
+          name="affectation" disabled/>
+        </div></td>
+   </tr>
+<br>
 
 
+<tr class="tr1">
+    <td>Date livraison</td>
+    
 
-                  </select></div></td></tr>   
-        </table>
-        <br>
-        <div class="submit-form">
-            <button type="submit"
-            class="badge badge-success mb-2"(click)="saveEsimb()">Submit</button>
-          </div>
-      
-          <div *ngIf="submitted">
-            <h4>This ticket was submitted successfully!</h4>
-            <button class="btn btn-success" (click)="newEsimb()">Add</button>
-          </div>
+    <td>
+        <div class="col-sm-10">
+            <input type="date" class="form-control" id="dateLivraison" 
+                required [(ngModel)]="esimb.dateLivraison"
+                 name="dateLivraison"
+                 />
+                 <p>Date actuelle: {{today | date}}</p>
+        </div>
+    </td>
+
+    <div class="td2"><td>Duree</td>
+    </div>
+      <td><div class="col-sm-10">
+        <input type="number"
+        class="form-control"
+        id="duree"
+        required
+        [(ngModel)]="esimb.duree"
+        name="duree"
+      />
+      </div></td>
+   </tr>
+<br>
+
+<tr class="tr1">
+    <td>Date verification</td>
+    <td>
+        <div class="col-sm-10">
+            <input type="date"
+            class="form-control"
+            id="dateVerification"
+            required
+            [(ngModel)]="esimb.dateVerification"
+            name="dateVerification"
+          />
+        </div>
+    </td>
+    <div class="td2">
+        <td>Commentaire</td>
+        </div>
+            <td>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="commentaire"
+                  required [(ngModel)]="esimb.commentaire" name="commentaire"/>
+                </div>
+            </td>
+</tr>
+<br>
+
+<tr class="tr1">
+    <td>Motif</td>
+    <td>
+        <div class="col-sm-10">
+            <select name="pets" id="pet-select" [(ngModel)]="esimb.motif"><option value="">
+                --Please choose an option--  </option>
+            <option value="ORT" >ORT</option>
+            <option value="Hist">Historique</option>
+            <option value="Immeuble">Immeuble</option>
+            <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
+            <option value="Inexistence IMB Banbou">Inexistence IMB Banbour</option>
+            <option value="incohérence">Incohérence</option>
+            <option value="rami">Rami</option>
+            <option value="pb inexistant GFI">Pb inexistant GFI</option>
+            <option value="Blocage Optimum">Blocage Optimum</option>
+            <option value="IMB Raccordable  Optimum">IMB Raccordable  Optimum</option>
+            <option value="Clé en main Client">Clé en main Client</option>
+            <option value="PB saturé">PB saturé</option>
+            <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
+            <option value="Position IMB introuvable">Position IMB introuvable</option>
+            <option value="PB inexistant Ipon">PB inexistant Ipon</option>
+            <option value="Non evolution statut IMB">Non evolution statut IMB</option>
+            <option value="En attent">En attente</option>
+            <option value="traitée"></option>
+          </select>
+        </div>
+    </td>
+</tr>
+<br>
+</table>
+<br>
+<div class="submit-form">
+  <button type="submit" class="badge badge-success mb-2"(click)="saveEsimb()">Submit</button>
+</div>
+<div *ngIf="submitted">
+  <div class="alert alert-success" role="alert">
+    <strong>Well done!</strong> This ticket was submitted successfully!.
+  </div>
+  <button class="btn btn-success" (click)="newEsimb()">Add</button>
+</div>

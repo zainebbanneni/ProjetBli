@@ -5,17 +5,17 @@
             <input type="text"
             class="form-control"
             id="quantite"
-            [(ngModel)]="currentActetraitement.quantite"
+            [(ngModel)]="currentEsimb.quantite"
             name="quantite">
           </div></td></tr>
 <br>
-          <tr><td>Affectation</td><td>
+          <tr><td>Date verification</td><td>
                 <div class="col-sm-10">
-                <input type="text"
+                <input type="date"
                 class="form-control"
-                id="affectation"
-                [(ngModel)]="currentActetraitement.affectation"
-                name="affectation">
+                id="dateVerification"
+                [(ngModel)]="currentEsimb.dateVerification"
+                name="dateVerification">
               </div></td></tr>
 <br>
               <tr><td>Duree</td><td>
@@ -23,7 +23,7 @@
                     <input type="text"
                     class="form-control"
                     id="duree"
-                    [(ngModel)]="currentActetraitement.duree"
+                    [(ngModel)]="currentEsimb.duree"
                     name="duree">
                   </div></td></tr>
 <br>
@@ -32,7 +32,7 @@
                     <input type="text"
                     class="form-control"
                     id="commentaire"
-                    [(ngModel)]="currentActetraitement.commentaire"
+                    [(ngModel)]="currentEsimb.commentaire"
                     name="commentaire" 
                     placeholder={{this.currentEsimb.codeIMB}}>
                 </div></td></tr>
@@ -62,19 +62,19 @@
                     <option value="pb inexistant GFI"></option>
       </select></div></td></tr>
    <br>             
-                <tr><td>Date verification</td><td>
+                <tr><td>Date livraison</td><td>
                      <div class="col-sm-10">
                         <input type="date"
                         class="form-control"
-                        id="date_verification"
-                        [(ngModel)]="currentEsimb.date_verification"
-                        name="date_verification"
+                        id="dateLivraison"
+                        [(ngModel)]="currentEsimb.dateLivraison"
+                        name="dateLivraison"
                      
                         >
                     </div></td></tr>
                   
-                  
 </table>
+
 <br>
 <div>
         <div class="edit-form">
@@ -91,8 +91,9 @@
       <p>{{ message }}</p>
     </div>
   
-    <div *ngIf="!currentActetraitement.idactetrait">
+    <div *ngIf="!currentEsimb.id">
       <br/>
       
     </div>
   </div>
+
