@@ -11,7 +11,7 @@
             <tr>
               <td><label>
                 <input type="radio" name="searchby" value="idacte" checked [(ngModel)]="searchby">
-                <span class="value">Id Esimb</span>
+                <span class="value">Id Acte</span>
               </label></td>
               <td><label>
                   <input type="radio" name="searchby" value="codeIMB" [(ngModel)]="searchby">
@@ -40,7 +40,9 @@
         </td>
        
         <td>
-            <button class="btn btn-secondary btn-block" (click)="search()">Search </button>
+            <button *ngIf="!(searchby === 'affectation') && !isPilote" class="btn btn-secondary btn-block" (click)="search()">Search </button>
+            <button *ngIf="isPilote" class="btn btn-secondary btn-block" (click)="search()">Search </button>
+
         </td>
     </tr>
    </table>
@@ -51,10 +53,10 @@
     <table id="users">
       <thead>
         <tr>
-          <th>Id acte</th>
+          <th>IdActe</th>
           <th>CodeIMB</th>
-          <th>Duree</th>
-          <th>Quantite</th>
+          <th>DMT</th>
+          <th>Qtite</th>
           <th>Affectation</th>
           <th>Date de vérification</th>
           <th>Date de livraison</th>
@@ -65,17 +67,20 @@
       </thead>
       <tbody>
         <tr *ngFor="let esimb of esimbs; let i = index" [class.active]="i == currentIndex" (click)="setActiveEsimb(esimb,i)">
-          <td> {{ esimb.idacte }} </td>
+          <td> {{esimb.idacte}} </td>
           <td> {{ esimb.codeIMB }} </td>
           <td> {{ esimb.duree }} </td>
           <td> {{ esimb.quantite }} </td>
           <td> {{ esimb.affectation }} </td>
           <td> {{ esimb.dateVerification }} </td>
           <td> {{ esimb.dateLivraison }} </td>
-          <td> {{ esimb.commentaire }} </td>
           <td> {{ esimb.motif }} </td>
+          <td> {{ esimb.commentaire }} </td>
           
-          <td> <button class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop">edit_note</button> </td>
+          <td> <button *ngIf="(esimb.motif==='Enattente') && !isPilote" class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >edit_note</button>
+            <button *ngIf="isPilote" class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="getteammembersbycuid()">edit_note</button> </td>
+            
+
         </tr>
       </tbody>
     </table>

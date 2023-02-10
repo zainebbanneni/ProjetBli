@@ -10,7 +10,13 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.css']
+  styleUrls: ['./add.component.css'],
+
+  template: `
+    <p>Date d'aujourd'hui : {{ today | date:'dd/MM/yyyy' }}</p>
+  `
+
+
 })
 export class AddComponent implements OnInit {
   
@@ -48,8 +54,7 @@ export class AddComponent implements OnInit {
   };
   submitted = false;
   today: Date = new Date();
-
-  
+  now = new Date().toDateString();
 
 
   constructor(private esimbService: EsimbService, private collaborateurService: CollaborateurService,
@@ -61,6 +66,10 @@ export class AddComponent implements OnInit {
     //AppComponent.getNameUsername();
     this.getinfoscollaborateur();
       console.log("this.colab :"+this.collaborateur.nom);
+
+      this.esimb.dateLivraison=this.now;
+
+     // this.esimb.dateLivraison= this.today.toString;
       
   }
 

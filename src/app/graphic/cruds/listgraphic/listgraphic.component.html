@@ -1,415 +1,416 @@
 <head>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />>
-    <!--Get your code at fontawesome.com-->
-    </head>
-  <body>
-  <br>        
-  <table class="table1" >
-    <tr>
-        <td>
-          <table>
-            <tr>
-              <td><label>
-                <input type="radio" name="searchby" value="IdGraphic" checked [(ngModel)]="searchby">
-                <span class="value">Id Graphic</span>
-              </label></td>
-              <td><label>
-                <input type="radio" name="searchby" value="DateTrait" [(ngModel)]="searchby">
-                <span class="value">Date de Traitement</span>
-              </label></td>
-            </tr>
-          </table>
-        </td>
-        <td >
-            <input type="text" class="form-control" placeholder="Search by Id Graphic" *ngIf="searchby === 'IdGraphic'" [(ngModel)]="searchValue">
-            <input type="date" class="form-control" id="dateTraitement" required *ngIf="searchby === 'DateTrait'" [(ngModel)]="searchValue" name="dateTraitement"/>
-        </td>
-        <td>
-            <button class="btn btn-secondary btn-block" (click)="search()">Search </button>
-        </td>
-    </tr>
-   </table>
-   
-  <hr>
-  
-  <div id="div1" >
-    <table id="users">
-      <thead>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />>
+        <!--Get your code at fontawesome.com-->
+        </head>
+      <body>
+      <br>        
+      <table class="table1" >
         <tr>
-          <th>idGrafic</th>
-          <th>Affectation</th>
-          <th>Date de traitement</th>
-          <th>Type de traitement</th>
-          <th>Traitement effectué</th>
-          <th> </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let graphic of graphics; let i = index" [class.active]="i == currentIndex" (click)="setActiveEsimb(graphic,i)">
-          <td> {{ graphic.idGrafic}} </td>
-          <td> {{ graphic.iar }} </td>
-          <td> {{ graphic.dateTraitement }} </td>
-          <td> {{ graphic.type_traitement }} </td>
-          <td> {{ graphic.traitement_effectue }} </td>
-          <td *ngIf="isPilote"> <button class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="getteammembersbycuid()">edit_note</button> </td>
-          <td *ngIf="!isPilote"> <button class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop">visibility</button> </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isPilote">Update Ticket {{currentGraphic.idGrafic}}</h5>
-          <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isPilote">Details Ticket {{currentGraphic.idGrafic}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          
-          <!-- Modifiable -->
-          <fieldset class="border p-2" *ngIf="isPilote">
-            <legend class="w-auto">
-            </legend>
-            <table class="table-add">
-                <tr class="tr1">
-                  <td>ID acte</td>
-                  <td><div class="col-sm-10">
-                    <input type="text"
-                    class="form-control"
-                    id="idacte"
-                    required
-                    [(ngModel)]="currentActetraitement.idactetrait"
-                    name="idacte" 
-                     disabled>
-                  </div></td>
-              
-                  <div class="td2"> 
-                  <td>Code IMB</td>
-                </div>   
-                      <td><div class="col-sm-10">
-                          <input type="text"
-                          class="form-control"
-                          id="codeIMB"
-                          required
-                          [(ngModel)]="currentGraphic.code_imb"
-                          name="codeIMB">
-                        </div>
-                      </td>
-                 </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>ID Grafic</td>
-                  <td><div class="col-sm-10">
-                    <input type="text"
-                    class="form-control"
-                    id="idGrafic"
-                    required
-                    [(ngModel)]="currentGraphic.idGrafic"
-                    name="idGrafic">
-                  </div></td>
-              
-                  <div class="td2"> 
-                  <td>IAR</td>
-                </div>   
-                      <td><div class="col-sm-10">
-                          <input type="text"
-                          class="form-control"
-                          id="iar"
-                          required
-                          [(ngModel)]="currentGraphic.iar"
-                          name="iar">
-                        </div>
-                      </td>
-                 </tr>
-              <br>
-              
-              
-              <tr class="tr1">
-                  <td>Groupe d'opérateur (OI)</td>
-                  <td><div class="col-sm-10">
-                    <input type="text"
-                    class="form-control"
-                    id="groupe_operation"
-                    required
-                    [(ngModel)]="currentGraphic.groupe_operation"
-                    name="groupe_operation">
-                  </div></td>
-              
-                  <div class="td2">
-                      <td>Affectation</td>
-                    </div>
-                      <td>
-                        <div class="col-sm-10"  >
-                          <select name="affectation" id="pet-select" [(ngModel)]="currentActetraitement.affectation" >
-                            <option value={{colab.CUID}} *ngFor="let colab of colabsteam; let i = index" >{{colab.nom}} {{colab.prenom}}</option>
-                        </select>
-                      </div></td>
-                 </tr>
-              <br>
-              
-              
-              <tr class="tr1">
-                  <td>Date de traitement</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <input type="date" class="form-control" id="dateTraitement"
-                              required [(ngModel)]="currentGraphic.dateTraitement" name="dateTraitement"/>
-                      </div>
-                  </td>
-              
-                  <div class="td2"><td>Duree</td>
-                  </div>
-                    <td><div class="col-sm-10">
-                      <input type="number"
-                      class="form-control"
-                      id="duree"
-                      required
-                      [(ngModel)]="currentActetraitement.duree"
-                      name="duree"
-                    />
-                    </div></td>
-                 </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>Type de traitement</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.type_traitement">
-                              <option value="ag">Appel sortant + Grafic</option>
-                              <option value="pg">Pilpro+Grafic</option>
-                              <option value="cg">Classique Grafic</option>
-                          </select>
-                      </div>
-                  </td>
-                  <div class="td2">
-                      <td>Commentaire</td>
-                      </div>
-                          <td>
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" id="commentaire"
-                                required [(ngModel)]="currentActetraitement.commentaire"  name="commentaire"/>
-                              </div>
-                          </td>
-              </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>Statut Grafic</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="statut_graphic" id="pet-select" [(ngModel)]="currentGraphic.statut_graphic">
-                              <option value="po">Préparation de l'envoi</option>
-                              <option value="arc">Attente retour client</option>
-                              <option value="l">Libéré</option>
-                          </select>
-                      </div>
-                  </td>
-                  <div class="td2">
-                      <td>Traitement effectué </td>
-                  </div>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.traitement_effectue">
-                              <option value="IAPTO" *ngIf="currentGraphic.statut_graphic === 'po'" >Injection avec PTO</option>
-                              <option value="ISPTO" *ngIf="currentGraphic.statut_graphic === 'po'">Injection sans PTO</option>
-                              <option value="1REPRDV" *ngIf="currentGraphic.statut_graphic === 'arc'">1er report RDV</option>
-                              <option value="2REPRDV" *ngIf="currentGraphic.statut_graphic === 'arc'">2eme report RDV</option>
-                              <option value="RELANCESMS" *ngIf="currentGraphic.statut_graphic === 'arc'">Relance SMS + Mise en attente</option>
-                              <option value="RELANCERAI" *ngIf="currentGraphic.statut_graphic === 'arc'">Relance RAI</option>
-                              <option value="ABAND" *ngIf="currentGraphic.statut_graphic === 'l'">Abandon de la commande</option>
-                          </select>
-                      </div>
-                  </td>
-              </tr>
-              <br>
+            <td>
+              <table>
+                <tr>
+                  <td><label>
+                    <input type="radio" name="searchby" value="IdGraphic" checked [(ngModel)]="searchby">
+                    <span class="value">Id Graphic</span>
+                  </label></td>
+                  <td><label>
+                    <input type="radio" name="searchby" value="DateTrait" [(ngModel)]="searchby">
+                    <span class="value">Date de Traitement</span>
+                  </label></td>
+                </tr>
               </table>
-          </fieldset>
-          
-          <!-- Non Modifiable -->
-          <fieldset class="border p-2" *ngIf="!isPilote">
-            <legend class="w-auto">
-            </legend>
-            <table class="table-add">
-                <tr class="tr1">
-                  <td>ID acte</td>
-                  <td><div class="col-sm-10">
-                    <input type="text"
-                    class="form-control"
-                    id="idacte"
-                    required
-                    [(ngModel)]="currentActetraitement.idactetrait"
-                    name="idacte" 
-                     disabled>
-                  </div></td>
+            </td>
+            <td >
+                <input type="text" class="form-control" placeholder="Search by Id Graphic" *ngIf="searchby === 'IdGraphic'" [(ngModel)]="searchValue">
+                <input type="date" class="form-control" id="dateTraitement" required *ngIf="searchby === 'DateTrait'" [(ngModel)]="searchValue" name="dateTraitement"/>
+            </td>
+            <td>
+                <button class="btn btn-secondary btn-block" (click)="search()">Search </button>
+            </td>
+        </tr>
+       </table>
+       
+      <hr>
+      
+      <div id="div1" >
+        <table id="users">
+          <thead>
+            <tr>
+              <th>idGrafic</th>
+              <th>Affectation</th>
+              <th>Date de traitement</th>
+              <th>Type de traitement</th>
+              <th>Traitement effectué</th>
+              <th> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let graphic of grafics; let i = index" [class.active]="i == currentIndex" (click)="setActiveEsimb(graphic,i)">
+              <td> {{ graphic.idGrafic}} </td>
+              <td> {{ graphic.affectation }} </td>
+              <td> {{ graphic.dateTraitement }} </td>
+              <td> {{ graphic.type_traitement }} </td>
+              <td> {{ graphic.traitement_effectue }} </td>
+              <td *ngIf="isPilote"> <button class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="getteammembersbycuid()">edit_note</button> </td>
+              <td *ngIf="!isPilote"> <button class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop">visibility</button> </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      
+        <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel" *ngIf="isPilote">Update Ticket {{currentGraphic.idGrafic}}</h5>
+              <h5 class="modal-title" id="staticBackdropLabel" *ngIf="!isPilote">Details Ticket {{currentGraphic.idGrafic}}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
               
-                  <div class="td2"> 
-                  <td>Code IMB</td>
-                </div>   
+              <!-- Modifiable -->
+              <fieldset class="border p-2" *ngIf="isPilote">
+                <legend class="w-auto">
+                </legend>
+                <table class="table-add">
+                    <tr class="tr1">
+                      <td>ID acte</td>
                       <td><div class="col-sm-10">
-                          <input type="text"
-                          class="form-control"
-                          id="codeIMB"
-                          required
-                          [(ngModel)]="currentGraphic.code_imb"
-                          name="codeIMB"
-                          disabled>
-                        </div>
-                      </td>
-                 </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>ID Grafic</td>
-                  <td><div class="col-sm-10">
-                    <input type="text"
-                    class="form-control"
-                    id="idGrafic"
-                    required
-                    [(ngModel)]="currentGraphic.idGrafic"
-                    name="idGrafic"
-                    disabled>
-                  </div></td>
-              
-                  <div class="td2"> 
-                  <td>IAR</td>
-                </div>   
-                      <td><div class="col-sm-10">
-                          <input type="text"
-                          class="form-control"
-                          id="iar"
-                          required
-                          [(ngModel)]="currentGraphic.iar"
-                          name="iar"
-                          disabled>
-                        </div>
-                      </td>
-                 </tr>
-              <br>
-              
-              
-              <tr class="tr1">
-                  <td>Groupe d'opérateur (OI)</td>
-                  <td><div class="col-sm-10">
-                    <input type="text"
-                    class="form-control"
-                    id="groupe_operation"
-                    required
-                    [(ngModel)]="currentGraphic.groupe_operation"
-                    name="groupe_operation"
-                    disabled>
-                  </div></td>
-              
-                  <div class="td2">
-                      <td>Affectation</td>
-                    </div>
-                      <td><div class="col-sm-10">
-                        <input type="text" 
+                        <input type="text"
                         class="form-control"
-                        id="affectation"
+                        id="idacte"
                         required
-                        [(ngModel)]="currentActetraitement.affectation"
-                        name="affectation" 
-                        disabled/>
+                        [(ngModel)]="currentGraphic.idactetrait"
+                        name="idacte" 
+                         disabled>
                       </div></td>
-                 </tr>
-              <br>
-              
-              
-              <tr class="tr1">
-                  <td>Date de traitement</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <input type="date" class="form-control" id="dateTraitement"
-                              required [(ngModel)]="currentGraphic.dateTraitement" name="dateTraitement" disabled/>
-                      </div>
-                  </td>
-              
-                  <div class="td2"><td>Duree</td>
-                  </div>
-                    <td><div class="col-sm-10">
-                      <input type="number"
-                      class="form-control"
-                      id="duree"
-                      required
-                      [(ngModel)]="currentActetraitement.duree"
-                      name="duree"
-                      disabled
-                    />
-                    </div></td>
-                 </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>Type de traitement</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.type_traitement" disabled>
-                              <option value="ag" >Appel sortant + Grafic</option>
-                              <option value="pg" >Pilpro+Grafic</option>
-                              <option value="cg" >Classique Grafic</option>
-                          </select>
-                      </div>
-                  </td>
-                  <div class="td2">
-                      <td>Commentaire</td>
-                      </div>
-                          <td>
-                              <div class="col-sm-10">
-                                <input type="text" class="form-control" id="commentaire"
-                                required [(ngModel)]="currentActetraitement.commentaire"  name="commentaire" disabled/>
-                              </div>
+                  
+                      <div class="td2"> 
+                      <td>Code IMB</td>
+                    </div>   
+                          <td><div class="col-sm-10">
+                              <input type="text"
+                              class="form-control"
+                              id="codeIMB"
+                              required
+                              [(ngModel)]="currentGraphic.code_imb"
+                              name="codeIMB">
+                            </div>
                           </td>
-              </tr>
-              <br>
+                     </tr>
+                  <br>
+                  
+                  <tr class="tr1">
+                      <td>ID Grafic</td>
+                      <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="idGrafic"
+                        required
+                        [(ngModel)]="currentGraphic.idGrafic"
+                        name="idGrafic">
+                      </div></td>
+                  
+                      <div class="td2"> 
+                      <td>IAR</td>
+                    </div>   
+                          <td><div class="col-sm-10">
+                              <input type="text"
+                              class="form-control"
+                              id="iar"
+                              required
+                              [(ngModel)]="currentGraphic.iar"
+                              name="iar">
+                            </div>
+                          </td>
+                     </tr>
+                  <br>
+                  
+                  
+                  <tr class="tr1">
+                      <td>Groupe d'opérateur (OI)</td>
+                      <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="groupe_operation"
+                        required
+                        [(ngModel)]="currentGraphic.groupe_operation"
+                        name="groupe_operation">
+                      </div></td>
+                  
+                      <div class="td2">
+                          <td>Affectation</td>
+                        </div>
+                          <td>
+                            <div class="col-sm-10"  >
+                              <select name="affectation" id="pet-select" [(ngModel)]="currentGraphic.affectation" >
+                                <option value={{colab.CUID}} *ngFor="let colab of colabsteam; let i = index" >{{colab.nom}} {{colab.prenom}}</option>
+                            </select>
+                          </div></td>
+                     </tr>
+                  <br>
+                  
+                  
+                  <tr class="tr1">
+                      <td>Date de traitement</td>
+                      <td>
+                          <div class="col-sm-10">
+                              <input type="date" class="form-control" id="dateTraitement"
+                                  required [(ngModel)]="currentGraphic.dateTraitement" name="dateTraitement"/>
+                          </div>
+                      </td>
+                  
+                      <div class="td2"><td>Duree</td>
+                      </div>
+                        <td><div class="col-sm-10">
+                          <input type="number"
+                          class="form-control"
+                          id="duree"
+                          required
+                          [(ngModel)]="currentGraphic.duree"
+                          name="duree"
+                        />
+                        </div></td>
+                     </tr>
+                  <br>
+                  
+                  <tr class="tr1">
+                      <td>Type de traitement</td>
+                      <td>
+                          <div class="col-sm-10">
+                              <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.type_traitement">
+                                  <option value="ag">Appel sortant + Grafic</option>
+                                  <option value="pg">Pilpro+Grafic</option>
+                                  <option value="cg">Classique Grafic</option>
+                              </select>
+                          </div>
+                      </td>
+                      <div class="td2">
+                          <td>Commentaire</td>
+                          </div>
+                              <td>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="commentaire"
+                                    required [(ngModel)]="currentGraphic.commentaire"  name="commentaire"/>
+                                  </div>
+                              </td>
+                  </tr>
+                  <br>
+                  
+                  <tr class="tr1">
+                      <td>Statut Grafic</td>
+                      <td>
+                          <div class="col-sm-10">
+                              <select name="statut_graphic" id="pet-select" [(ngModel)]="currentGraphic.statut_graphic">
+                                  <option value="po">Préparation de l'envoi</option>
+                                  <option value="arc">Attente retour client</option>
+                                  <option value="l">Libéré</option>
+                              </select>
+                          </div>
+                      </td>
+                      <div class="td2">
+                          <td>Traitement effectué </td>
+                      </div>
+                      <td>
+                          <div class="col-sm-10">
+                              <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.traitement_effectue">
+                                  <option value="IAPTO" *ngIf="currentGraphic.statut_graphic === 'po'" >Injection avec PTO</option>
+                                  <option value="ISPTO" *ngIf="currentGraphic.statut_graphic === 'po'">Injection sans PTO</option>
+                                  <option value="1REPRDV" *ngIf="currentGraphic.statut_graphic === 'arc'">1er report RDV</option>
+                                  <option value="2REPRDV" *ngIf="currentGraphic.statut_graphic === 'arc'">2eme report RDV</option>
+                                  <option value="RELANCESMS" *ngIf="currentGraphic.statut_graphic === 'arc'">Relance SMS + Mise en attente</option>
+                                  <option value="RELANCERAI" *ngIf="currentGraphic.statut_graphic === 'arc'">Relance RAI</option>
+                                  <option value="ABAND" *ngIf="currentGraphic.statut_graphic === 'l'">Abandon de la commande</option>
+                              </select>
+                          </div>
+                      </td>
+                  </tr>
+                  <br>
+                  </table>
+              </fieldset>
               
-              <tr class="tr1">
-                  <td>Statut Grafic</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="statut_graphic" id="pet-select" [(ngModel)]="currentGraphic.statut_graphic" disabled>
-                              <option value="po" >Préparation de l'envoi</option>
-                              <option value="arc" >Attente retour client</option>
-                              <option value="l" >Libéré</option>
-                          </select>
+              <!-- Non Modifiable -->
+              <fieldset class="border p-2" *ngIf="!isPilote">
+                <legend class="w-auto">
+                </legend>
+                <table class="table-add">
+                    <tr class="tr1">
+                      <td>ID acte</td>
+                      <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="idacte"
+                        required
+                        [(ngModel)]="currentGraphic.idactetrait"
+                        name="idacte" 
+                         disabled>
+                      </div></td>
+                  
+                      <div class="td2"> 
+                      <td>Code IMB</td>
+                    </div>   
+                          <td><div class="col-sm-10">
+                              <input type="text"
+                              class="form-control"
+                              id="codeIMB"
+                              required
+                              [(ngModel)]="currentGraphic.code_imb"
+                              name="codeIMB"
+                              disabled>
+                            </div>
+                          </td>
+                     </tr>
+                  <br>
+                  
+                  <tr class="tr1">
+                      <td>ID Grafic</td>
+                      <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="idGrafic"
+                        required
+                        [(ngModel)]="currentGraphic.idGrafic"
+                        name="idGrafic"
+                        disabled>
+                      </div></td>
+                  
+                      <div class="td2"> 
+                      <td>IAR</td>
+                    </div>   
+                          <td><div class="col-sm-10">
+                              <input type="text"
+                              class="form-control"
+                              id="iar"
+                              required
+                              [(ngModel)]="currentGraphic.iar"
+                              name="iar"
+                              disabled>
+                            </div>
+                          </td>
+                     </tr>
+                  <br>
+                  
+                  
+                  <tr class="tr1">
+                      <td>Groupe d'opérateur (OI)</td>
+                      <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="groupe_operation"
+                        required
+                        [(ngModel)]="currentGraphic.groupe_operation"
+                        name="groupe_operation"
+                        disabled>
+                      </div></td>
+                  
+                      <div class="td2">
+                          <td>Affectation</td>
+                        </div>
+                          <td><div class="col-sm-10">
+                            <input type="text" 
+                            class="form-control"
+                            id="affectation"
+                            required
+                            [(ngModel)]="currentGraphic.affectation"
+                            name="affectation" 
+                            disabled/>
+                          </div></td>
+                     </tr>
+                  <br>
+                  
+                  
+                  <tr class="tr1">
+                      <td>Date de traitement</td>
+                      <td>
+                          <div class="col-sm-10">
+                              <input type="date" class="form-control" id="dateTraitement"
+                                  required [(ngModel)]="currentGraphic.dateTraitement" name="dateTraitement" disabled/>
+                          </div>
+                      </td>
+                  
+                      <div class="td2"><td>Duree</td>
                       </div>
-                  </td>
-                  <div class="td2">
-                      <td>Traitement effectué </td>
-                  </div>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.traitement_effectue" disabled>
-                              <option value="IAPTO"  >Injection avec PTO</option>
-                              <option value="ISPTO" >Injection sans PTO</option>
-                              <option value="1REPRDV" >1er report RDV</option>
-                              <option value="2REPRDV" >2eme report RDV</option>
-                              <option value="RELANCESMS" >Relance SMS + Mise en attente</option>
-                              <option value="RELANCERAI" >Relance RAI</option>
-                              <option value="ABAND" >Abandon de la commande</option>
-                          </select>
+                        <td><div class="col-sm-10">
+                          <input type="number"
+                          class="form-control"
+                          id="duree"
+                          required
+                          [(ngModel)]="currentGraphic.duree"
+                          name="duree"
+                          disabled
+                        />
+                        </div></td>
+                     </tr>
+                  <br>
+                  
+                  <tr class="tr1">
+                      <td>Type de traitement</td>
+                      <td>
+                          <div class="col-sm-10">
+                              <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.type_traitement" disabled>
+                                  <option value="ag" >Appel sortant + Grafic</option>
+                                  <option value="pg" >Pilpro+Grafic</option>
+                                  <option value="cg" >Classique Grafic</option>
+                              </select>
+                          </div>
+                      </td>
+                      <div class="td2">
+                          <td>Commentaire</td>
+                          </div>
+                              <td>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="commentaire"
+                                    required [(ngModel)]="currentGraphic.commentaire"  name="commentaire" disabled/>
+                                  </div>
+                              </td>
+                  </tr>
+                  <br>
+                  
+                  <tr class="tr1">
+                      <td>Statut Grafic</td>
+                      <td>
+                          <div class="col-sm-10">
+                              <select name="statut_graphic" id="pet-select" [(ngModel)]="currentGraphic.statut_graphic" disabled>
+                                  <option value="po" >Préparation de l'envoi</option>
+                                  <option value="arc" >Attente retour client</option>
+                                  <option value="l" >Libéré</option>
+                              </select>
+                          </div>
+                      </td>
+                      <div class="td2">
+                          <td>Traitement effectué </td>
                       </div>
-                  </td>
-              </tr>
-              <br>
-              </table>
-          </fieldset>
-  
-  
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="UpdateGraphic()" *ngIf="isPilote" >Update</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <td>
+                          <div class="col-sm-10">
+                              <select name="pets" id="pet-select" [(ngModel)]="currentGraphic.traitement_effectue" disabled>
+                                  <option value="IAPTO"  >Injection avec PTO</option>
+                                  <option value="ISPTO" >Injection sans PTO</option>
+                                  <option value="1REPRDV" >1er report RDV</option>
+                                  <option value="2REPRDV" >2eme report RDV</option>
+                                  <option value="RELANCESMS" >Relance SMS + Mise en attente</option>
+                                  <option value="RELANCERAI" >Relance RAI</option>
+                                  <option value="ABAND" >Abandon de la commande</option>
+                              </select>
+                          </div>
+                      </td>
+                  </tr>
+                  <br>
+                  </table>
+              </fieldset>
+      
+      
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary"  *ngIf="isPilote" >Update</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-  </div>
-  
-  
-  </body>
+      </div>
+      
+      
+      </body>

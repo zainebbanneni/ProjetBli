@@ -34,7 +34,7 @@ h1
   .table1{
     border-style: none; 
     border-radius: 100px;
-    margin-left: 600px;
+    margin-left: 300px;
   }
   .table2 tr td .table1 td{
     
@@ -47,9 +47,6 @@ h1
     height: 800px;
   }
 
-
-
-  
   label {
     display: flex;
     padding: 5px 0;

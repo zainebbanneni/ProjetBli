@@ -7,6 +7,7 @@ import { Graphic } from 'src/app/models/Graphic';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { Collaborateur } from 'src/app/models/Collaborateur';
+import {Grafic_req } from 'src/app/models/Grafic_req';
 
 
 @Component({
@@ -25,14 +26,16 @@ export class ListgraphicComponent implements OnInit {
  graphics?: Graphic[];
  actes?: ActeTraitement[];
  colabsteam?: Collaborateur[];
- //currentEsimb?: Esimb;
  currentIndex = -1;
  idacte= '';
  codeIMB = '';
+ grafics? : Grafic_req[];
+ role = '';
+ cuid = '';
 
 
- //Instance de ActeTraitement
- currentActetraitement: ActeTraitement= {
+//Instance de ActeTraitement
+ _actetraitement: ActeTraitement= {
   idactetrait:'',
   ref_tacheBPU:'',
   type_prestation:'',
@@ -50,8 +53,20 @@ export class ListgraphicComponent implements OnInit {
  reprise_facturable: ''
 };
 
-//Instance de graphic
-currentGraphic: Graphic = {
+//Instance de graphic response
+_graphic: Graphic = {
+  idGrafic: '',
+  iar: '',
+  code_imb: '',
+  groupe_operation: '',
+  dateTraitement: '',
+  statut_graphic: '',
+  traitement_effectue: '',
+  type_traitement: ''
+}
+
+//Instance de graphic response
+currentGraphic: Grafic_req = {
   idGrafic: '',
   iar: '',
   code_imb: '',
@@ -60,7 +75,11 @@ currentGraphic: Graphic = {
   statut_graphic: '',
   traitement_effectue: '',
   type_traitement: '',
-};
+  idactetrait: '',
+  affectation: '',
+  duree: 1,
+  commentaire: '',
+}
 
  //Constructor
  constructor(private tokenStorageService: TokenStorageService,
@@ -70,25 +89,45 @@ currentGraphic: Graphic = {
  
  //OnInit
  ngOnInit(): void {
-   this.retrieveGraphics();
+   //this.retrieveGraphics();
    this.isLoggedIn = !!this.tokenStorageService.getToken();
    if (this.isLoggedIn) {
      const user = this.tokenStorageService.getUser();
      this.roles = user.roles;
-
+     this.cuid = user.username;
 
      if (this.roles.includes('ROLE_PILOTE')){
        this.isPilote = true;
+       this.role = 'PILOTE';
        console.log("this is Pilote")
      }else{
        this.isPilote = false;
        console.log("this is not Pilote" + this.roles)
      }
+
+     this.getgrafics();
    }
+
  }
+
+
+ //get all grafics
+ getgrafics(): void {
+  console.log("cuid sent : " + this.cuid);
+  console.log("role sent : " + this.role);
+  this.graphicService.getGrafics(this.cuid,this.role)
+     .subscribe(
+       data => {
+         this.grafics = data;
+         console.log(data);
+       },
+       error => {
+         console.log(error);
+       });
+}
  
  //Get all Graphics
- retrieveGraphics(): void {
+ /*retrieveGraphics(): void {
    this.graphicService.getAll()
      .subscribe(
        data => {
@@ -98,29 +137,16 @@ currentGraphic: Graphic = {
        error => {
          console.log(error);
        });
- }
-
-/* retrieveActes(): void {
-   this.esimbService.getAllActes()
-     .subscribe(
-       data => {
-         this.actes= data;
-         console.log(data);
-       },
-       error => {
-         console.log(error);
-       });
  }*/
+
 
  setActiveEsimb(graphic: Graphic, index: number): void {
    this.currentGraphic = graphic;
-   //this.currentActetraitement= acte;
    this.currentIndex = index;
-   this.getActebyIdActe();
  }
 
 
- getActebyIdActe(): void {
+ /*getActebyIdActe(): void {
    this.esimbService.getActe("G"+this.currentGraphic.idGrafic + this.currentGraphic.dateTraitement)
      .subscribe(
        data => {
@@ -130,7 +156,7 @@ currentGraphic: Graphic = {
        error => {
          console.log(error);
        });
- }
+ }*/
 
  
 //Search
@@ -148,7 +174,7 @@ search(): void {
    this.graphicService.searchByIdGraphic(this.searchValue)
      .subscribe(
        data => {
-         this.graphics = data;
+         this.grafics = data;
          console.log(data);
        },
        error => {
@@ -163,7 +189,7 @@ search(): void {
    this.graphicService.searchByDateTraitement(this.searchValue)
      .subscribe(
        data => {
-         this.graphics = data;
+         this.grafics = data;
          console.log(data);
        },
        error => {
@@ -189,9 +215,13 @@ search(): void {
 
  //Update Graphic
  UpdateGraphic(): void {
-  console.log("ok idactetrait"+this.currentActetraitement.idactetrait);
-  console.log("ok idGrafic"+this.currentGraphic.idGrafic);
-  this.graphicService.update(this.currentActetraitement,this.currentGraphic);
+  this._graphic.code_imb = this.currentGraphic.code_imb;
+  this._graphic.code_imb = this.currentGraphic.code_imb;
+  this._graphic.code_imb = this.currentGraphic.code_imb;
+
+  this.graphicService.update(this._actetraitement,this.currentGraphic);
   
  }
+
+ 
 }

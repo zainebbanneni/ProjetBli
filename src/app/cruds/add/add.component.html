@@ -38,26 +38,26 @@
 
 
 <tr class="tr1">
-    <td>Type prestation</td>
+    <td>Date verification</td>
     <td><div class="col-sm-10">
-      <input type="text" value="ESIMB" placeholder="ESIMB"
+      <input type="date" 
       class="form-control"
-      id="type_prestation"
+      id="dateVerification"
       required
-      [(ngModel)]="esimb.type_prestation"
-      name="type_prestation" disabled>
+      [(ngModel)]="esimb.dateVerification"
+      name="dateVerification">
     </div></td>
 
     <div class="td2"> 
-    <td>Type element</td>
+    <td>Quantite</td>
   </div>   
         <td><div class="col-sm-10">
-            <input type="text" value="Forfait" placeholder="Forfait"
+            <input type="number"
             class="form-control"
-            id="type_element"
+            id="quantite"
             required
-            [(ngModel)]="esimb.type_element"
-            name="type_element"disabled >
+            [(ngModel)]="esimb.quantite"
+            name="quantite" >
           </div>
         </td>
    </tr>
@@ -65,17 +65,99 @@
 
 
 <tr class="tr1">
-    <td>Quantite</td>
-    <td><div class="col-sm-10">
-      <input type="number"
-      class="form-control"
-      id="quantite"
-      required
-      [(ngModel)]="esimb.quantite"
-      name="quantite">
-    </div></td>
+    <td>Motif</td>
+    <td>
+        <div class="col-sm-10">
+            <select name="pets" id="pet-select" [(ngModel)]="esimb.motif"><option value="">
+                --Please choose an option--  </option>
+            <option value="ORT" >ORT</option>
+            <option value="Hist">Historique</option>
+            <option value="Immeuble">Immeuble</option>
+            <option value="IIMBO">Inexistence IMB optimum</option>
+            <option value="IIMBB">Inexistence IMB Banbou</option>
+            <option value="incohérence">Incohérence</option>
+            <option value="rami">Rami</option>
+            <option value="pbinexGFI">Pb inexistant GFI</option>
+            <option value="BO">Blocage Optimum</option>
+            <option value="IMBRO">IMB Raccordable  Optimum</option>
+            <option value="CléenmainClient">Clé en main Client</option>
+            <option value="PBS">PB saturé</option>
+            <option value="IIMBI">Inexistence IMB Ipon</option>
+            <option value="PIMBI">Position IMB introuvable</option>
+            <option value="PBinexIpon">PB inexistant Ipon</option>
+            <option value="NonevolstatIMB">Non evolution statut IMB</option>
+            <option value="Enattente">En attente</option>
+            <option value="traitée"></option>
+          </select>
+        </div>
+    </td>
 
     <div class="td2">
+        <td>Date livraison</td>
+      </div>
+      <td>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="dateLivraison" 
+                required [(ngModel)]="esimb.dateLivraison"
+                 name="dateLivraison"
+                 />
+        </div>
+    </td>
+   </tr>
+<br>
+
+
+<tr class="tr1">
+    <td>Commentaire</td>
+    <td>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="commentaire" 
+                required [(ngModel)]="esimb.commentaire"
+                 name="commentaire"
+                 />
+        </div>
+    </td>
+
+    <div class="td2">
+    <td>Commentaire technique</td>
+    </div>
+    <td>
+        <div class="col-sm-10">
+            <select name="pets" id="pet-select" [(ngModel)]="esimb.commentairetechnique">
+                <option value="IAPTO" *ngIf="esimb.motif === 'ORT'">L’immeuble est déployé par un autre opérateur. Vous pouvez inviter votre client à se rendre directement sur le site de l’opérateur concerné.
+                    Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.
+                    </option>
+                <option value="ISPTO" *ngIf="esimb.motif === 'Hist'">La création de l’adresse Immeuble est inférieure à 4 mois, l’évolution est en cours.
+                    IMB crée le --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.
+                    </option>
+                <option value="1REPRDV" *ngIf="esimb.motif === 'Immeuble'">La demande d’évolution de statut IMB ne concerne que les pavillons d’un ou 2 logements, nous ne pouvons pas traiter cette demande. Les demandes supérieures à 2 logements sont traitées dans un processus différent.
+                    Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.
+                    </option>
+                <option value="2REPRDV" *ngIf="esimb.motif === 'IIMBO'">Après analyse de la demande, il s’est avéré que l’immeuble n’existe pas dans le SI.
+                    Cette demande ne concerne pas une demande d’évolution de statut IMB mais une demande d’adresse manquante.
+                    </option>
+                <option value="RELANCESMS" *ngIf="esimb.motif === 'IIMBB'">Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le code IMB et son adresse pour qu'on puisse traiter votre demande.</option>
+                <option value="RELANCERAI" *ngIf="esimb.motif === 'incohérence'">Relance RAI</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'rami'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'pbinexGFI'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'BO'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'IMBRO'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'CléenmainClient'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'PBS'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'IIMBI'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'PBS'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'PIMBI'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'PBinexIpon'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'NonevolstatIMB'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'En attente'">Abandon de la commande</option>
+                <option value="ABAND" *ngIf="esimb.motif === 'traitée'">Abandon de la commande</option>
+
+            </select>
+        </div>
+    </td>
+   </tr>
+<tr>
+   <div class="td2">
         <td>Affectation</td>
       </div>
         <td><div class="col-sm-10">
@@ -87,91 +169,6 @@
           name="affectation" disabled/>
         </div></td>
    </tr>
-<br>
-
-
-<tr class="tr1">
-    <td>Date livraison</td>
-    
-
-    <td>
-        <div class="col-sm-10">
-            <input type="date" class="form-control" id="dateLivraison" 
-                required [(ngModel)]="esimb.dateLivraison"
-                 name="dateLivraison"
-                 />
-                 <p>Date actuelle: {{today | date}}</p>
-        </div>
-    </td>
-
-    <div class="td2"><td>Duree</td>
-    </div>
-      <td><div class="col-sm-10">
-        <input type="number"
-        class="form-control"
-        id="duree"
-        required
-        [(ngModel)]="esimb.duree"
-        name="duree"
-      />
-      </div></td>
-   </tr>
-<br>
-
-<tr class="tr1">
-    <td>Date verification</td>
-    <td>
-        <div class="col-sm-10">
-            <input type="date"
-            class="form-control"
-            id="dateVerification"
-            required
-            [(ngModel)]="esimb.dateVerification"
-            name="dateVerification"
-          />
-        </div>
-    </td>
-    <div class="td2">
-        <td>Commentaire</td>
-        </div>
-            <td>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="commentaire"
-                  required [(ngModel)]="esimb.commentaire" name="commentaire"/>
-                </div>
-            </td>
-</tr>
-<br>
-
-<tr class="tr1">
-    <td>Motif</td>
-    <td>
-        <div class="col-sm-10">
-            <select name="pets" id="pet-select" [(ngModel)]="esimb.motif"><option value="">
-                --Please choose an option--  </option>
-            <option value="ORT" >ORT</option>
-            <option value="Hist">Historique</option>
-            <option value="Immeuble">Immeuble</option>
-            <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
-            <option value="Inexistence IMB Banbou">Inexistence IMB Banbour</option>
-            <option value="incohérence">Incohérence</option>
-            <option value="rami">Rami</option>
-            <option value="pb inexistant GFI">Pb inexistant GFI</option>
-            <option value="Blocage Optimum">Blocage Optimum</option>
-            <option value="IMB Raccordable  Optimum">IMB Raccordable  Optimum</option>
-            <option value="Clé en main Client">Clé en main Client</option>
-            <option value="PB saturé">PB saturé</option>
-            <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
-            <option value="Position IMB introuvable">Position IMB introuvable</option>
-            <option value="PB inexistant Ipon">PB inexistant Ipon</option>
-            <option value="Non evolution statut IMB">Non evolution statut IMB</option>
-            <option value="En attent">En attente</option>
-            <option value="traitée"></option>
-          </select>
-        </div>
-    </td>
-</tr>
-<br>
 </table>
 <br>
 <div class="submit-form">

@@ -114,4 +114,12 @@ export class EsimbService {
     const urli= url+"getEsimbByDL/"+dateLivraison;
     return  this.http.get<Esimb[]>(urli);
   }
+
+  //get esimbss
+  getEsimbs(cuid: String,role: String): Observable<Esimb[]> {
+    const urli= url+"getEsimbs?cuid="+cuid+"&role="+role;
+    console.log("urli : "+urli);
+    
+    return this.http.get<Esimb[]>(urli);
+  }
 }

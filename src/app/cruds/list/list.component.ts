@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Esimb } from 'src/app/models/esimb.model';
 import { EsimbService } from 'src/app/services/esimb.service';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/_services/token-storage.service';
+import { CollaborateurService } from 'src/app/services/collaborateur.service';
+import { Collaborateur } from 'src/app/models/Collaborateur';
 
 
 @Component({
@@ -10,12 +13,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
+  collaborateur : Collaborateur ={ 
+      CUID: '',    
+      nom: '', 
+      prenom: '',
+      adresse: '',
+      mdp: '',
+      date_integration: '',
+      id_equipe: '',
+      fonction: ''
+   }
   isLoggedIn = false;
   private roles: string[] = [];
   isPilote = false;
+  isProductor=false;
   searchby?: string;
   searchValue?: string;
+  colabsteam?: Collaborateur[];
   esimbs?: Esimb[];
+  role = '';
+ cuid = '';
   //currentEsimb?: Esimb;
   currentIndex = -1;
   idacte= '';
@@ -42,11 +59,42 @@ export class ListComponent implements OnInit {
     dateVerification: '',};
 
     //Constructeur
-  constructor(private esimbService: EsimbService, private router: Router) { }
+  constructor(private esimbService: EsimbService, private router: Router,
+     private tokenStorageService: TokenStorageService,
+    private collaborateurService: CollaborateurService ) { }
 
   ngOnInit(): void {
+this.isLoggedIn = !!this.tokenStorageService.getToken();
+    if (this.isLoggedIn) { 
+         const user = this.tokenStorageService.getUser();
+           this.roles = user.roles;
+           if (this.roles.includes('ROLE_PILOTE')){
+               this.isPilote = true;
+             }
+        else{       this.isPilote = false;
+             }
+         }
+     console.log("yyy"+ this.isPilote);
     this.retrieveEsimbs();
+
+    this.getinfoscollaborateur();
+      console.log("this.colab :"+this.collaborateur.nom);   
   }
+
+  //get all esimbs
+ getesimbs(): void {
+  console.log("cuid sent : " + this.cuid);
+  console.log("role sent : " + this.role);
+  this.esimbService.getEsimbs(this.cuid,this.role)
+     .subscribe(
+       data => {
+         this.esimbs = data;
+         console.log(data);
+       },
+       error => {
+         console.log(error);
+       });
+}
   
 
   retrieveEsimbs(): void {
@@ -190,4 +238,54 @@ export class ListComponent implements OnInit {
           console.log(error);
         });
   }*/
+
+  getinfoscollaborateur(): void {
+          const user = this.tokenStorageService.getUser();
+          this.collaborateurService.getcolabinfosbycuid(user.username)
+            .subscribe(data => { 
+                 this.collaborateur = data;
+                   console.log(data);
+                },          
+      error => {
+        console.log(error);
+                });
+        }
+    /*collab: Collaborateur ={ 
+        CUID: '',    
+        nom: '', 
+        prenom: '',
+        adresse: '',
+        mdp: '',
+        date_integration: '',
+        id_equipe: '',
+        fonction: ''
+     }
+    
+
+    getinfoscollab(CUID: any): Collaborateur{
+            const user = this.tokenStorageService.getUser();
+            this.collaborateurService.getcolabinfosbycuid(CUID)
+              .subscribe(data => { 
+                  this.collab = data;
+                     console.log(data);
+                  },          
+        error => {
+          console.log(error);
+                  });
+        return this.collab;
+          }*/
+
+      //get team members
+ getteammembersbycuid(): void {
+  const user = this.tokenStorageService.getUser();
+  this.collaborateurService.getteammembersbycuid(user.username)
+  .subscribe(
+    data => {
+      this.colabsteam = data;
+      console.log(data);
+    },
+    error => {
+      console.log(error);
+    });
+ }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActeTraitement } from '../models/ActeTraitement';
 import { Graphic } from '../models/Graphic';
+import { Grafic_req } from '../models/Grafic_req';
 
 
 const baseUrl = 'http://localhost:8080/api/graphic/';
@@ -55,21 +56,20 @@ let url= 'http://localhost:8080/api/graphic/';
     //Service de save de graphic
     create(data: any, graphic: Graphic): Observable<any> {
       this.graphic = graphic;
-      //const urli = "http://localhost:8080/api/graphic/add?id_Grafic=id grap&iar=iaraa&code_imb=code imb&groupe_operation=a&date_traitement=a&statut_graphic=a&traitement_effectue=a&type_traitement=a"
       const urli= url+'add'+'?id_Grafic='+graphic.idGrafic+'&iar='+graphic.iar+'&code_imb='+graphic.code_imb+'&groupe_operation='+graphic.groupe_operation+'&date_traitement='+graphic.dateTraitement+'&statut_graphic='+graphic.statut_graphic+'&traitement_effectue='+graphic.traitement_effectue+'&type_traitement='+graphic.type_traitement;
       return this.http.post(urli, data, {responseType: 'text'});
     }
 
     //Service de recherche par ID Graphic
     searchByIdGraphic(IdGraphic: any): Observable<Graphic[]> {
-      const urli= url+"getGraphicById/"+IdGraphic;
+      const urli= url+"getGraphicById?idGraphic="+IdGraphic;
       return  this.http.get<Graphic[]>(urli);
       //return this.http.get<Graphic[]>(urli, data, {responseType: 'text'});
     }
 
     //Service de recherche par Date de traitement
     searchByDateTraitement(dateTraitement: any): Observable<Graphic[]> {
-      const urli= url+"getGraphicByDT/"+dateTraitement;
+      const urli= url+"getGraphicByDT?dateTtraitement="+dateTraitement;
       return  this.http.get<Graphic[]>(urli);
     }
 
@@ -79,8 +79,14 @@ let url= 'http://localhost:8080/api/graphic/';
       const urli= url+'Update'+'?id_Grafic='+graphic.idGrafic+'&iar='+graphic.iar+'&code_imb='+graphic.code_imb+'&groupe_operation='+graphic.groupe_operation+'&date_traitement='+graphic.dateTraitement+'&statut_graphic='+graphic.statut_graphic+'&traitement_effectue='+graphic.traitement_effectue+'&type_traitement='+graphic.type_traitement;
       console.log(" urllll : "+urli);
       
-      return this.http.put(urli, data, {responseType: 'text'});
+      return this.http.put(urli, data, {responseType: 'text'}); 
+    }
+
+    //get graphics
+    getGrafics(cuid: String,role: String): Observable<Grafic_req[]> {
+      const urli= url+"getGraphics?cuid="+cuid+"&role="+role;
+      console.log("urli : "+urli);
       
-      
+      return this.http.get<Graphic[]>(urli);
     }
   }
