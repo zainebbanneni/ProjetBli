@@ -19,4 +19,5 @@ export class Esimb {
   codeIMB?: string;
   dateVerification?: string;
   commentairetechnique?: string;
+  commentairecharte?: string;
 }

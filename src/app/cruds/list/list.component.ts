@@ -40,8 +40,28 @@ export class ListComponent implements OnInit {
 
   //instance of Esimb
   currentEsimb: Esimb= {
-  idacte:'',
-  affectation: '',
+    idacte:'',
+    affectation: '',
+    commentaire: '',
+    dateLivraison: '',
+    dateReception: '',
+    dateReprise: '',
+    dateValidation: '',
+    duree: '',
+    quantite: '',
+    motif: '',
+    refTacheBPU: '',
+    repriseFacturable: '',
+    statutFacturation: '',
+    type_element: '',
+    type_prestation:  '',
+    codeIMB: '',
+    dateVerification: '',};
+
+    //instance of Esimb
+  _esimb: Esimb= {
+    idacte:'',
+    affectation: '',
     commentaire: '',
     dateLivraison: '',
     dateReception: '',
@@ -66,26 +86,31 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
 this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) { 
-         const user = this.tokenStorageService.getUser();
-           this.roles = user.roles;
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+      this.cuid = user.username;
+
            if (this.roles.includes('ROLE_PILOTE')){
                this.isPilote = true;
+               this.role = 'PILOTE';
+               console.log("this is Pilote")
+             }else{
+               this.isPilote = false;
+               console.log("this is not Pilote" + this.roles)
              }
-        else{       this.isPilote = false;
-             }
+       this.getgraphics();
          }
-     console.log("yyy"+ this.isPilote);
     this.retrieveEsimbs();
 
-    this.getinfoscollaborateur();
-      console.log("this.colab :"+this.collaborateur.nom);   
+   // this.getinfoscollaborateur();
+      //console.log("this.colab :"+this.collaborateur.nom);   
   }
 
   //get all esimbs
- getesimbs(): void {
+ getgraphics(): void {
   console.log("cuid sent : " + this.cuid);
   console.log("role sent : " + this.role);
-  this.esimbService.getEsimbs(this.cuid,this.role)
+  this.esimbService.getGraphics(this.cuid,this.role)
      .subscribe(
        data => {
          this.esimbs = data;
@@ -117,11 +142,11 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
   setActiveEsimb(esimb: Esimb, index: number): void {
     this.currentEsimb = esimb;
     this.currentIndex = index;
-    this.getActebyIdActe();
+   // this.getActebyIdActe();
     //this.searchActe();
   }
 
-  getActebyIdActe(): void {
+  /*getActebyIdActe(): void {
     this.esimbService.getActe("E"+this.currentEsimb.codeIMB + this.currentEsimb.dateLivraison
   + this.currentEsimb.affectation +this.currentEsimb.idacte)
       .subscribe(
@@ -132,7 +157,7 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
         error => {
           console.log(error);
         });
-  }
+  }*/
  
   
  //Search

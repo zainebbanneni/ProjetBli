@@ -1,3 +1,4 @@
+
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />>
     <!--Get your code at fontawesome.com-->
@@ -56,11 +57,10 @@
           <th>IdActe</th>
           <th>CodeIMB</th>
           <th>DMT</th>
-          <th>Qtite</th>
+          <th>Qtu</th>
           <th>Affectation</th>
           <th>Date de vérification</th>
           <th>Date de livraison</th>
-          <th>Commentaire</th>
           <th>Motif</th>
           <th> </th>
         </tr>
@@ -75,11 +75,12 @@
           <td> {{ esimb.dateVerification }} </td>
           <td> {{ esimb.dateLivraison }} </td>
           <td> {{ esimb.motif }} </td>
-          <td> {{ esimb.commentaire }} </td>
+
           
-          <td> <button *ngIf="(esimb.motif==='Enattente') && !isPilote" class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >edit_note</button>
-            <button *ngIf="isPilote" class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="getteammembersbycuid()">edit_note</button> </td>
-            
+          <td> <button *ngIf="(esimb.motif==='En attente') && !isPilote" class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop">edit_note</button>
+            <button *ngIf="isPilote" class="material-symbols-outlined" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  (click)="getteammembersbycuid()" >edit_note</button>
+           </td>
+
 
         </tr>
       </tbody>
@@ -177,78 +178,47 @@
                  </tr>
               <br>
               
+      
               
               <tr class="tr1">
-                  <td>Date de traitement</td>
+                  <td>Motif</td>
                   <td>
                       <div class="col-sm-10">
-                          <input type="date" class="form-control" id="dateVerification"
-                              required [(ngModel)]="currentEsimb.dateVerification" name="dateVerification"/>
-                      </div>
-                  </td>
-              
-                  <div class="td2"><td>Duree</td>
-                  </div>
-                    <td><div class="col-sm-10">
-                      <input type="number"
-                      class="form-control"
-                      id="duree"
-                      required
-                      [(ngModel)]="currentEsimb.duree"
-                      name="duree"
-                    />
-                    </div></td>
-                 </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>Type de traitement</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.quantite"><option value="">
+                          <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.motif"><option value="">
                               --Please choose an option--  </option>
-                              <option value="ag">Appel sortant + Grafic</option>
-                              <option value="pg">Pilpro+Grafic</option>
-                              <option value="cg">Classique Grafic</option>
-                          </select>
+                          <option value="ORT" >ORT</option>
+                          <option value="Hist">Historique</option>
+                          <option value="Immeuble">Immeuble</option>
+                          <option value="Inexistence IMB Optimum">Inexistence IMB optimum</option>
+                          <option value="Inexistence IMB Banbou">Inexistence IMB Banbou</option>
+                          <option value="incohérence">Incohérence</option>
+                          <option value="rami">Rami</option>
+                          <option value="PB inexistant GFI">Pb inexistant GFI</option>
+                          <option value="Blocage Optimum">Blocage Optimum</option>
+                          <option value="IMB Raccordable Optimum">IMB Raccordable  Optimum</option>
+                          <option value="Clé en main Client">Clé en main Client</option>
+                          <option value="PB Saturé">PB saturé</option>
+                          <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
+                          <option value="Position IMB introuvable">Position IMB introuvable</option>
+                          <option value="PB inexistant Ipon">PB inexistant Ipon</option>
+                          <option value="Non evolution statut IMB">Non evolution statut IMB</option>
+                          <option value="En attente">En attente</option>
+                          <option value="traitée"></option>
+                        </select>
                       </div>
                   </td>
                   <div class="td2">
                       <td>Commentaire</td>
                       </div>
+                      <td><div class="col-sm-10">
+                          <input type="text" 
+                          class="form-control"
+                          id="commentaire"
+                          required
+                          [(ngModel)]="currentEsimb.commentaire"
+                          name="commentaire">
+                        </div></td>
                           
-              </tr>
-              <br>
-              
-              <tr class="tr1">
-                  <td>Statut Grafic</td>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="statut_graphic" id="pet-select" [(ngModel)]="currentEsimb.commentaire"><option value="">
-                              --Please choose an option--  </option>
-                              <option value="po">Préparation de l'envoi</option>
-                              <option value="arc">Attente retour client</option>
-                              <option value="l">Libéré</option>
-                          </select>
-                      </div>
-                  </td>
-                  <div class="td2">
-                      <td>Traitement effectué </td>
-                  </div>
-                  <td>
-                      <div class="col-sm-10">
-                          <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.motif"><option value="">
-                              --Please choose an option--  </option>
-                              <option value="ORT"  >Injection avec PTO</option>
-                              <option value="Historique" >Injection sans PTO</option>
-                              <option value="Immeuble" >1er report RDV</option>
-                              <option value="Immeuble" >2eme report RDV</option>
-                              <option value="Immeuble" >Relance SMS + Mise en attente</option>
-                              <option value="Immeuble" >Relance RAI</option>
-                              <option value="Immeuble" >Abandon de la commande</option>
-                          </select>
-                      </div>
-                  </td>
               </tr>
               <br>
               </table>

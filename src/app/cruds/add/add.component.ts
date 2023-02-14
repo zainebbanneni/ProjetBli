@@ -13,7 +13,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./add.component.css'],
 
   template: `
-    <p>Date d'aujourd'hui : {{ today | date:'dd/MM/yyyy' }}</p>
+    <p>Date d'aujourd'hui : {{ today | date:'MM/DD/yyyy' }}</p>
   `
 
 
@@ -50,7 +50,8 @@ export class AddComponent implements OnInit {
     type_prestation: 'ESIMB',
     codeIMB: '',
     dateVerification: '',
-    commentairetechnique: ''
+    commentairetechnique: '',
+    commentairecharte:'',
   };
   submitted = false;
   today: Date = new Date();
@@ -61,17 +62,33 @@ export class AddComponent implements OnInit {
   private tokenStorageService: TokenStorageService ) { }
 
   ngOnInit(): void {
-    //const user = this.tokenStorageService.getUser();
-    //this.esimb.affectation = "tt";
-    //AppComponent.getNameUsername();
-    this.getinfoscollaborateur();
-      console.log("this.colab :"+this.collaborateur.nom);
+    const user = this.tokenStorageService.getUser();
+    this.esimb.affectation = user.username;
+    this.collaborateurService.getcolabinfosbycuid(user.username)
+    .subscribe(data => { 
+                this.collab = data;
+                  console.log(data);
+               },          
+     error => {
+       console.log(error);
+               });
 
-      this.esimb.dateLivraison=this.now;
+  this.esimb.dateLivraison=this.now;
 
-     // this.esimb.dateLivraison= this.today.toString;
-      
   }
+  //instance de collaborateur
+  collab: Collaborateur={
+    CUID: '',
+    nom: '',
+    prenom: '',
+  };
+    //AppComponent.getNameUsername();
+    //this.getinfoscollaborateur();
+      //console.log("this.colab :"+this.collaborateur.nom);
+
+      //this.esimb.dateLivraison=this.now;
+
+      
 
   saveEsimb(): void {
     console.log("this.esimb.type_element"+ this.esimb.type_element);
@@ -93,7 +110,8 @@ export class AddComponent implements OnInit {
       codeIMB: this.esimb.codeIMB,
       dateVerification: this.esimb.dateVerification,
       motif: this.esimb.motif,
-      commentairetechnique: this.esimb.commentairetechnique
+      commentairetechnique: this.esimb.commentairetechnique,
+      commentairecharte: this.esimb.commentairecharte
 
     
 
@@ -131,7 +149,8 @@ export class AddComponent implements OnInit {
     codeIMB: '',
     dateVerification: '',
     motif:'',
-    commentairetechnique: ''
+    commentairetechnique: '',
+    commentairecharte:'',
     };
   }
 

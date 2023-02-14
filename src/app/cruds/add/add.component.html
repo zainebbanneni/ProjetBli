@@ -21,11 +21,11 @@
             required
             minlength="5"
             maxlength="16"
-            pattern="IMB/"
+            pattern="IMB/13212/S/035Z"
             [(ngModel)]="esimb.codeIMB"
             name="codeIMB"
             codeIMB
-            #codeIMB="ngModel">
+            #codeIMB="ngModel" required>
             <div class="alert-danger" *ngIf="codeIMB.errors">
                 <div *ngIf="codeIMB.errors.maxlength">maximum 16 caracters</div>
                 <div *ngIf="codeIMB.errors.pattern">ce champ doit commencer avec IMB</div>
@@ -71,22 +71,22 @@
             <select name="pets" id="pet-select" [(ngModel)]="esimb.motif"><option value="">
                 --Please choose an option--  </option>
             <option value="ORT" >ORT</option>
-            <option value="Hist">Historique</option>
+            <option value="Historique">Historique</option>
             <option value="Immeuble">Immeuble</option>
-            <option value="IIMBO">Inexistence IMB optimum</option>
-            <option value="IIMBB">Inexistence IMB Banbou</option>
+            <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
+            <option value="Inexistence IMB Banbou">Inexistence IMB Banbou</option>
             <option value="incohérence">Incohérence</option>
             <option value="rami">Rami</option>
-            <option value="pbinexGFI">Pb inexistant GFI</option>
-            <option value="BO">Blocage Optimum</option>
-            <option value="IMBRO">IMB Raccordable  Optimum</option>
-            <option value="CléenmainClient">Clé en main Client</option>
-            <option value="PBS">PB saturé</option>
-            <option value="IIMBI">Inexistence IMB Ipon</option>
-            <option value="PIMBI">Position IMB introuvable</option>
-            <option value="PBinexIpon">PB inexistant Ipon</option>
-            <option value="NonevolstatIMB">Non evolution statut IMB</option>
-            <option value="Enattente">En attente</option>
+            <option value="Pb inexistant GFI">Pb inexistant GFI</option>
+            <option value="Blocage Optimum">Blocage Optimum</option>
+            <option value="IMB Raccordable Optimum">IMB Raccordable  Optimum</option>
+            <option value="Clé en main Client">Clé en main Client</option>
+            <option value="PB Saturé">PB saturé</option>
+            <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
+            <option value="Position IMB introuvable">Position IMB introuvable</option>
+            <option value="PB inexistant Ipon">PB inexistant Ipon</option>
+            <option value="Non evolution statut IMB">Non evolution statut IMB</option>
+            <option value="En attente">En attente</option>
             <option value="traitée"></option>
           </select>
         </div>
@@ -99,8 +99,9 @@
         <div class="col-sm-10">
             <input type="text" class="form-control" id="dateLivraison" 
                 required [(ngModel)]="esimb.dateLivraison"
-                 name="dateLivraison"
+                 name="dateLivraison" disabled
                  />
+
         </div>
     </td>
    </tr>
@@ -117,58 +118,79 @@
                  />
         </div>
     </td>
-
-    <div class="td2">
-    <td>Commentaire technique</td>
+    <div class="td2"> 
+            <td>Duree</td>
+          </div>   
+                <td><div class="col-sm-10">
+                    <input type="number"
+                    class="form-control"
+                    id="duree"
+                    required
+                    [(ngModel)]="esimb.duree"
+                    name="duree">
+                  </div>
+                </td>
+</tr>
+<br>
+<tr class="tr1">
+    <div class="td2"> 
+            <td>Commentaire Technique</td>
     </div>
-    <td>
-        <div class="col-sm-10">
-            <select name="pets" id="pet-select" [(ngModel)]="esimb.commentairetechnique">
-                <option value="IAPTO" *ngIf="esimb.motif === 'ORT'">L’immeuble est déployé par un autre opérateur. Vous pouvez inviter votre client à se rendre directement sur le site de l’opérateur concerné.
-                    Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.
-                    </option>
-                <option value="ISPTO" *ngIf="esimb.motif === 'Hist'">La création de l’adresse Immeuble est inférieure à 4 mois, l’évolution est en cours.
-                    IMB crée le --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.
-                    </option>
-                <option value="1REPRDV" *ngIf="esimb.motif === 'Immeuble'">La demande d’évolution de statut IMB ne concerne que les pavillons d’un ou 2 logements, nous ne pouvons pas traiter cette demande. Les demandes supérieures à 2 logements sont traitées dans un processus différent.
-                    Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.
-                    </option>
-                <option value="2REPRDV" *ngIf="esimb.motif === 'IIMBO'">Après analyse de la demande, il s’est avéré que l’immeuble n’existe pas dans le SI.
-                    Cette demande ne concerne pas une demande d’évolution de statut IMB mais une demande d’adresse manquante.
-                    </option>
-                <option value="RELANCESMS" *ngIf="esimb.motif === 'IIMBB'">Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le code IMB et son adresse pour qu'on puisse traiter votre demande.</option>
-                <option value="RELANCERAI" *ngIf="esimb.motif === 'incohérence'">Relance RAI</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'rami'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'pbinexGFI'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'BO'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'IMBRO'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'CléenmainClient'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'PBS'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'IIMBI'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'PBS'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'PIMBI'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'PBinexIpon'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'NonevolstatIMB'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'En attente'">Abandon de la commande</option>
-                <option value="ABAND" *ngIf="esimb.motif === 'traitée'">Abandon de la commande</option>
-
-            </select>
-        </div>
-    </td>
-   </tr>
-<tr>
-   <div class="td2">
-        <td>Affectation</td>
-      </div>
         <td><div class="col-sm-10">
-          <input type="text" value="{{collaborateur.nom}} {{collaborateur.prenom}}"
-          class="form-control"
-          id="affectation"
-          required
-          [(ngModel)]="esimb.affectation"
-          name="affectation" disabled/>
-        </div></td>
-   </tr>
+                <form  [(ngModel)]="esimb.commentairetechnique">
+                <textarea *ngIf="esimb.motif === 'ORT'" disabled> Il s’agit d’un immeuble ORT. </textarea>
+                <textarea *ngIf="esimb.motif === 'Historique'" disabled>L’IMB est déjà dans un processus de déploiement, son évolution suit son cours. </textarea>
+                <textarea *ngIf="esimb.motif === 'Immeuble'" disabled> Il s’agit d’un immeuble dont le nombre de EL =xx. </textarea>
+                <textarea *ngIf="esimb.motif === 'Inexistence IMB optimum'" disabled>Après analyse de la demande, il s’est avéré que l’IMB n’existe pas sur OPTIMUM. </textarea>
+                <textarea *ngIf="esimb.motif === 'Inexistence IMB Banbou'" disabled>Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le  </textarea>
+                <textarea *ngIf="esimb.motif === 'incohérence'" disabled>Après analyse de la demande, une saturation du réseau est constatée, il est nécessaire de réaliser une étude terrain (désaturation). </textarea>
+                <textarea *ngIf="esimb.motif === 'rami'" disabled> Après analyse de la demande, nous avons identifié que cette adresse correspond à une construction récente. Afin d’accompagner au mieux le client pour le raccordement fibre de la maison individuelle, nous vous invitons à l’orienter vers le site https://maison-individuelle.orange.fr/accueil </textarea>
+                <textarea *ngIf="esimb.motif === 'Pb inexistant GFI'" disabled> </textarea>
+                <textarea *ngIf="esimb.motif === 'Blocage Optimum'" disabled> Il s’agit d’un blocage SYNDIC/ Technique /UI (« Cause » ; Date programmée déblocage : XX/XX/XXXX.</textarea>
+                <textarea *ngIf="esimb.motif === 'IMB Raccordable Optimum'" disabled> L’immeuble est déjà en statut Raccordable, la date de MESC ARCEP est ; XX/XX/XXXX. </textarea>
+                <textarea *ngIf="esimb.motif === 'Clé en main Client'" disabled> CléenmainClient </textarea>
+                <textarea *ngIf="esimb.motif === 'PB Saturé'" disabled> </textarea>
+                <textarea *ngIf="esimb.motif === 'Inexistence IMB Ipon'" disabled> </textarea>
+                <textarea *ngIf="esimb.motif === 'Position IMB introuvable'" disabled>Merci de nous fournir une photo avec une croix pour indiquer l’emplacement exacte de logement, pour qu'on puisse traiter votre demande. </textarea>
+                <textarea *ngIf="esimb.motif === 'PB inexistant Ipon'" disabled> </textarea>
+                <textarea *ngIf="esimb.motif === 'Non evolution statut IMB'" disabled>Votre demande ne concerne pas la fiche Evolution statut IMB</textarea>
+                <textarea *ngIf="esimb.motif === 'En attente'" disabled> </textarea>
+                <textarea *ngIf="esimb.motif === 'traitée'" disabled> </textarea>
+
+
+                </form>
+            </div>
+            </td>
+            <div class="td2"> 
+            <td>Commentaire Charté</td>
+            </div>
+            <td> <div class="col-sm-10">
+                <form  [(ngModel)]="esimb.commentairecharte">
+                     <textarea *ngIf="esimb.motif === 'ORT'" disabled>L’immeuble est déployé par un autre opérateur. Vous pouvez inviter votre client à se rendre directement sur le site de l’opérateur concerné. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>
+                     <textarea *ngIf="esimb.motif === 'Historique'" disabled>La création de l’adresse Immeuble est inférieure à 4 mois, l’évolution est en cours. IMB crée le --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>      
+                     <textarea *ngIf="esimb.motif === 'Immeuble'" disabled>La demande d’évolution de statut IMB ne concerne que les pavillons d’un ou 2 logements, nous ne pouvons pas traiter cette demande. Les demandes supérieures à 2 logements sont traitées dans un processus différent. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>      
+                     <textarea *ngIf="esimb.motif === 'Inexistence IMB optimum'" disabled>Après analyse de la demande, il s’est avéré que l’immeuble n’existe pas dans le SI. Cette demande ne concerne pas une demande d’évolution de statut IMB mais une demande d’adresse manquante.</textarea>      
+                     <textarea *ngIf="esimb.motif === 'Inexistence IMB Banbou'" disabled>Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le code IMB et son adresse pour qu'on puisse traiter votre demande.</textarea>      
+                     <textarea *ngIf="esimb.motif === 'incohérence'" disabled>Après analyse de la demande, une saturation du réseau est constatée, il est nécessaire de réaliser une étude terrain (désaturation).</textarea>      
+                     <textarea *ngIf="esimb.motif === 'rami'" disabled> Après analyse de la demande, nous avons identifié que cette adresse correspond à une construction récente. Afin d’accompagner au mieux le client pour le raccordement fibre de la maison individuelle, nous vous invitons à l’orienter vers le site https://maison-individuelle.orange.fr/accueil </textarea>                   
+                    <textarea *ngIf="esimb.motif === 'Pb inexistant GFI'" disabled> </textarea>
+                    <textarea *ngIf="esimb.motif === 'Blocage Optimum'" disabled> Un blocage « Type de blocage », « Cause » est constaté, l’IMB est bloqué jusqu’à --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client. Si blocage DivOP, cela signifie que c’est un IMB ORT, donc se référer au commentaire IMB ORT. </textarea>
+                    <textarea *ngIf="esimb.motif === 'IMB Raccordable Optimum'" disabled> L’immeuble est déjà en statut Raccordable, la date de MESC ARCEP est ; XX/XX/XXXX. </textarea>
+                     <textarea *ngIf="esimb.motif === 'CléenmainClient'" disabled> L’immeuble est déjà pris en charge par un partenaire et se trouve dans un processus d’évolution. Nous ne pouvons malheureusement pas prendre en charge cette demande ni communiquer sur un délai d’éligibilité. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client. </textarea>
+                    <textarea *ngIf="esimb.motif === 'PB Saturé'" disabled>  </textarea>
+                    <textarea *ngIf="esimb.motif === 'Inexistence IMB Ipon'" disabled> </textarea>
+                    <textarea *ngIf="esimb.motif === 'Position IMB introuvable'" disabled> Cet IMB n’est pas correctement positionné, il est impossible d’identifier correctement l’emplacement du logement du client. Merci de vous rapprocher du client afin de refaire une demande en indiquant précisément l’emplacement de la maison </textarea>
+                    <textarea *ngIf="esimb.motif === 'PB inexistant Ipon'" disabled>  </textarea>
+                    <textarea *ngIf="esimb.motif === 'Non evolution statut IMB'" disabled> Il ne s’agit pas d’une demande de l’évolution statut IMB / Hors périmètre, merci de revoir avec votre responsable. </textarea>
+                    <textarea *ngIf="esimb.motif === 'En attente'" disabled>  </textarea>
+                    <textarea *ngIf="esimb.motif === 'traitée'" disabled>  </textarea>
+      
+                        </form>
+                  </div>
+          </td>
+</tr>
+       
+          
 </table>
 <br>
 <div class="submit-form">
