@@ -1,65 +1,431 @@
-.form-add{
-  max-width: 400px;
-    margin: auto;
+/* ==========================================================================
+   #FONT
+   ========================================================================== */
+   .font-robo {
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+  }
   
-}
-.form-control{
-  font-size: 18px;
-  padding:20px;
-  border:0;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  height: 30px;
-  width: 250px;
-}
-
-.submit-form {
-  margin-left: auto;
-  margin-right: auto;
-  width: 120px;
-  height: 40px;
- 
-
+  .font-poppins {
+    font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
   }
 
-  textarea {
-    width: 100%;
-    height: 150px;
-    padding: 12px 20px;
+  /* ==========================================================================
+     #BOX-SIZING
+     ========================================================================== */
+  /**
+   * More sensible default box-sizing:
+   * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+   */
+   html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
-    text-align: left;
+  }
+  
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  
+  *, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+
+  /* ==========================================================================
+     #RESET
+     ========================================================================== */
+  /**
+   * A very simple reset that sits on top of Normalize.css.
+   */
+   body,
+   h1, h2, h3, h4, h5, h6,
+   blockquote, p, pre,
+   dl, dd, ol, ul,
+   figure,
+   hr,
+   fieldset, legend {
+     margin: 0;
+     padding: 0;
+   }
+   
+   /**
+    * Remove trailing margins from nested lists.
+    */
+   li > ol,
+   li > ul {
+     margin-bottom: 0;
+   }
+   
+   /**
+    * Remove default table spacing.
+    */
+   table {
+     border-collapse: collapse;
+     border-spacing: 0;
+   }
+   
+   /**
+    * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+    *    on fieldsets.
+    */
+   fieldset {
+     min-width: 0;
+     /* [1] */
+     border: 0;
+   }
+   
+   button {
+     outline: none;
+     background: none;
+     border: none;
+   }
+   
+   /* ==========================================================================
+      #PAGE WRAPPER
+      ========================================================================== */
+   .page-wrapper {
+     min-height: 100vh;
+   }
+   
+   body {
+     font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+     font-weight: 400;
+     font-size: 14px;
+   }
+   
+   h1, h2, h3, h4, h5, h6 {
+     font-weight: 400;
+   }
+   
+   h1 {
+     font-size: 36px;
+   }
+   
+   h2 {
+     font-size: 30px;
+   }
+   
+   h3 {
+     font-size: 24px;
+   }
+   
+   h4 {
+     font-size: 18px;
+   }
+   
+   h5 {
+     font-size: 15px;
+   }
+   
+   h6 {
+     font-size: 13px;
+   }
+
+   /* ==========================================================================
+     #SPACING
+     ========================================================================== */
+     
+  .p-t-100 {
+    padding-top: 100px;
+  }
+  
+  .p-t-130 {
+    padding-top: 130px;
+  }
+  
+  .p-t-180 {
+    padding-top: 180px;
+  }
+  
+  .p-t-20 {
+    padding-top: 20px;
+  }
+  
+  .p-t-15 {
+    padding-top: 15px;
+  }
+  
+  .p-t-10 {
+    padding-top: 10px;
+  }
+  
+  .p-t-30 {
+    padding-top: 30px;
+  }
+  
+  .p-b-100 {
+    padding-bottom: 100px;
+  }
+  
+  .m-r-45 {
+    margin-right: 45px;
+  }
+  /* ==========================================================================
+     #BUTTON
+     ========================================================================== */
+     .btn {
+      display: inline-block;
+      line-height: 50px;
+      padding: 0 50px;
+      -webkit-transition: all 0.4s ease;
+      -o-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      font-size: 18px;
+      color: #fff;
+      font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+    }
+    
+    .btn--radius {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+    }
+    
+    .btn--radius-2 {
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+    
+    .btn--pill {
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+    }
+    
+    .btn--green {
+      background: #57b846;
+    }
+    
+    .btn--green:hover {
+      background: #4dae3c;
+    }
+    
+    .btn--blue {
+      background: #4272d7;
+    }
+    
+    .btn--blue:hover {
+      background: #3868cd;
+    }
+  /* ==========================================================================
+     #TITLE
+     ========================================================================== */
+     .title {
+      font-size: 24px;
+      color: #525252;
+      font-weight: 400;
+      margin-bottom: 40px;
+    }
+    
+    /* ==========================================================================
+       #CARD
+       ========================================================================== */
+    
+    
+    .card-4 {
+      background: #fff;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+      -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+      box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-4 .card-body {
+      padding: 20px 65px;
+      padding-bottom: 65px;
+    }
+    
+    @media (max-width: 767px) {
+      .card-4 .card-body {
+        padding: 50px 40px;
+      }
+    }
+
+    .table1{
+      border-style: none; 
+    }
+
    
 
+  #div1{
+    text-align: center;
+    overflow-x:auto;
+    overflow-y: auto;
+    width: max-content;
   }
 
-  input{
-    height: 30px;
-    width: 250px;
-    font-size: 3.5em;
-
+  #users {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 1100px;
+    height: max-content;
+  }
+  
+  #users td, #users th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    
+  }
+  
+  #users tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #users tr:hover {background-color: #ddd;}
+  
+  #users th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(65, 65, 65);
+    color: white;
+    text-align: center;
   }
 
-  .input-group-btn {
-    height: 30px;
-    width: 250px;
-    font-size: 3.5em;
+    label {
+      display: flex;
+      padding: 5px 0;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  
+    input[type="radio"] {
+      opacity: 0;
+    }
+  
+    .value {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 5px 20px 5px 40px;
+      border-radius: 20px;
+    }
+  
+    .value:hover {
+      background: rgba(31, 31, 31, 0.1);
+    }
+  
+    .value::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #dadada;
+      outline: 0px solid #2c2c2c;
+      transition: 0.4s;
+    }
+  
+    input[type="radio"]:checked~.value {
+      color: #707070;
+      border-width: 5px;
+      background: rgba(47, 47, 47, 0.2);
+      transition: 0.4s;
+    }
+  
+    input[type="radio"]:checked~.value::before {
+      outline-width: 5px;
+      background: #fff;
+    }
+    .searchbutt{
+      display: inline-block;
+      line-height: 50px;
+      padding: 0 50px;
+      -webkit-transition: all 0.4s ease;
+      -o-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      font-size: 18px;
+      color: #fff;
+      background-color: #525252;
+      font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
+      border-radius: 50px;
+    }
+
+    /*  Input */
+    .input--style-4 {
+      line-height: 50px;
+      background: #fafafa;
+      -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+      -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+      box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      padding: 0 20px;
+      font-size: 16px;
+      color: #666;
+      -webkit-transition: all 0.4s ease;
+      -o-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+    }
+    
+    .input--style-4::-webkit-input-placeholder {
+      /* WebKit, Blink, Edge */
+      color: #666;
+    }
+    
+    .input--style-4:-moz-placeholder {
+      /* Mozilla Firefox 4 to 18 */
+      color: #666;
+      opacity: 1;
+    }
+    
+    .input--style-4::-moz-placeholder {
+      /* Mozilla Firefox 19+ */
+      color: #666;
+      opacity: 1;
+    }
+    
+    .input--style-4:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: #666;
+    }
+    
+    .input--style-4:-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: #666;
+    }
+
+ /* Style buttons */
+.btn {
+  background-color: rgb(39, 39, 39); /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  font-size: 16px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  width: 150px;
+  height: 50px;
 }
-.badge-success {
-  background-color: rgb(233, 104, 29);
-  margin-top: 50px;
 
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: rgb(0, 0, 0);
 }
 
-.table-add{
-  margin-left: auto;
-  margin-right: 5px;
-
+.modal{
+  position: sticky;
+  text-align: center;
+  padding:0;
 }
 
+.modal-title{
+  text-align: center;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  padding: 10px;
+  background-color: #1f1f1f;
+  color: rgb(255, 255, 255);
+}
+
+/*********************************./
 /* ==========================================================================
    #FONT
    ========================================================================== */
@@ -610,36 +976,3 @@ input::-webkit-inner-spin-button {
       padding: 50px 40px;
     }
   }
-
-  .spinner-div{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .spinner-div1{
-    background-color: rgb(28, 28, 28);
-    opacity: 0.5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .spinner-border{
-    width: 50px;
-    height: 50px;
-  }
-
-
-

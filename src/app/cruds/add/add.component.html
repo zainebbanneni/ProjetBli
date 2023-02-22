@@ -1,204 +1,259 @@
-<br>
-<table class="table-add">
-  <tr class="tr1">
-    <td>ID acte</td>
-    <td><div class="col-sm-10">
-      <input type="text"
-      class="form-control"
-      id="idacte"
-      required
-      [(ngModel)]="esimb.idacte"
-      name="idacte">
-    </div></td>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+    </symbol>
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+  </svg>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+</head>
 
-    <div class="td2"> 
-    <td>Code IMB</td>
-  </div>   
-        <td><div class="col-sm-10">
-            <input type="text"
-            class="form-control"
-            id="codeIMB"
-            required
-            minlength="5"
-            maxlength="16"
-            pattern="IMB/13212/S/035Z"
-            [(ngModel)]="esimb.codeIMB"
-            name="codeIMB"
-            codeIMB
-            #codeIMB="ngModel" required>
-            <div class="alert-danger" *ngIf="codeIMB.errors">
-                <div *ngIf="codeIMB.errors.maxlength">maximum 16 caracters</div>
-                <div *ngIf="codeIMB.errors.pattern">ce champ doit commencer avec IMB</div>
+<body>
+   <div class="card card-4">
 
-                </div>
-              </div>
-        </td>
-   </tr>
-<br>
-
-
-<tr class="tr1">
-    <td>Date verification</td>
-    <td><div class="col-sm-10">
-      <input type="date" 
-      class="form-control"
-      id="dateVerification"
-      required
-      [(ngModel)]="esimb.dateVerification"
-      name="dateVerification">
-    </div></td>
-
-    <div class="td2"> 
-    <td>Quantite</td>
-  </div>   
-        <td><div class="col-sm-10">
-            <input type="number"
-            class="form-control"
-            id="quantite"
-            required
-            [(ngModel)]="esimb.quantite"
-            name="quantite" >
-          </div>
-        </td>
-   </tr>
-<br>
-
-
-<tr class="tr1">
-    <td>Motif</td>
-    <td>
-        <div class="col-sm-10">
-            <select name="pets" id="pet-select" [(ngModel)]="esimb.motif"><option value="">
-                --Please choose an option--  </option>
-            <option value="ORT" >ORT</option>
-            <option value="Historique">Historique</option>
-            <option value="Immeuble">Immeuble</option>
-            <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
-            <option value="Inexistence IMB Banbou">Inexistence IMB Banbou</option>
-            <option value="incohérence">Incohérence</option>
-            <option value="rami">Rami</option>
-            <option value="Pb inexistant GFI">Pb inexistant GFI</option>
-            <option value="Blocage Optimum">Blocage Optimum</option>
-            <option value="IMB Raccordable Optimum">IMB Raccordable  Optimum</option>
-            <option value="Clé en main Client">Clé en main Client</option>
-            <option value="PB Saturé">PB saturé</option>
-            <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
-            <option value="Position IMB introuvable">Position IMB introuvable</option>
-            <option value="PB inexistant Ipon">PB inexistant Ipon</option>
-            <option value="Non evolution statut IMB">Non evolution statut IMB</option>
-            <option value="En attente">En attente</option>
-            <option value="traitée"></option>
-          </select>
-        </div>
-    </td>
-
-    <div class="td2">
-        <td>Date livraison</td>
-      </div>
-      <td>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="dateLivraison" 
-                required [(ngModel)]="esimb.dateLivraison"
-                 name="dateLivraison" disabled
-                 />
-
-        </div>
-    </td>
-   </tr>
-<br>
-
-
-<tr class="tr1">
-    <td>Commentaire</td>
-    <td>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="commentaire" 
-                required [(ngModel)]="esimb.commentaire"
-                 name="commentaire"
-                 />
-        </div>
-    </td>
-    <div class="td2"> 
-            <td>Duree</td>
-          </div>   
-                <td><div class="col-sm-10">
-                    <input type="number"
-                    class="form-control"
-                    id="duree"
-                    required
-                    [(ngModel)]="esimb.duree"
-                    name="duree">
-                  </div>
-                </td>
-</tr>
-<br>
-<tr class="tr1">
-    <div class="td2"> 
-            <td>Commentaire Technique</td>
+    <div class="spinner-div1" *ngIf="isLoading">
     </div>
-        <td><div class="col-sm-10">
-                <form  [(ngModel)]="esimb.commentairetechnique">
-                <textarea *ngIf="esimb.motif === 'ORT'" disabled> Il s’agit d’un immeuble ORT. </textarea>
-                <textarea *ngIf="esimb.motif === 'Historique'" disabled>L’IMB est déjà dans un processus de déploiement, son évolution suit son cours. </textarea>
-                <textarea *ngIf="esimb.motif === 'Immeuble'" disabled> Il s’agit d’un immeuble dont le nombre de EL =xx. </textarea>
-                <textarea *ngIf="esimb.motif === 'Inexistence IMB optimum'" disabled>Après analyse de la demande, il s’est avéré que l’IMB n’existe pas sur OPTIMUM. </textarea>
-                <textarea *ngIf="esimb.motif === 'Inexistence IMB Banbou'" disabled>Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le  </textarea>
-                <textarea *ngIf="esimb.motif === 'incohérence'" disabled>Après analyse de la demande, une saturation du réseau est constatée, il est nécessaire de réaliser une étude terrain (désaturation). </textarea>
-                <textarea *ngIf="esimb.motif === 'rami'" disabled> Après analyse de la demande, nous avons identifié que cette adresse correspond à une construction récente. Afin d’accompagner au mieux le client pour le raccordement fibre de la maison individuelle, nous vous invitons à l’orienter vers le site https://maison-individuelle.orange.fr/accueil </textarea>
-                <textarea *ngIf="esimb.motif === 'Pb inexistant GFI'" disabled> </textarea>
-                <textarea *ngIf="esimb.motif === 'Blocage Optimum'" disabled> Il s’agit d’un blocage SYNDIC/ Technique /UI (« Cause » ; Date programmée déblocage : XX/XX/XXXX.</textarea>
-                <textarea *ngIf="esimb.motif === 'IMB Raccordable Optimum'" disabled> L’immeuble est déjà en statut Raccordable, la date de MESC ARCEP est ; XX/XX/XXXX. </textarea>
-                <textarea *ngIf="esimb.motif === 'Clé en main Client'" disabled> CléenmainClient </textarea>
-                <textarea *ngIf="esimb.motif === 'PB Saturé'" disabled> </textarea>
-                <textarea *ngIf="esimb.motif === 'Inexistence IMB Ipon'" disabled> </textarea>
-                <textarea *ngIf="esimb.motif === 'Position IMB introuvable'" disabled>Merci de nous fournir une photo avec une croix pour indiquer l’emplacement exacte de logement, pour qu'on puisse traiter votre demande. </textarea>
-                <textarea *ngIf="esimb.motif === 'PB inexistant Ipon'" disabled> </textarea>
-                <textarea *ngIf="esimb.motif === 'Non evolution statut IMB'" disabled>Votre demande ne concerne pas la fiche Evolution statut IMB</textarea>
-                <textarea *ngIf="esimb.motif === 'En attente'" disabled> </textarea>
-                <textarea *ngIf="esimb.motif === 'traitée'" disabled> </textarea>
+    <div class="spinner-div" *ngIf="isLoading">
+      <div class="spinner-border text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
 
 
-                </form>
-            </div>
-            </td>
-            <div class="td2"> 
-            <td>Commentaire Charté</td>
-            </div>
-            <td> <div class="col-sm-10">
-                <form  [(ngModel)]="esimb.commentairecharte">
-                     <textarea *ngIf="esimb.motif === 'ORT'" disabled>L’immeuble est déployé par un autre opérateur. Vous pouvez inviter votre client à se rendre directement sur le site de l’opérateur concerné. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>
-                     <textarea *ngIf="esimb.motif === 'Historique'" disabled>La création de l’adresse Immeuble est inférieure à 4 mois, l’évolution est en cours. IMB crée le --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>      
-                     <textarea *ngIf="esimb.motif === 'Immeuble'" disabled>La demande d’évolution de statut IMB ne concerne que les pavillons d’un ou 2 logements, nous ne pouvons pas traiter cette demande. Les demandes supérieures à 2 logements sont traitées dans un processus différent. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>      
-                     <textarea *ngIf="esimb.motif === 'Inexistence IMB optimum'" disabled>Après analyse de la demande, il s’est avéré que l’immeuble n’existe pas dans le SI. Cette demande ne concerne pas une demande d’évolution de statut IMB mais une demande d’adresse manquante.</textarea>      
-                     <textarea *ngIf="esimb.motif === 'Inexistence IMB Banbou'" disabled>Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le code IMB et son adresse pour qu'on puisse traiter votre demande.</textarea>      
-                     <textarea *ngIf="esimb.motif === 'incohérence'" disabled>Après analyse de la demande, une saturation du réseau est constatée, il est nécessaire de réaliser une étude terrain (désaturation).</textarea>      
-                     <textarea *ngIf="esimb.motif === 'rami'" disabled> Après analyse de la demande, nous avons identifié que cette adresse correspond à une construction récente. Afin d’accompagner au mieux le client pour le raccordement fibre de la maison individuelle, nous vous invitons à l’orienter vers le site https://maison-individuelle.orange.fr/accueil </textarea>                   
-                    <textarea *ngIf="esimb.motif === 'Pb inexistant GFI'" disabled> </textarea>
-                    <textarea *ngIf="esimb.motif === 'Blocage Optimum'" disabled> Un blocage « Type de blocage », « Cause » est constaté, l’IMB est bloqué jusqu’à --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client. Si blocage DivOP, cela signifie que c’est un IMB ORT, donc se référer au commentaire IMB ORT. </textarea>
-                    <textarea *ngIf="esimb.motif === 'IMB Raccordable Optimum'" disabled> L’immeuble est déjà en statut Raccordable, la date de MESC ARCEP est ; XX/XX/XXXX. </textarea>
-                     <textarea *ngIf="esimb.motif === 'CléenmainClient'" disabled> L’immeuble est déjà pris en charge par un partenaire et se trouve dans un processus d’évolution. Nous ne pouvons malheureusement pas prendre en charge cette demande ni communiquer sur un délai d’éligibilité. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client. </textarea>
-                    <textarea *ngIf="esimb.motif === 'PB Saturé'" disabled>  </textarea>
-                    <textarea *ngIf="esimb.motif === 'Inexistence IMB Ipon'" disabled> </textarea>
-                    <textarea *ngIf="esimb.motif === 'Position IMB introuvable'" disabled> Cet IMB n’est pas correctement positionné, il est impossible d’identifier correctement l’emplacement du logement du client. Merci de vous rapprocher du client afin de refaire une demande en indiquant précisément l’emplacement de la maison </textarea>
-                    <textarea *ngIf="esimb.motif === 'PB inexistant Ipon'" disabled>  </textarea>
-                    <textarea *ngIf="esimb.motif === 'Non evolution statut IMB'" disabled> Il ne s’agit pas d’une demande de l’évolution statut IMB / Hors périmètre, merci de revoir avec votre responsable. </textarea>
-                    <textarea *ngIf="esimb.motif === 'En attente'" disabled>  </textarea>
-                    <textarea *ngIf="esimb.motif === 'traitée'" disabled>  </textarea>
-      
-                        </form>
+    <div class="card-body">
+    <h2 class="title" style="text-align: center;">Add new Acte</h2>
+     <hr>
+     <br>
+        <form>
+         <table style="width: 100%;">
+            <tr>
+              <td>
+                   <div class="input-group">
+                     <label class="label">Code Banbou</label>
+                     <input class="input--style-4" 
+                            type="number" 
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                            name="codeBanbou" 
+                            required 
+                            maxlength="8" 
+                            [(ngModel)]="currentEsimb.codeBanbou">
+                     <div class="alert alert-danger" role="alert" *ngIf="codeBanbou_err">
+                      Id Grafic should be 8 characters long
+                     </div>
+                   </div>
+              </td>
+
+              <td>
+                  <div class="input-group" >
+                    <label class="label">Code IMB</label>
+                    <input class="input--style-4" 
+                           type="text" 
+                           name="code_imb" 
+                           required  
+                           maxlength="16"   
+                           [(ngModel)]="currentEsimb.codeIMB">
+                    <div class="alert-danger" *ngIf="codeIMB_err == 1">
+                      <div>Code IMB should be at least 5 characters long</div>
+                    </div>
+                    <div class="alert-danger" *ngIf="codeIMB_err == 2">
+                      <div>Code IMB should start with ' IMB/ ' </div>
+                    </div>
                   </div>
-          </td>
-</tr>
-       
-          
-</table>
+                  
+                  
+              </td>
+            </tr>
 <br>
-<div class="submit-form">
-  <button type="submit" class="badge badge-success mb-2"(click)="saveEsimb()">Submit</button>
-</div>
-<div *ngIf="submitted">
-  <div class="alert alert-success" role="alert">
-    <strong>Well done!</strong> This ticket was submitted successfully!.
+            <tr>
+              <td>
+                  <div class="input-group" >
+                    <label class="label">Date verification</label>
+                    <input class="input--style-4" 
+                           type="date" 
+                           name="dateVerification" 
+                           required 
+                           [(ngModel)]="currentEsimb.dateVerification">
+                           <div class="alert alert-danger" role="alert" *ngIf="dateVerification_err == 1">
+                                Please select a valid date
+                               </div>
+                   
+                  </div>
+              </td>
+
+              <td>
+                <div class="input-group">
+                  <label class="label">Quantite</label>
+                  <input class="input--style-4" value="1" placeholder="1"
+                  type="text" name="quantite"
+                   [(ngModel)]="currentEsimb.quantite" disabled>
+                 </div>
+           </td>
+            </tr>
+            <br>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <label class="label">Motif</label>
+                    <div class="input--style-4" >
+                        <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.motif"><option value="">
+                            --Please choose an option--  </option>
+                        <option value="ORT" >ORT</option>
+                        <option value="Historique">Historique</option>
+                        <option value="Immeuble">Immeuble</option>
+                        <option value="Inexistence IMB optimum">Inexistence IMB optimum</option>
+                        <option value="Inexistence IMB Banbou">Inexistence IMB Banbou</option>
+                        <option value="incohérence">Incohérence</option>
+                        <option value="rami">Rami</option>
+                        <option value="Pb inexistant GFI">Pb inexistant GFI</option>
+                        <option value="Blocage Optimum">Blocage Optimum</option>
+                        <option value="IMB Raccordable Optimum">IMB Raccordable  Optimum</option>
+                        <option value="Clé en main Client">Clé en main Client</option>
+                        <option value="PB Saturé">PB saturé</option>
+                        <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
+                        <option value="Position IMB introuvable">Position IMB introuvable</option>
+                        <option value="PB inexistant Ipon">PB inexistant Ipon</option>
+                        <option value="Non evolution statut IMB">Non evolution statut IMB</option>
+                        <option value="En attente">En attente</option>
+                        <option value="traitée"></option>
+                      </select>
+                      <div class="alert alert-danger" role="alert" *ngIf="motif_err == 1">
+                          Please Select an option
+                         </div>
+                    </div>
+                </div>
+                </td>
+                <td>
+                    <div class="input-group">
+                      <label class="label">Duree</label>
+                      <input class="input--style-4" type="number"
+                       name="duree" [(ngModel)]="currentEsimb.duree">
+                      <div class="alert alert-danger" role="alert" *ngIf="duree_err == 1">
+                       Duree should be between 1 and 60
+                      </div>
+                     </div>
+               </td>
+            </tr>
+              <tr>
+               
+  
+                <td>
+                    <div class="input-group" >
+                      <label class="label">Commentaire</label>
+                      <input class="input--style-4" type="text"
+                       name="commentaire" [(ngModel)]="currentEsimb.commentaire">
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group" >
+                        <label class="label">Date Livraison</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="input--style-4" id="dateLivraison" 
+                                required [(ngModel)]="currentEsimb.dateLivraison"
+                                 name="dateLivraison" disabled
+                                 />
+                
+                        </div>
+                    </div>
+                    </td>
+              </tr>
+<br>
+              <tr>
+                <td>
+                  <div class="input-group">
+                      <label class="label">Commentaire Technique</label>
+                      <div class="input--style-4">
+                  
+                          <form  [(ngModel)]="currentEsimb.commentairetechnique">
+                          <textarea *ngIf="currentEsimb.motif === 'ORT'" disabled> Il s’agit d’un immeuble ORT. </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Historique'" disabled>L’IMB est déjà dans un processus de déploiement, son évolution suit son cours. </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Immeuble'" disabled> Il s’agit d’un immeuble dont le nombre de EL =xx. </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Inexistence IMB optimum'" disabled>Après analyse de la demande, il s’est avéré que l’IMB n’existe pas sur OPTIMUM. </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Inexistence IMB Banbou'" disabled>Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le  </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'incohérence'" disabled>Après analyse de la demande, une saturation du réseau est constatée, il est nécessaire de réaliser une étude terrain (désaturation). </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'rami'" disabled> Après analyse de la demande, nous avons identifié que cette adresse correspond à une construction récente. Afin d’accompagner au mieux le client pour le raccordement fibre de la maison individuelle, nous vous invitons à l’orienter vers le site https://maison-individuelle.orange.fr/accueil </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Pb inexistant GFI'" disabled> </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Blocage Optimum'" disabled> Il s’agit d’un blocage SYNDIC/ Technique /UI (« Cause » ; Date programmée déblocage : XX/XX/XXXX.</textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'IMB Raccordable Optimum'" disabled> L’immeuble est déjà en statut Raccordable, la date de MESC ARCEP est ; XX/XX/XXXX. </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Clé en main Client'" disabled> CléenmainClient </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'PB Saturé'" disabled> </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Inexistence IMB Ipon'" disabled> </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Position IMB introuvable'" disabled>Merci de nous fournir une photo avec une croix pour indiquer l’emplacement exacte de logement, pour qu'on puisse traiter votre demande. </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'PB inexistant Ipon'" disabled> </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'Non evolution statut IMB'" disabled>Votre demande ne concerne pas la fiche Evolution statut IMB</textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'En attente'" disabled> </textarea>
+                          <textarea *ngIf="currentEsimb.motif === 'traitée'" disabled> </textarea>
+                          </form>
+                      </div>
+                  </div>
+                      </td>
+                      <td>
+                      <div class="input-group">
+                          <label class="label" style="padding-right: 100px;">Commentaire Demandeur</label>
+                          <div class="input--style-4">
+                          <form  [(ngModel)]="currentEsimb.commentairedemandeur">
+                               <textarea *ngIf="currentEsimb.motif === 'ORT'" disabled>L’immeuble est déployé par un autre opérateur. Vous pouvez inviter votre client à se rendre directement sur le site de l’opérateur concerné. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>
+                               <textarea *ngIf="currentEsimb.motif === 'Historique'" disabled>La création de l’adresse Immeuble est inférieure à 4 mois, l’évolution est en cours. IMB crée le --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>      
+                               <textarea *ngIf="currentEsimb.motif === 'Immeuble'" disabled>La demande d’évolution de statut IMB ne concerne que les pavillons d’un ou 2 logements, nous ne pouvons pas traiter cette demande. Les demandes supérieures à 2 logements sont traitées dans un processus différent. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client.</textarea>      
+                               <textarea *ngIf="currentEsimb.motif === 'Inexistence IMB optimum'" disabled>Après analyse de la demande, il s’est avéré que l’immeuble n’existe pas dans le SI. Cette demande ne concerne pas une demande d’évolution de statut IMB mais une demande d’adresse manquante.</textarea>      
+                               <textarea *ngIf="currentEsimb.motif === 'Inexistence IMB Banbou'" disabled>Après analyse de la demande, il s’est avéré que le code IMB est non identifié sur votre demande, merci de préciser le code IMB et son adresse pour qu'on puisse traiter votre demande.</textarea>      
+                               <textarea *ngIf="currentEsimb.motif === 'incohérence'" disabled>Après analyse de la demande, une saturation du réseau est constatée, il est nécessaire de réaliser une étude terrain (désaturation).</textarea>      
+                               <textarea *ngIf="currentEsimb.motif === 'rami'" disabled> Après analyse de la demande, nous avons identifié que cette adresse correspond à une construction récente. Afin d’accompagner au mieux le client pour le raccordement fibre de la maison individuelle, nous vous invitons à l’orienter vers le site https://maison-individuelle.orange.fr/accueil </textarea>                   
+                              <textarea *ngIf="currentEsimb.motif === 'Pb inexistant GFI'" disabled> </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'Blocage Optimum'" disabled> Un blocage « Type de blocage », « Cause » est constaté, l’IMB est bloqué jusqu’à --/--/---- Si possible proposer une Prise d’Intérêt Fibre (PIF) au client. Si blocage DivOP, cela signifie que c’est un IMB ORT, donc se référer au commentaire IMB ORT. </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'IMB Raccordable Optimum'" disabled> L’immeuble est déjà en statut Raccordable, la date de MESC ARCEP est ; XX/XX/XXXX. </textarea>
+                               <textarea *ngIf="currentEsimb.motif === 'CléenmainClient'" disabled> L’immeuble est déjà pris en charge par un partenaire et se trouve dans un processus d’évolution. Nous ne pouvons malheureusement pas prendre en charge cette demande ni communiquer sur un délai d’éligibilité. Si possible proposer une Prise d’Intérêt Fibre (PIF) au client. </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'PB Saturé'" disabled>  </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'Inexistence IMB Ipon'" disabled> </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'Position IMB introuvable'" disabled> Cet IMB n’est pas correctement positionné, il est impossible d’identifier correctement l’emplacement du logement du client. Merci de vous rapprocher du client afin de refaire une demande en indiquant précisément l’emplacement de la maison </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'PB inexistant Ipon'" disabled>  </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'Non evolution statut IMB'" disabled> Il ne s’agit pas d’une demande de l’évolution statut IMB / Hors périmètre, merci de revoir avec votre responsable. </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'En attente'" disabled>  </textarea>
+                              <textarea *ngIf="currentEsimb.motif === 'traitée'" disabled>  </textarea>
+                
+                                  </form>
+                            </div>
+                      </div>
+                    </td>
+              </tr>     
+         </table>
+          <hr>              
+          <br> 
+          <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="submitted">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <div>
+              The acte was submited successfully
+            </div>
+          </div> 
+          <br> 
+          <div class="input-group" style="text-align: center;" *ngIf="!submitted">
+            <button class="btn btn--radius-2 btn--blue" style="background-color: rgb(36, 36, 36);" type="submit" (click)="saveEsimb()">Submit</button>
+          </div>
+
+          <div class="input-group" style="text-align: center;" *ngIf="submitted">
+            <button class="btn btn--radius-2 btn--blue" style="background-color: rgb(36, 36, 36);" type="submit" (click)="newEsimb()">New</button>
+          </div>
+          
+          
+          </form>
+
+        
+       </div>
   </div>
-  <button class="btn btn-success" (click)="newEsimb()">Add</button>
-</div>
+
+  
+
+</body>
+
+</html>
+<!-- end document-->

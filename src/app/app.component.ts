@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   isnropm = false;
   isbrame = false;
   collaborateur : Collaborateur ={ 
-       CUID: '',    
+       cuid: '',    
        nom: '', 
        prenom: '',
        adresse: '',

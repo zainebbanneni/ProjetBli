@@ -1,5 +1,5 @@
 export class Grafic_req {
-    idGrafic?: String;
+  idGrafic?: String;
   iar?: String;
   code_imb?: String;
   groupe_operation?: String;
@@ -7,7 +7,8 @@ export class Grafic_req {
   statut_graphic?: String;
   traitement_effectue?: String;
   type_traitement?: String;
-  idactetrait?: String;
+  active?: boolean;
+  idacte?: String;
   affectation?: String;
   duree?: number;
   commentaire?: String;

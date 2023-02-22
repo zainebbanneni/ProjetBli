@@ -15,18 +15,19 @@ export class ModifComponent implements OnInit {
   esimbs?: Esimb[];
   //currentEsimb?: Esimb;
   currentIndex = -1;
-  idacte= '';
+  codeBanbou= '';
   codeIMB = '';
   date_verification= '';
   
   currentEsimb: Esimb = {
+    codeBanbou:'',
     codeIMB:'',
     type_element:'',
     type_prestation:'',
-    quantite:'',
+    quantite:1,
     affectation:'',
     dateLivraison:'',
-    duree:'',
+    duree:1,
     commentaire:'',
     motif:'',
     dateVerification:''
@@ -43,11 +44,11 @@ export class ModifComponent implements OnInit {
     this.message = '';
     /*this.currentEsimb= this.route.snapshot.params.esimb;
     console.log(this.currentEsimb.codeIMB);*/
-    this.getEsimb(this.route.snapshot.params.idactetrait);
+    this.getEsimb(this.route.snapshot.params.idacte);
   }
 
-  getEsimb(idactetrait: string): void {
-    this.esimbService.get(idactetrait)
+  getEsimb(idacte: string): void {
+    this.esimbService.get(idacte)
       .subscribe(
         data => {
           this.currentEsimb= data;
@@ -59,7 +60,7 @@ export class ModifComponent implements OnInit {
   }
 
   updateEsimb(): void {
-    this.esimbService.update(this.currentEsimb.idactetrait, this.currentEsimb)
+    this.esimbService.update(this.currentEsimb.idacte, this.currentEsimb)
       .subscribe(
         response => {
           console.log(response);

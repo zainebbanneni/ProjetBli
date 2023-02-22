@@ -6,87 +6,102 @@ import { Graphic } from '../models/Graphic';
 import { Grafic_req } from '../models/Grafic_req';
 
 
-const baseUrl = 'http://localhost:8080/api/graphic/';
 let url= 'http://localhost:8080/api/graphic/';
+
 @Injectable({
     providedIn: 'root'
   })
   export class GraphicService {
    
-     //instance Acte de traitement
-     actetrait: ActeTraitement = {
-      idactetrait:'',
-      ref_tacheBPU:'',
-      type_prestation:'',
-      type_element:'',
-      quantite:'',
-     date_reception:'',
-     date_livraison:'',
-     date_validation:'',
-     affectation: '',
-     duree: '',
-     commentaire: '',
-     motif: '',
-     statut_facturation: '',
-    date_reprise: '',
-      reprise_facturable: ''
-    };
 
-    //Instance Graphic
-    graphic: Graphic = {
-      idGrafic: '',
-      iar: '',
-      code_imb: '',
-      groupe_operation: '',
-      dateTraitement: '',
-      statut_graphic: '',
-      traitement_effectue: '',
-      type_traitement: '',
-    };
     
     //Contructeur
     constructor(private http: HttpClient) { }
     
+   //Done ----------------------------------------------------------------
 
-    //Service qui retourne tous les graphics
-    getAll(): Observable<Graphic[]> {
-      return this.http.get<Graphic[]>(baseUrl+'getAll');
+   //get graphics active
+    getGraficsActive(cuid: String): Observable<Grafic_req[]> {
+    const urli= url+"getActiveGraphics?cuid="+cuid;
+    console.log("urli : "+urli);
+    return this.http.get<Graphic[]>(urli);
+    }
+
+    //get graphics non active 
+    getGraficsNonActive(cuid: String): Observable<Grafic_req[]> {
+      const urli= url+"getNonActiveGraphics?cuid="+cuid;
+      console.log("urli : "+urli);
+      return this.http.get<Graphic[]>(urli);
     }
     
+    //Deactive Grafic 
+    deactiveGrafic(data: Grafic_req): Observable<any> {
+      const urli= url+"Deactive";
+      console.log("urli : "+urli);
+      return this.http.put(urli, data, {responseType: 'text'});
+    }
+
+    //Active Grafic 
+    activeGrafic(data: Grafic_req): Observable<any> {
+      const urli= url+"Active";
+      console.log("urli : "+urli);
+      return this.http.put(urli, data, {responseType: 'text'});
+    }
+    
+
+    //Search service by ID Graphic
+    searchByIdGraphic(IdGraphic: any,cuid: String,active: boolean): Observable<Grafic_req[]> {
+      if (active) {
+        const urli= url+"getActiveByIdGrafic?cuid="+cuid+"&idGraphic="+IdGraphic;
+        return  this.http.get<Graphic[]>(urli);
+      } else {
+        const urli= url+"getNonActiveByIdGrafic?cuid="+cuid+"&idGraphic="+IdGraphic;
+        return  this.http.get<Graphic[]>(urli);
+      }
+    }
+
+    //Search service by Date de traitement
+    searchByDateTraitement(dateTraitement: any,cuid: String,active: boolean): Observable<Grafic_req[]> {
+      if (active) {
+        const urli= url+"getActiveByIdDateTraitement?cuid="+cuid+"&dateTtraitement="+dateTraitement;
+        return  this.http.get<Graphic[]>(urli);
+      } else {
+        const urli= url+"getNonActiveByIdDateTraitement?cuid="+cuid+"&dateTtraitement="+dateTraitement;
+        return  this.http.get<Graphic[]>(urli);
+      }
+    }
+
+    //Search service by Affectation
+    searchByAffectation(affectation: any,cuid: String,active: boolean): Observable<Grafic_req[]> {
+      if (active) {
+        console.log("Affectation service "+affectation);
+
+        const urli= url+"getActiveByAffectation?cuid="+cuid+"&affectation="+affectation;
+        return  this.http.get<Graphic[]>(urli);
+      } else {
+        const urli= url+"getNonActiveByAffectation?cuid="+cuid+"&affectation="+affectation;
+        return  this.http.get<Graphic[]>(urli);
+      }
+    }
+   //End Done ----------------------------------------------------------------
+
     //Service de save de graphic
-    create(data: any, graphic: Graphic): Observable<any> {
-      this.graphic = graphic;
-      const urli= url+'add'+'?id_Grafic='+graphic.idGrafic+'&iar='+graphic.iar+'&code_imb='+graphic.code_imb+'&groupe_operation='+graphic.groupe_operation+'&date_traitement='+graphic.dateTraitement+'&statut_graphic='+graphic.statut_graphic+'&traitement_effectue='+graphic.traitement_effectue+'&type_traitement='+graphic.type_traitement;
+    save(data: any): Observable<any> {
+      const urli= url+'Add';
       return this.http.post(urli, data, {responseType: 'text'});
     }
 
-    //Service de recherche par ID Graphic
-    searchByIdGraphic(IdGraphic: any): Observable<Graphic[]> {
-      const urli= url+"getGraphicById?idGraphic="+IdGraphic;
-      return  this.http.get<Graphic[]>(urli);
-      //return this.http.get<Graphic[]>(urli, data, {responseType: 'text'});
-    }
 
-    //Service de recherche par Date de traitement
-    searchByDateTraitement(dateTraitement: any): Observable<Graphic[]> {
-      const urli= url+"getGraphicByDT?dateTtraitement="+dateTraitement;
-      return  this.http.get<Graphic[]>(urli);
-    }
-
-    //Update graphic service
-    update(data: any, graphic: Graphic): Observable<any> {
-      this.graphic = graphic;console.log("ok updaaaaate");
-      const urli= url+'Update'+'?id_Grafic='+graphic.idGrafic+'&iar='+graphic.iar+'&code_imb='+graphic.code_imb+'&groupe_operation='+graphic.groupe_operation+'&date_traitement='+graphic.dateTraitement+'&statut_graphic='+graphic.statut_graphic+'&traitement_effectue='+graphic.traitement_effectue+'&type_traitement='+graphic.type_traitement;
+    /*//Update graphic service
+    update(graphic: Grafic_req): Observable<any> {
+      console.log("-------------------- ! start update service");
+      const urli = 'http://localhost:8080/api/graphic/Updatee';
+      //const urli= url+'Updatee';
       console.log(" urllll : "+urli);
-      
-      return this.http.put(urli, data, {responseType: 'text'}); 
-    }
+      console.log(" sent object : "+"ID Graphic "+this.currentGraphic.idGrafic);
+      console.log("-------------------- end update service");
+      return this.http.put(urli, this.currentGraphic, {responseType: 'text'}); 
+    }*/
 
-    //get graphics
-    getGrafics(cuid: String,role: String): Observable<Grafic_req[]> {
-      const urli= url+"getGraphics?cuid="+cuid+"&role="+role;
-      console.log("urli : "+urli);
-      
-      return this.http.get<Graphic[]>(urli);
-    }
+    
   }

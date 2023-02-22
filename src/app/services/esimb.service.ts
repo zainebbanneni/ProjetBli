@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Esimb } from 'src/app/models/esimb.model';
 import { Observable } from 'rxjs';
 import { ActeTraitement } from 'src/app/models/ActeTraitement';
+import { Esimb_req } from 'src/app/models/Esimb_req';
 
 
 const baseUrl = 'http://localhost:8080/api/esimbs';
@@ -17,19 +18,19 @@ let url= 'http://localhost:8080/api/';
 })
 export class EsimbService {
   esimb: Esimb = {
-    idacte: '',
+    codeBanbou: '',
     codeIMB: '',
     dateVerification: '',
-    idactetrait:'',
+    idacte:'',
     refTacheBPU:'',
     type_prestation:'',
     type_element:'',
-    quantite:'',
+    quantite:1,
 	 dateReception:'',
 	 dateLivraison:'',
 	 dateValidation:'',
 	 affectation: '',
-	 duree: '',
+	 duree: 1,
 	 commentaire: '',
 	 motif: '',
 	 statutFacturation: '',
@@ -41,6 +42,13 @@ export class EsimbService {
 
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
+  }
+
+  //Service de save de esimb
+  save(data: any): Observable<any> {
+    console.log("ee");
+    const urli= url+'Add';
+    return this.http.post(urli, data, {responseType: 'text'});
   }
 
   getAll(): Observable<Esimb[]> {
@@ -84,17 +92,17 @@ export class EsimbService {
     return this.http.get<Esimb[]>(`${baseUrl}/codeIMB/${codeIMB}`);
   }
 
-  findByIdacte(idacte: any): Observable<Esimb[]> {
-    return this.http.get<Esimb[]>(`${baseUrl}/idacte/${idacte}`);
+  findByCodeBanbou(codeBanbou: any): Observable<Esimb[]> {
+    return this.http.get<Esimb[]>(`${baseUrl}/codeBanbou/${codeBanbou}`);
   }
 
   findBycodeIMBContaining(codeIMB: any): Observable<Esimb[]> {
     return this.http.get<Esimb[]>(`${baseUrl}/Esimb?codeIMB=${codeIMB}`);
   }
 
-   //Service de recherche par ID Acte
-   searchByIdActe(idacte: any): Observable<Esimb[]> {
-    const urli= url+"getEsimbById/"+idacte;
+   //Service de recherche par Code Banbou
+   searchByCodeBanbou(codeBanbou: any): Observable<Esimb[]> {
+    const urli= url+"getEsimbBycodeBanbou/"+codeBanbou;
     return  this.http.get<Esimb[]>(urli);
   }
 
@@ -104,9 +112,17 @@ export class EsimbService {
     return  this.http.get<Esimb[]>(urli);
   }
   //Service de recherche par affectation
-  searchByAffectation(affectation: any): Observable<Esimb[]> {
+  searchByaffectation(affectation: any): Observable<Esimb[]> {
     const urli= url+"getEsimbByAffectation/"+affectation;
     return  this.http.get<Esimb[]>(urli);
+  }
+
+
+  searchByAffectation(affectation: any,cuid: String,active: boolean): Observable<Esimb_req[]> {
+      console.log("Affectation service "+affectation);
+
+      const urli= url+"getByAffectation?cuid="+cuid+"&affectation="+affectation;
+      return  this.http.get<Esimb[]>(urli);
   }
 
   //Service de recherche par Date de livraison
@@ -118,7 +134,7 @@ export class EsimbService {
   //Update esimb service
   update(data: any, esimb: Esimb): Observable<any> {
     this.esimb = esimb;console.log("ok updaaaaate");
-    const urli= url+'Update'+'?idactetrait='+esimb.idactetrait;
+    const urli= url+'Update'+'?idacte='+esimb.idacte;
     console.log(" urllll : "+urli);
     
     return this.http.put(urli, data, {responseType: 'text'}); 

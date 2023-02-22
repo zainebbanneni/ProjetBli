@@ -1,65 +1,3 @@
-.form-add{
-  max-width: 400px;
-    margin: auto;
-  
-}
-.form-control{
-  font-size: 18px;
-  padding:20px;
-  border:0;
-  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
-  height: 30px;
-  width: 250px;
-}
-
-.submit-form {
-  margin-left: auto;
-  margin-right: auto;
-  width: 120px;
-  height: 40px;
- 
-
-  }
-
-  textarea {
-    width: 100%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
-    text-align: left;
-   
-
-  }
-
-  input{
-    height: 30px;
-    width: 250px;
-    font-size: 3.5em;
-
-  }
-
-  .input-group-btn {
-    height: 30px;
-    width: 250px;
-    font-size: 3.5em;
-}
-.badge-success {
-  background-color: rgb(233, 104, 29);
-  margin-top: 50px;
-
-}
-
-.table-add{
-  margin-left: auto;
-  margin-right: 5px;
-
-}
-
 /* ==========================================================================
    #FONT
    ========================================================================== */
@@ -640,6 +578,3 @@ input::-webkit-inner-spin-button {
     width: 50px;
     height: 50px;
   }
-
-
-

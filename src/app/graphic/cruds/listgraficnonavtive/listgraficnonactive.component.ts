@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { Esimb } from 'src/app/models/esimb.model';
-import { EsimbService } from 'src/app/services/esimb.service';
-import { ActeTraitement } from 'src/app/models/ActeTraitement';
-import { GraphicService } from 'src/app/services/graphic.service';
-import { Graphic } from 'src/app/models/Graphic';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
-import { CollaborateurService } from 'src/app/services/collaborateur.service';
+import { ActeTraitement } from 'src/app/models/ActeTraitement';
 import { Collaborateur } from 'src/app/models/Collaborateur';
-import {Grafic_req } from 'src/app/models/Grafic_req';
-
+import { Grafic_req } from 'src/app/models/Grafic_req';
+import { Graphic } from 'src/app/models/Graphic';
+import { CollaborateurService } from 'src/app/services/collaborateur.service';
+import { EsimbService } from 'src/app/services/esimb.service';
+import { GraphicService } from 'src/app/services/graphic.service';
 
 @Component({
-  selector: 'app-listgraphic',
-  templateUrl: './listgraphic.component.html',
-  styleUrls: ['./listgraphic.component.css']
+  selector: 'app-listgraficnonactive',
+  templateUrl: './listgraficnonactive.component.html',
+  styleUrls: ['./listgraficnonactive.component.css']
 })
-export class ListgraphicComponent implements OnInit {
-  
+export class ListgraficnonactiveComponent implements OnInit {
  //Variables
  isLoggedIn = false;
  private roles: string[] = [];
@@ -30,27 +27,32 @@ export class ListgraphicComponent implements OnInit {
  idacte= '';
  codeIMB = '';
  grafics? : Grafic_req[];
+ graficsNonActive? : Grafic_req[];
  role = '';
  cuid = '';
+ isgraphiclist = false;
+ isgraphiclisnonactive = true;
+
+ 
 
 
 //Instance de ActeTraitement
  _actetraitement: ActeTraitement= {
-  idactetrait:'',
-  ref_tacheBPU:'',
+  idacte:'',
+  refTacheBPU:'',
   type_prestation:'',
   type_element:'',
-  quantite:'',
- date_reception:'',
- date_livraison:'',
- date_validation:'',
+  quantite:1,
+ dateReception:'',
+ dateLivraison:'',
+ dateValidation:'',
  affectation: '',
- duree: '',
+ duree: 0,
  commentaire: '',
  motif: '',
- statut_facturation: '',
- date_reprise: '',
- reprise_facturable: ''
+ statutFacturation: '',
+ dateReprise: '',
+ repriseFacturable: ''
 };
 
 //Instance de graphic response
@@ -75,7 +77,7 @@ currentGraphic: Grafic_req = {
   statut_graphic: '',
   traitement_effectue: '',
   type_traitement: '',
-  idactetrait: '',
+  idacte: '',
   affectation: '',
   duree: 1,
   commentaire: '',
@@ -84,7 +86,6 @@ currentGraphic: Grafic_req = {
  //Constructor
  constructor(private tokenStorageService: TokenStorageService,
   private graphicService: GraphicService,
-  private esimbService:EsimbService,
   private collaborateurService:CollaborateurService) {}
  
  //OnInit
@@ -97,25 +98,26 @@ currentGraphic: Grafic_req = {
      this.cuid = user.username;
 
      if (this.roles.includes('ROLE_PILOTE')){
+      this.getteammembersbycuid();
        this.isPilote = true;
        this.role = 'PILOTE';
-       console.log("this is Pilote")
+       console.log("this is Piloteeeeeeeeeeeeeeeeeeeee")
      }else{
        this.isPilote = false;
-       console.log("this is not Pilote" + this.roles)
+       console.log("this is not Piloteeeee" + this.roles)
      }
-
+     
      this.getgrafics();
    }
 
  }
 
-
+// ------------- Done -------------- //
  //get all grafics
  getgrafics(): void {
   console.log("cuid sent : " + this.cuid);
   console.log("role sent : " + this.role);
-  this.graphicService.getGrafics(this.cuid,this.role)
+  this.graphicService.getGraficsNonActive(this.cuid)
      .subscribe(
        data => {
          this.grafics = data;
@@ -125,25 +127,84 @@ currentGraphic: Grafic_req = {
          console.log(error);
        });
 }
+
+
+//Search
+search(): void {
+  if (this.searchby == "IdGraphic"){
+    this.searchByIdGraphic();
+  }else{
+   this.searchByDateTraitement();
+  }
+ }
  
- //Get all Graphics
- /*retrieveGraphics(): void {
-   this.graphicService.getAll()
+ 
+ //Search by date Traitement
+  searchByIdGraphic(): void {
+    this.graphicService.searchByIdGraphic(this.searchValue,this.cuid,false)
+      .subscribe(
+        data => {
+          this.grafics = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+        console.log("Search by graphic id: " + this.searchValue);
+  }
+  
+ 
+  //Search by date Traitement
+  searchByDateTraitement(): void {
+    this.graphicService.searchByDateTraitement(this.searchValue,this.cuid,false)
+      .subscribe(
+        data => {
+          this.grafics = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+ 
+        console.log("Search by date de traitement: " + this.searchValue);
+  }
+ 
+ //Search by Affectaion
+ searchByAffecttaion(): void {
+   this.graphicService.searchByIdGraphic(this.searchValue,this.cuid,false)
      .subscribe(
        data => {
-         this.graphics = data;
+         this.grafics = data;
          console.log(data);
        },
        error => {
          console.log(error);
        });
- }*/
+       console.log("Search by affectation: " + this.searchValue);
+ }
 
+ 
+//Active grafic
+activeGrafic(): void {
+  this.graphicService.activeGrafic(this.currentGraphic)
+                .subscribe(
+                  data => {
+                    console.log(data);
+                  },
+                  error => {
+                    console.log(error);
+                  }
+                )
 
- setActiveEsimb(graphic: Graphic, index: number): void {
+window.location.reload();
+}
+ 
+// ------------- Done -------------- //
+
+ /*setActiveEsimb(graphic: Graphic, index: number): void {
    this.currentGraphic = graphic;
    this.currentIndex = index;
- }
+ }*/
 
 
  /*getActebyIdActe(): void {
@@ -159,45 +220,6 @@ currentGraphic: Grafic_req = {
  }*/
 
  
-//Search
-search(): void {
- if (this.searchby == "IdGraphic"){
-   this.searchByIdGraphic();
- }else{
-  this.searchByDateTraitement();
- }
-}
-
-
-//Search by date Traitement
- searchByIdGraphic(): void {
-   this.graphicService.searchByIdGraphic(this.searchValue)
-     .subscribe(
-       data => {
-         this.grafics = data;
-         console.log(data);
-       },
-       error => {
-         console.log(error);
-       });
-       console.log("Search by graphic id: " + this.searchValue);
- }
- 
-
- //Search by date Traitement
- searchByDateTraitement(): void {
-   this.graphicService.searchByDateTraitement(this.searchValue)
-     .subscribe(
-       data => {
-         this.grafics = data;
-         console.log(data);
-       },
-       error => {
-         console.log(error);
-       });
-
-       console.log("Search by date de traitement: " + this.searchValue);
- }
 
  //get team members
  getteammembersbycuid(): void {
@@ -215,13 +237,13 @@ search(): void {
 
  //Update Graphic
  UpdateGraphic(): void {
-  this._graphic.code_imb = this.currentGraphic.code_imb;
-  this._graphic.code_imb = this.currentGraphic.code_imb;
-  this._graphic.code_imb = this.currentGraphic.code_imb;
-
-  this.graphicService.update(this._actetraitement,this.currentGraphic);
+ 
   
  }
 
- 
+ listgrafic(): void{
+  this.isgraphiclisnonactive = false;
+  this.isgraphiclist = true;
+}
+
 }

@@ -1,5 +1,5 @@
 export class Collaborateur{
-    CUID?: String;
+    cuid?: String;
     nom?: String;
     prenom?: String;
     adresse?: String;
@@ -7,5 +7,6 @@ export class Collaborateur{
     date_integration?: String;
     fonction?: String;
     id_equipe?: String;
+
 
 }

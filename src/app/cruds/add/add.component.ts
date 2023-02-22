@@ -19,10 +19,31 @@ import { FormControl } from '@angular/forms';
 
 })
 export class AddComponent implements OnInit {
-  
-  
+
+  //Variables
+ private roles: string[] = [];
+ isPilote = false;
+ isLoading= false;
+ colabsteam?: Collaborateur[];
+
+  //Error variables 0 : ok / 1,2 : not ok
+ codeBanbou_err = 0;
+ codeIMB_err = 0;
+ dateVerification_err = 0;
+ quantite_err = 0;
+ motif_err = 0;
+ duree_err = 0;
+ commentaire_err = 0;
+ dateLivraison_err = 0;
+ commentairetechnique_err = 0;
+ commentairedemandeur_err = 0;
+ 
+
+ submitted = false;
+
+   //instance collaborateur 
   collaborateur : Collaborateur ={ 
-      CUID: '',    
+      cuid: '',    
       nom: '', 
       prenom: '',
       adresse: '',
@@ -31,9 +52,9 @@ export class AddComponent implements OnInit {
       id_equipe: '',
       fonction: ''
    }
-  esimb: Esimb = {
-    idactetrait: '',
-    idacte:'',
+  currentEsimb: Esimb = {
+    idacte: '',
+    codeBanbou:'',
     affectation: '',
     motif:'',
     commentaire: '',
@@ -41,8 +62,8 @@ export class AddComponent implements OnInit {
     dateReception: '',
     dateReprise: '',
     dateValidation: '',
-    duree: '',
-    quantite: '',
+    duree: 1,
+    quantite: 1,
     refTacheBPU: '',
     repriseFacturable: '',
     statutFacturation: '',
@@ -51,108 +72,122 @@ export class AddComponent implements OnInit {
     codeIMB: '',
     dateVerification: '',
     commentairetechnique: '',
-    commentairecharte:'',
+    commentairedemandeur:'',
   };
-  submitted = false;
+
   today: Date = new Date();
   now = new Date().toDateString();
 
+   //instance de collaborateur
+   collab: Collaborateur={
+    cuid: '',
+    nom: '',
+    prenom: '',
+  };
+  
+  
 
   constructor(private esimbService: EsimbService, private collaborateurService: CollaborateurService,
   private tokenStorageService: TokenStorageService ) { }
 
   ngOnInit(): void {
-    const user = this.tokenStorageService.getUser();
-    this.esimb.affectation = user.username;
-    this.collaborateurService.getcolabinfosbycuid(user.username)
-    .subscribe(data => { 
-                this.collab = data;
-                  console.log(data);
-               },          
-     error => {
-       console.log(error);
-               });
 
-  this.esimb.dateLivraison=this.now;
+    this.isLoading = true;
+      //get user
+      const user = this.tokenStorageService.getUser();
+  
+      //check the roles if PILOT
+      this.roles = user.roles;
+      if (this.roles.includes('ROLE_PILOTE')){
+        this.getteammembersbycuid();
+        this.isPilote = true;
+        console.log("this is Pilote")
+      }else{
+        this.isPilote = false;
+        console.log("this is not Pilote" + this.roles)
+      }
+  
+      //get user Informations
+      this.currentEsimb.affectation = user.username;
+      this.collaborateurService.getcolabinfosbycuid(user.username)
+      .subscribe(data => { 
+                  this.collab = data;
+                    console.log(data);
+                    
+                 },          
+       error => {
+         console.log(error);
+                    
+                 });
 
-  }
-  //instance de collaborateur
-  collab: Collaborateur={
-    CUID: '',
-    nom: '',
-    prenom: '',
-  };
-    //AppComponent.getNameUsername();
-    //this.getinfoscollaborateur();
-      //console.log("this.colab :"+this.collaborateur.nom);
+    this.isLoading = false;
+    this.currentEsimb.dateLivraison=this.now;
+    }
 
-      //this.esimb.dateLivraison=this.now;
-
-      
-
+    //save grafic
   saveEsimb(): void {
-    console.log("this.esimb.type_element"+ this.esimb.type_element);
-    const data = {
-      idacte: this.esimb.idacte,
-      affectation: this.esimb.affectation,
-      commentaire: this.esimb.commentaire,
-      dateLivraison: this.esimb.dateLivraison,
-      dateReception: this.esimb.dateReception,
-      dateReprise: this.esimb.dateReprise,
-      dateValidation: this.esimb.dateValidation, 
-      duree: this.esimb.duree,
-      quantite: this.esimb.quantite,
-      refTacheBPU: this.esimb.refTacheBPU,
-      repriseFacturable: this.esimb.repriseFacturable,
-      statutFacturation: this.esimb.statutFacturation,
-      type_element: this.esimb.type_element,
-      type_prestation: this.esimb.type_prestation,
-      codeIMB: this.esimb.codeIMB,
-      dateVerification: this.esimb.dateVerification,
-      motif: this.esimb.motif,
-      commentairetechnique: this.esimb.commentairetechnique,
-      commentairecharte: this.esimb.commentairecharte
-
-    
-
-    };
-
-
-    this.esimbService.create(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+    console.log("rr");
+    this.isLoading = true;
+    if (this.validateForm()){
+        this.esimbService.save(this.currentEsimb)
+          .subscribe({
+            next: (res) => {
+              console.log(res);
+              if (res == "ok"){
+                this.submitted = true;
+                console.log("rtdgfgh");
+              }else{
+                this.submitted = false;
+                console.log("erdgv");
+              }
+            },
+            error: (e) => console.error(e)
+          });
+    }
+    this.isLoading = false;
   }
+
+
 
   newEsimb(): void {
     this.submitted = false;
-    this.esimb = {
-      idactetrait: '',
+    this.currentEsimb = {
+    idacte: '',
     affectation: '',
     commentaire: '',
     dateLivraison: '',
     dateReception: '',
     dateReprise: '',
     dateValidation: '',
-    duree: '',
-    quantite: '',
+    duree: 1,
+    quantite: 1,
     refTacheBPU: '',
     repriseFacturable: '',
     statutFacturation: '',
     type_element: 'forfait',
     type_prestation: '',
+    codeBanbou:'',
     codeIMB: '',
     dateVerification: '',
     motif:'',
     commentairetechnique: '',
-    commentairecharte:'',
+    commentairedemandeur:'',
     };
   }
+   //get team members
+ getteammembersbycuid(): void {
+  const user = this.tokenStorageService.getUser();
+  this.collaborateurService.getteammembersbycuid(user.username)
+  .subscribe(
+    data => {
+      this.colabsteam = data;
+      console.log(data);
+
+    },
+    error => {
+      console.log(error);
+    });
+ }
 
   getinfoscollaborateur(): void {
           const user = this.tokenStorageService.getUser();
@@ -165,6 +200,114 @@ export class AddComponent implements OnInit {
         console.log(error);
                 });
         }
+
+
+
+    //validate form
+ validateForm(): boolean {
+  let err;
+  err = (this.validateCodeBanbou() && 
+         this.validateCodeImb()  && 
+         this.validateDateVerification() &&
+         this.validateMotif()&&
+         this.validateDuree()); 
+  return err;
+ }
+
+ //validate Id esimb
+ validateCodeBanbou() : boolean {
+  if(!(this.currentEsimb.codeBanbou?.toString().length === 8) ){
+    this.codeBanbou_err = 1;
+    return false;
+  }else{
+    this.codeBanbou_err = 0;
+    return true;
+  }
+ }
+
+  //validate Code IMB
+  validateCodeImb() : boolean {
+    if( this.currentEsimb.codeIMB?.toString().length !< 5 ){
+      this.codeIMB_err = 1;
+      return false;
+    }else if(!(this.currentEsimb.codeIMB?.startsWith('IMB/'))){
+      this.codeIMB_err = 2;
+      return false;
+    }else{
+      this.codeIMB_err = 0;
+      return true;
+    }
+   }
+
+  //validate Date verification
+  validateDateVerification() : boolean {
+    if(!(this.currentEsimb.dateVerification?.toString().length === 10) ){
+      this.dateVerification_err = 1;
+      return false;
+    }else{
+      this.dateVerification_err = 0;
+      return true;
+    }
+  }
+
+   //validate Motif
+   validateMotif() : boolean {
+    if (this.currentEsimb.motif == '') {
+      this.motif_err = 1;
+      return false;
+    }else{
+      this.motif_err = 0;
+      return true;
+    }
+  }
+
+  //validate Duree
+  validateDuree() : boolean {
+    if ((this.currentEsimb.duree == 0) || (this.currentEsimb.duree !> 60) ){
+      this.duree_err = 1;
+      return false;
+    } else {
+      this.duree_err = 0;
+      return true;
+    }
+  }
+
+
+  /*//validate Commentaire
+  validateCommentaire() : boolean {
+    if(!(this.currentEsimb.commentaire?.toString().length === 10) ){
+      this.commentaire_err = 1;
+      return false;
+    }else{
+      this.commentaire_err = 0;
+      return true;
+    }
+  }
+
+  //validate Commentaire technique
+  validateCommentairetechnique() : boolean {
+    if(!(this.currentEsimb.commentairetechnique?.toString().length === 10) ){
+      this.commentairetechnique_err = 1;
+      return false;
+    }else{
+      this.commentairetechnique_err = 0;
+      return true;
+    }
+  }
+  
+  //validate Commentaire charté
+  validateCommentairecharte() : boolean {
+    if(!(this.currentEsimb.commentairecharte?.toString().length === 10) ){
+      this.commentairecharte_err = 1;
+      return false;
+    }else{
+      this.commentairecharte_err = 0;
+      return true;
+    }
+  }*/
+
+  
+
 
 
 

@@ -29,9 +29,9 @@ import { NROPMComponent } from './nro-pm/nro-pm.component';
 import { DESATComponent } from './desat/desat.component';
 import { EsimbService } from 'src/app/services/esimb.service';
 import { GraphicComponent } from './graphic/graphic.component';
-import { AddgraphicComponent } from './graphic/cruds/addgraphic/addgraphic.component';
-import { ListgraphicComponent } from './graphic/cruds/listgraphic/listgraphic.component';
-import { ModifgraphicComponent } from './graphic/cruds/modifgraphic/modifgraphic.component';
+import { AddgraphicComponent } from 'src/app/graphic/cruds/addgrafic/addgrafic.component';
+import { ListgraphicComponent } from 'src/app/graphic/cruds/listgrafic/listgrafic.component';
+import { ListgraficnonactiveComponent } from 'src/app/graphic/cruds/listgraficnonavtive/listgraficnonactive.component';
 
 
 @NgModule({
@@ -55,7 +55,7 @@ import { ModifgraphicComponent } from './graphic/cruds/modifgraphic/modifgraphic
     GraphicComponent,
     AddgraphicComponent,
     ListgraphicComponent,
-    ModifgraphicComponent
+    ListgraficnonactiveComponent
   ],
   imports: [
     BrowserModule,

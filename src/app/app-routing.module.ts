@@ -15,10 +15,10 @@ import { DESATComponent } from 'src/app/desat/desat.component';
 import { AddComponent } from 'src/app/cruds/add/add.component';
 import { ModifComponent } from 'src/app/cruds/modif/modif.component';
 import { ListComponent } from 'src/app/cruds/list/list.component';
-import { AddgraphicComponent } from 'src/app/graphic/cruds/addgraphic/addgraphic.component';
-import { ListgraphicComponent } from 'src/app/graphic/cruds/listgraphic/listgraphic.component';
-import { ModifgraphicComponent } from 'src/app/graphic/cruds/modifgraphic/modifgraphic.component';
 import { GraphicComponent } from 'src/app/graphic/graphic.component';
+import { AddgraphicComponent } from 'src/app/graphic/cruds/addgrafic/addgrafic.component';
+import { ListgraphicComponent } from 'src/app/graphic/cruds/listgrafic/listgrafic.component';
+import { ListgraficnonactiveComponent } from 'src/app/graphic/cruds/listgraficnonavtive/listgraficnonactive.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -40,6 +40,7 @@ const routes: Routes = [
  {path: 'List', component: ListComponent},
  {path: 'addgraphic', component: AddgraphicComponent},
  {path: 'listgraphic', component: ListgraphicComponent},
+ {path: 'listgraficnonactive', component:ListgraficnonactiveComponent},
  //{path: 'modifgraphic', component: ModifgraphicComponent},
 
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/_services/token-storage.service';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { Collaborateur } from 'src/app/models/Collaborateur';
+import { Esimb_req } from 'src/app/models/Esimb_req';
 
 
 @Component({
@@ -13,16 +14,7 @@ import { Collaborateur } from 'src/app/models/Collaborateur';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  collaborateur : Collaborateur ={ 
-      CUID: '',    
-      nom: '', 
-      prenom: '',
-      adresse: '',
-      mdp: '',
-      date_integration: '',
-      id_equipe: '',
-      fonction: ''
-   }
+//variables
   isLoggedIn = false;
   private roles: string[] = [];
   isPilote = false;
@@ -32,51 +24,63 @@ export class ListComponent implements OnInit {
   colabsteam?: Collaborateur[];
   esimbs?: Esimb[];
   role = '';
- cuid = '';
+  cuid = '';
+  isesimblist = true;
   //currentEsimb?: Esimb;
   currentIndex = -1;
-  idacte= '';
+  codeBanbou= '';
   codeIMB = '';
+  _esimbs? : Esimb_req[];
+  esimbsNonActive? : Esimb_req[];
 
-  //instance of Esimb
-  currentEsimb: Esimb= {
-    idacte:'',
-    affectation: '',
-    commentaire: '',
-    dateLivraison: '',
-    dateReception: '',
-    dateReprise: '',
-    dateValidation: '',
-    duree: '',
-    quantite: '',
-    motif: '',
-    refTacheBPU: '',
-    repriseFacturable: '',
-    statutFacturation: '',
-    type_element: '',
-    type_prestation:  '',
-    codeIMB: '',
-    dateVerification: '',};
+  message = '';
 
+
+  //instance collaborateur
+  collaborateur : Collaborateur ={ 
+      cuid: '',    
+      nom: '', 
+      prenom: '',
+      adresse: '',
+      mdp: '',
+      date_integration: '',
+      id_equipe: '',
+      fonction: ''
+   }
+  
+
+  //Instance de esimb response
+_esimb: Esimb_req = {
+  codeBanbou:'',
+  codeIMB: '',
+  dateVerification: '',
+  idacte:'',
+  affectation: '',
+  duree: 1,
+  quantite:1,
+  dateLivraison:'',
+  commentaire: '',
+  motif:''
+}
     //instance of Esimb
-  _esimb: Esimb= {
-    idacte:'',
+  currentEsimb: Esimb= {
+    codeBanbou:'',
+    codeIMB: '',
+    dateVerification: '',
     affectation: '',
     commentaire: '',
     dateLivraison: '',
     dateReception: '',
     dateReprise: '',
     dateValidation: '',
-    duree: '',
-    quantite: '',
+    duree: 1,
+    quantite: 1,
     motif: '',
     refTacheBPU: '',
     repriseFacturable: '',
     statutFacturation: '',
     type_element: '',
-    type_prestation:  '',
-    codeIMB: '',
-    dateVerification: '',};
+    type_prestation:  '',};
 
     //Constructeur
   constructor(private esimbService: EsimbService, private router: Router,
@@ -162,13 +166,10 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
   
  //Search
  search(): void {
-  if (this.searchby == "idacte"){
-    this.searchByIdActe();
-  }else if(this.searchby == "dateLivraison"){
-   this.searchByDateLivraison();
-   
-  } else if(this.searchby == "affectation"){
-       this.searchByAffectation();
+  if (this.searchby == "codeBanbou"){
+    this.searchByCodeBanbou();
+  }else if(this.searchby == "Affectation"){
+    this.searchByAffecttaion();
   } else
   {
     this.searchByCodeIMB();
@@ -177,8 +178,8 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
  
  
  //Search by Id Acte
-  searchByIdActe(): void {
-    this.esimbService.searchByIdActe(this.searchValue)
+  searchByCodeBanbou(): void {
+    this.esimbService.searchByCodeBanbou(this.searchValue)
       .subscribe(
         data => {
           this.esimbs = data;
@@ -187,11 +188,11 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
         error => {
           console.log(error);
         });
-        console.log("Search by idacte: " + this.searchValue);
+        console.log("Search by codeBanbou: " + this.searchValue);
   }
   
  
-  //Search by date Livraison
+  /*//Search by date Livraison
   searchByDateLivraison(): void {
     this.esimbService.searchByDateLivraison(this.searchValue)
       .subscribe(
@@ -204,7 +205,7 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
         });
  
         console.log("Search by date de livraison: " + this.searchValue);
-  }
+  }*/
 
   //Search by codeIMB
   searchByCodeIMB(): void {
@@ -221,9 +222,9 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
         console.log("Search by codeIMB: " + this.searchValue);
   }
 
-  //Search by date Livraison
-  searchByAffectation(): void {
-    this.esimbService.searchByAffectation(this.searchValue)
+  //Search by affectation
+  searchByAffecttaion(): void {
+    this.esimbService.searchByaffectation(this.searchValue)
       .subscribe(
         data => {
           this.esimbs = data;
@@ -313,4 +314,17 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
       console.log(error);
     });
  }
+
+
+ updateEsimb(): void {
+  this.esimbService.update(this.currentEsimb.idacte, this.currentEsimb)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.message = response.message;
+      },
+      error => {
+        console.log(error);
+      });
+}
 }
