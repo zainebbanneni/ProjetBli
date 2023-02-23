@@ -102,7 +102,7 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
                this.isPilote = false;
                console.log("this is not Pilote" + this.roles)
              }
-       this.getgraphics();
+       this.getesimbs();
          }
     this.retrieveEsimbs();
 
@@ -111,10 +111,10 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
   }
 
   //get all esimbs
- getgraphics(): void {
+ getesimbs(): void {
   console.log("cuid sent : " + this.cuid);
   console.log("role sent : " + this.role);
-  this.esimbService.getGraphics(this.cuid,this.role)
+  this.esimbService.getEsimbs(this.cuid,this.role)
      .subscribe(
        data => {
          this.esimbs = data;
@@ -177,7 +177,7 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
  }
  
  
- //Search by Id Acte
+ //Search by code Banbou
   searchByCodeBanbou(): void {
     this.esimbService.searchByCodeBanbou(this.searchValue)
       .subscribe(
@@ -315,16 +315,18 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
     });
  }
 
-
+//Update Esimb
  updateEsimb(): void {
-  this.esimbService.update(this.currentEsimb.idacte, this.currentEsimb)
+  this.esimbService.Update(this.currentEsimb.idacte, this.currentEsimb)
     .subscribe(
       response => {
         console.log(response);
-        this.message = response.message;
+        this.message = response.message ? response.message : 'This tutorial was updated successfully!';
       },
       error => {
         console.log(error);
       });
 }
+
+
 }

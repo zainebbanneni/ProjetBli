@@ -60,7 +60,7 @@ export class ModifComponent implements OnInit {
   }
 
   updateEsimb(): void {
-    this.esimbService.update(this.currentEsimb.idacte, this.currentEsimb)
+    this.esimbService.Update(this.currentEsimb.idacte, this.currentEsimb)
       .subscribe(
         response => {
           console.log(response);

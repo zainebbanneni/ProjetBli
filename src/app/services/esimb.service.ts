@@ -84,9 +84,6 @@ export class EsimbService {
     // @RequestParam String codeIMB, @RequestParam String date_verification
   }*/
 
-  updatee(idactetrait: any, data: any): Observable<any> {
-    return this.http.put(`${baseUrl}/${idactetrait}`, data);
-  }
 
   findByCodeIMB(codeIMB: any): Observable<Esimb[]> {
     return this.http.get<Esimb[]>(`${baseUrl}/codeIMB/${codeIMB}`);
@@ -132,19 +129,22 @@ export class EsimbService {
   }
 
   //Update esimb service
-  update(data: any, esimb: Esimb): Observable<any> {
+  Update(idacte: any, data: any): Observable<any> {
+    return this.http.put(`${baseUrl}/${idacte}`, data);
+  }
+
+  //get esimbss
+  getEsimbs(cuid: String,role: String): Observable<Esimb[]> {
+    const urli= url+"getEsimbs?cuid="+cuid+"&role="+role;
+    console.log("urli : "+urli);
+    
+    return this.http.get<Esimb[]>(urli);
+  }
+  /*update(data: any, esimb: Esimb): Observable<any> {
     this.esimb = esimb;console.log("ok updaaaaate");
     const urli= url+'Update'+'?idacte='+esimb.idacte;
     console.log(" urllll : "+urli);
     
     return this.http.put(urli, data, {responseType: 'text'}); 
-  }
-
-  //get esimbss
-  getGraphics(cuid: String,role: String): Observable<Esimb[]> {
-    const urli= url+"getGraphics?cuid="+cuid+"&role="+role;
-    console.log("urli : "+urli);
-    
-    return this.http.get<Esimb[]>(urli);
-  }
+  }*/
 }

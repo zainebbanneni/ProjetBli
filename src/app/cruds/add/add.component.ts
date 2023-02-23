@@ -124,7 +124,7 @@ export class AddComponent implements OnInit {
     this.currentEsimb.dateLivraison=this.now;
     }
 
-    //save grafic
+    //save esimb
   saveEsimb(): void {
     console.log("rr");
     this.isLoading = true;
