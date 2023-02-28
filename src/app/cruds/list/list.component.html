@@ -31,7 +31,7 @@
             <div class="input--style-4">
                 <select name="Affectation" class="input--style-4" style="border: 0;" *ngIf="searchby === 'Affectation'" [(ngModel)]="searchValue">
                     <option value={{colab.cuid}} *ngFor="let colab of colabsteam; let i = index" > {{colab.cuid}} {{colab.nom}} {{colab.prenom}}</option>    
-                 </select>
+                 </select>            
               </div>
 
 

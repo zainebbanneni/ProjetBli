@@ -19,6 +19,7 @@ import { GraphicComponent } from 'src/app/graphic/graphic.component';
 import { AddgraphicComponent } from 'src/app/graphic/cruds/addgrafic/addgrafic.component';
 import { ListgraphicComponent } from 'src/app/graphic/cruds/listgrafic/listgrafic.component';
 import { ListgraficnonactiveComponent } from 'src/app/graphic/cruds/listgraficnonavtive/listgraficnonactive.component';
+import { AddBPUComponent } from 'src/app/board-admin/add-bpu/add-bpu.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
  { path: 'Desat', component: DESATComponent },
  { path: 'NRO-PM', component: NROPMComponent },
  {path: 'Add', component: AddComponent},
+ {path: 'admin/Add', component: AddBPUComponent},
  {path: 'MODIF/:idactetrait', component: ModifComponent},
  //{path: 'MODIF/:esimb', component: ModifComponent},
  {path: 'Graphic', component: GraphicComponent},

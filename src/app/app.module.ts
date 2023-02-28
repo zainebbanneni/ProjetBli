@@ -32,6 +32,7 @@ import { GraphicComponent } from './graphic/graphic.component';
 import { AddgraphicComponent } from 'src/app/graphic/cruds/addgrafic/addgrafic.component';
 import { ListgraphicComponent } from 'src/app/graphic/cruds/listgrafic/listgrafic.component';
 import { ListgraficnonactiveComponent } from 'src/app/graphic/cruds/listgraficnonavtive/listgraficnonactive.component';
+import { AddBPUComponent } from './board-admin/add-bpu/add-bpu.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ListgraficnonactiveComponent } from 'src/app/graphic/cruds/listgraficno
     GraphicComponent,
     AddgraphicComponent,
     ListgraphicComponent,
-    ListgraficnonactiveComponent
+    ListgraficnonactiveComponent,
+    AddBPUComponent
   ],
   imports: [
     BrowserModule,

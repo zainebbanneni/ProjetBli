@@ -135,10 +135,9 @@ export class AddComponent implements OnInit {
               console.log(res);
               if (res == "ok"){
                 this.submitted = true;
-                console.log("rtdgfgh");
               }else{
                 this.submitted = false;
-                console.log("erdgv");
+                alert("existe");
               }
             },
             error: (e) => console.error(e)

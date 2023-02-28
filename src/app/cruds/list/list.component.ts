@@ -93,7 +93,6 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.cuid = user.username;
-
            if (this.roles.includes('ROLE_PILOTE')){
                this.isPilote = true;
                this.role = 'PILOTE';
@@ -327,6 +326,4 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
         console.log(error);
       });
 }
-
-
 }
