@@ -6,6 +6,7 @@ import { AppComponent } from 'src/app/app.component';
 import { CollaborateurService } from 'src/app/services/collaborateur.service';
 import { Collaborateur } from 'src/app/models/Collaborateur';
 import { FormControl } from '@angular/forms';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-add',
@@ -40,6 +41,7 @@ export class AddComponent implements OnInit {
  
 
  submitted = false;
+ message='';
 
    //instance collaborateur 
   collaborateur : Collaborateur ={ 
@@ -76,7 +78,7 @@ export class AddComponent implements OnInit {
   };
 
   today: Date = new Date();
-  now = new Date().toDateString();
+  now = new Date().toISOString().slice(0,10);
 
    //instance de collaborateur
    collab: Collaborateur={
@@ -122,6 +124,7 @@ export class AddComponent implements OnInit {
 
     this.isLoading = false;
     this.currentEsimb.dateLivraison=this.now;
+    this.currentEsimb.dateVerification=this.now;
     }
 
     //save esimb
@@ -135,9 +138,11 @@ export class AddComponent implements OnInit {
               console.log(res);
               if (res == "ok"){
                 this.submitted = true;
+                  this.message = res.message ? res.message : 'This acte was added successfully!';
+                  Swal.fire('This acte was added successfully! .');
               }else{
                 this.submitted = false;
-                alert("existe");
+                Swal.fire('Cet acte de traitement existe déja.');
               }
             },
             error: (e) => console.error(e)
@@ -205,7 +210,7 @@ export class AddComponent implements OnInit {
     //validate form
  validateForm(): boolean {
   let err;
-  err = (this.validateCodeBanbou() && 
+  err = (
          this.validateCodeImb()  && 
          this.validateDateVerification() &&
          this.validateMotif()&&
@@ -213,7 +218,7 @@ export class AddComponent implements OnInit {
   return err;
  }
 
- //validate Id esimb
+ /*//validate Id esimb
  validateCodeBanbou() : boolean {
   if(!(this.currentEsimb.codeBanbou?.toString().length === 8) ){
     this.codeBanbou_err = 1;
@@ -222,20 +227,24 @@ export class AddComponent implements OnInit {
     this.codeBanbou_err = 0;
     return true;
   }
- }
+ }*/
 
   //validate Code IMB
   validateCodeImb() : boolean {
-    if( this.currentEsimb.codeIMB?.toString().length !< 5 ){
-      this.codeIMB_err = 1;
-      return false;
-    }else if(!(this.currentEsimb.codeIMB?.startsWith('IMB/'))){
-      this.codeIMB_err = 2;
-      return false;
-    }else{
-      this.codeIMB_err = 0;
-      return true;
-    }
+    let pattern = /^IMB\/[a-z A-Z 0-9][a-z A-Z 0-9][a-z A-Z 0-9][a-z A-Z 0-9][a-z A-Z 0-9]\/[X|S|A|C]\/[a-z A-Z 0-9][a-z A-Z 0-9][a-z A-Z 0-9][a-z A-Z 0-9]$/;
+      if((this.currentEsimb.motif == 'Inexistence IMB Banbou')){
+          this.codeIMB_err = 0;
+          return true;  }
+        if((this.currentEsimb.motif == 'En attente') && (this.currentEsimb.codeIMB=='')){
+            this.codeIMB_err = 0;
+            return true;  
+      } else  
+      if(!(pattern.test(String(this.currentEsimb.codeIMB)))){ 
+             this.codeIMB_err = 2;
+                 return false;
+             }else{       this.codeIMB_err = 0;
+                  return true;
+              }
    }
 
   //validate Date verification
@@ -304,6 +313,13 @@ export class AddComponent implements OnInit {
       return true;
     }
   }*/
+
+  onlyNumberKey(event: any) {
+      const pattern = /[0-9]/;
+      const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+          event.preventDefault();}
+    }
 
   
 

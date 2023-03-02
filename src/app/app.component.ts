@@ -24,6 +24,8 @@ export class AppComponent implements OnInit {
   isdesat = false;
   isnropm = false;
   isbrame = false;
+  isPilote = false;
+
   collaborateur : Collaborateur ={ 
        cuid: '',    
        nom: '', 

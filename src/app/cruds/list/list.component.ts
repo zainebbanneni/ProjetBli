@@ -34,6 +34,7 @@ export class ListComponent implements OnInit {
   esimbsNonActive? : Esimb_req[];
 
   message = '';
+  now= new Date().toISOString().slice(0,10);
 
 
   //instance collaborateur
@@ -320,7 +321,7 @@ this.isLoggedIn = !!this.tokenStorageService.getToken();
     .subscribe(
       response => {
         console.log(response);
-        this.message = response.message ? response.message : 'This tutorial was updated successfully!';
+        this.message = response.message ? response.message : 'This Acte was updated successfully!';
       },
       error => {
         console.log(error);

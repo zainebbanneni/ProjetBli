@@ -23,7 +23,8 @@ export class AddBPUComponent implements OnInit {
   dateExpiration: string; // variable pour la date d'expiration calculée
 
   today: Date = new Date();
-  now = new Date().toDateString();
+  now = new Date().toISOString().slice(0,10);
+
 
   inputValue = '';
   content?: string;
@@ -46,9 +47,6 @@ export class AddBPUComponent implements OnInit {
     version:1,
     tarif:''
     };
-
-
-  
 
   constructor(private bpuService: BpuService, private router: Router, private http: HttpClient) {
     this.myForm = new FormGroup({
@@ -75,7 +73,7 @@ export class AddBPUComponent implements OnInit {
 
    // Function de génération de ref
    generateRef(): String {
-    return this.currentBpu.type_prestation+ '-'+ this.currentBpu.tarif+ '-'+ "V" + this.currentBpu.version;
+    return this.currentBpu.type_prestation+ '-'+ this.currentBpu.tarif;
 }
 
 generateVersion(): any{
@@ -170,8 +168,26 @@ onTarifChange() {
     this.currentBpu.tarif ='tarif4'; 
 
   } 
-  
 }
+
+onTariChange() {
+  if (this.currentBpu.type_prestation === 'ESIMB') {
+    if ( "condition pour choisir tarif1") {
+      this.currentBpu.tarif = 'tarif1';
+    } else {
+      this.currentBpu.tarif = 'tarif2';
+    }
+  } else if (this.currentBpu.type_prestation === 'NROPM') {
+    if ("condition pour choisir tarif3") {
+      this.currentBpu.tarif = 'tarif3';
+    } else {
+      this.currentBpu.tarif = 'tarif4';
+    }
+  } 
+}
+
+
+
 
 updatebpu(bpu: Bpu) {
   // Effectuer la mise à jour de la ligne

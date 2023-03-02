@@ -83,24 +83,7 @@ export class BoardAdminComponent implements OnInit {
     version:1
     };
 
-    bpuModif: Bpu= {
-      refTacheBPU:'',
-      type_element: '',
-      type_prestation: '',
-      pu: 0,
-      dateDebut: '',
-      dateValidite: '',
-      dateExpiration:'',
-      type_penalite: '',
-      penalite: '',
-      version:2,
-      tarif:''
-      };
-    
-
    // refTacheBPU: string = 'V' + this.currentBpu.type_prestation + ' ' + this.currentBpu.pu;
-
-
 
 
   constructor(private userService: UserService, private bpuService: BpuService, private http: HttpClient
@@ -141,25 +124,8 @@ bpu.version += 1;*/
   }
 
   generateRef(): String {
-    return this.currentBpu.type_prestation+ '-'+ this.currentBpu.tarif+ '-'+ "V" + this.bpuModif.version;
+    return this.currentBpu.type_prestation+ '-'+ this.currentBpu.tarif;
 }
-
-  /*updateBpu() {
-    const id = this.bpu.id;
-    this.bpuService.updateBp(id, this.bpu).subscribe(
-      data => {
-        console.log('Mise à jour réussie', data);
-        // affichez un message de succès à l'utilisateur
-      },
-      error => {
-        console.error('Erreur de mise à jour', error);
-        // affichez un message d'erreur à l'utilisateur
-        this.errorMessage = 'Une erreur est survenue lors de la mise à jour de l\'objet BPU.';
-      }
-    );
-  }*/
-
-
 
 generateVersion(): any{
 return this.updatebpu(this.bpu);
@@ -240,11 +206,11 @@ setActiveBpu(bpu: Bpu, index: number): void {
     //MAJ BPU
  updateBPU(): void {
   this.generateRef();
-  this.bpuService.Update(this.currentBpu.id, this.bpuModif)
+  this.bpuService.Update(this.currentBpu.id, this.currentBpu)
     .subscribe(
       response => {
         console.log(response);
-        this.message = response.message ? response.message : 'This tutorial was updated successfully!';
+        this.message = response.message ? response.message : 'This BPU was updated successfully!';
       },
       error => {
         console.log(error);

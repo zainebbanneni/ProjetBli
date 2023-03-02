@@ -31,7 +31,6 @@
       </div>
     </div>
 
-
     <div class="card-body">
     <h2 class="title" style="text-align: center;">Add new Acte</h2>
      <hr>
@@ -42,47 +41,56 @@
               <td>
                    <div class="input-group">
                      <label class="label">Code Banbou</label>
-                     <input class="input--style-4" 
+                     <input class="input--style-4"
                             type="number" 
-                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                            (keypress)="onlyNumberKey($event)"
                             name="codeBanbou" 
                             required 
-                            maxlength="8" 
                             [(ngModel)]="currentEsimb.codeBanbou">
-                     <div class="alert alert-danger" role="alert" *ngIf="codeBanbou_err">
-                      Id Grafic should be 8 characters long
-                     </div>
+                     
                    </div>
               </td>
 
               <td>
                   <div class="input-group" >
                     <label class="label">Code IMB</label>
-                    <input class="input--style-4" 
+                    <input class="input--style-4"
                            type="text" 
                            name="code_imb" 
+                           [value]="currentEsimb.motif == 'Inexistence IMB Banbou' ? '' : currentEsimb.codeIMB"
                            required  
+                           [disabled]= "currentEsimb.motif =='Inexistence IMB Banbou'"
                            maxlength="16"   
                            [(ngModel)]="currentEsimb.codeIMB">
-                    <div class="alert-danger" *ngIf="codeIMB_err == 1">
-                      <div>Code IMB should be at least 5 characters long</div>
-                    </div>
-                    <div class="alert-danger" *ngIf="codeIMB_err == 2">
-                      <div>Code IMB should start with ' IMB/ ' </div>
-                    </div>
+                           <div class="alert-danger" *ngIf="codeIMB_err == 2">
+                            <div>Le code IMB doit etre sous le format 'IMB/XXXXX/S ou X ou A/XXXX ' </div>
+                           </div>
                   </div>
                   
                   
               </td>
+
+              <td>
+                <div class="cd">
+                 <button class="button-plus" [disabled]="!currentEsimb.codeIMB"   [disabled]= "currentEsimb.motif =='Inexistence IMB Banbou'"      data-bs-toggle="modal" data-bs-target="#staticBackdrop"><span>+</span></button>
+            
+              </div>
+              
+
+
+              </td>
+       
             </tr>
 <br>
             <tr>
               <td>
                   <div class="input-group" >
                     <label class="label">Date verification</label>
-                    <input class="input--style-4" 
-                           type="date" 
+                    <input class="input--style-4"
+                           id="dateVerification"
+                           type="text" 
                            name="dateVerification" 
+                           disabled
                            required 
                            [(ngModel)]="currentEsimb.dateVerification">
                            <div class="alert alert-danger" role="alert" *ngIf="dateVerification_err == 1">
@@ -93,13 +101,21 @@
               </td>
 
               <td>
-                <div class="input-group">
-                  <label class="label">Quantite</label>
-                  <input class="input--style-4" value="1" placeholder="1"
-                  type="text" name="quantite"
-                   [(ngModel)]="currentEsimb.quantite" disabled>
-                 </div>
-           </td>
+                <div class="input-group" >
+                    <label class="label">Date Livraison</label>
+                    
+                        <input  class="input--style-4" id="dateLivraison" 
+                            type="text"
+                            required
+                           [(ngModel)]="currentEsimb.dateLivraison"
+                            disabled
+                             name="dateLivraison" 
+                             [value]="currentEsimb.motif == 'En attente' ? '' : currentEsimb.dateLivraison"
+                             />
+            
+                    
+                </div>
+                </td>
             </tr>
             <br>
             <tr>
@@ -137,6 +153,7 @@
                 <td>
                     <div class="input-group">
                       <label class="label">Duree</label>
+                     
                       <input class="input--style-4" type="number"
                        name="duree" [(ngModel)]="currentEsimb.duree">
                       <div class="alert alert-danger" role="alert" *ngIf="duree_err == 1">
@@ -144,6 +161,8 @@
                       </div>
                      </div>
                </td>
+             
+              
             </tr>
               <tr>
                
@@ -155,18 +174,7 @@
                        name="commentaire" [(ngModel)]="currentEsimb.commentaire">
                     </div>
                 </td>
-                <td>
-                    <div class="input-group" >
-                        <label class="label">Date Livraison</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="input--style-4" id="dateLivraison" 
-                                required [(ngModel)]="currentEsimb.dateLivraison"
-                                 name="dateLivraison" disabled
-                                 />
-                
-                        </div>
-                    </div>
-                    </td>
+               
               </tr>
 <br>
               <tr>
@@ -226,7 +234,7 @@
                             </div>
                       </div>
                     </td>
-              </tr>   
+              </tr>     
          </table>
           <hr>              
           <br> 
@@ -237,11 +245,17 @@
             </div>
           </div> 
           <br> 
-          <div class="input-group" style="text-align: center;" *ngIf="!submitted">
-            <button class="btn btn--radius-2 btn--blue" style="background-color: rgb(36, 36, 36);" type="submit" (click)="saveEsimb()">Submit</button>
+          <div  style="text-align: center;" *ngIf="!submitted">
+            
+            <button class="btn btn--radius-2 btn--blue" style="background-color: rgb(36, 36, 36);" type="submit"  [disabled]= "currentEsimb.motif =='En attente'" (click)="saveEsimb()">Cloturer</button>
+          
+            <button class="btn btn--radius-2 btn--blue" style="background-color: rgb(36, 36, 36);" type="submit"   [disabled]= "currentEsimb.motif !='En attente'" (click)="saveEsimb()">S'affecter</button>
+          
+
+
           </div>
 
-          <div class="input-group" style="text-align: center;" *ngIf="submitted">
+          <div style="text-align: center;" *ngIf="submitted">
             <button class="btn btn--radius-2 btn--blue" style="background-color: rgb(36, 36, 36);" type="submit" (click)="newEsimb()">New</button>
           </div>
           
@@ -251,9 +265,163 @@
         
        </div>
   </div>
-
-  
 </div>
+ <!-- modal add imb -->
+ 
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">ADD IMB</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+     
+      <div class="modal-body">
+        <div class="modal-b">
+        
+        <fieldset class="border p-2">
+          <legend class="w-auto">
+          </legend>
+          <table class="table-add">
+              <tr class="tr1">
+                <td>Code Banbou</td>
+                <td><div class="col-sm-10">
+                  <input type="text"
+                  class="form-control"
+                  id="codeBanbou"
+                  disabled
+                  required
+                  [(ngModel)]="currentEsimb.codeBanbou"
+                  name="codeBanbou">
+                </div></td>
+            
+                <div class="td2"> 
+                <td>Code IMB</td>
+              </div>   
+                    <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="codeIMB"
+                        name="codeIMB"
+                        [value]="currentEsimb.motif == 'Inexistence IMB Banbou' ? '' : currentEsimb.codeIMB"
+                           required  
+                           [disabled]= "currentEsimb.motif =='Inexistence IMB Banbou'"
+                           maxlength="16"   
+                           [(ngModel)]="currentEsimb.codeIMB">
+                  
+                           <div class="alert-danger" *ngIf="codeIMB_err == 2">
+                            <div>Le code IMB doit etre sous le format 'IMB/XXXXX/S ou X ou A/XXXX ' </div>
+                           </div>
+                      </div>
+                    </td>
+               </tr>
+            <br>
+            
+            <tr >
+                <td>Date verification</td>
+                <td><div class="col-sm-10">
+                  <input type="date"
+                  class="form-control"
+                  id="date_verification"
+                  required
+                  disabled
+                  [(ngModel)]="currentEsimb.dateVerification"
+                  name="date_verification">
+                </div></td>
+            
+                <div > 
+                <td>Duree</td>
+              </div>   
+                    <td><div class="col-sm-10">
+                        <input type="text"
+                        class="form-control"
+                        id="duree"
+                        required
+                        [(ngModel)]="currentEsimb.duree"
+                        name="duree">
+                      </div>
+                    </td>
+               </tr>
+            <br>
+            
+            
+            <tr >
+                <td>Date livraison</td>
+                <td><div class="col-sm-10">
+                  <input type="text" class="input--style-4" id="dateLivraison" 
+                  required [(ngModel)]="currentEsimb.dateLivraison"
+                  disabled
+                   name="dateLivraison" 
+                  
+                   [value]="currentEsimb.motif == 'En attente' ? '' : currentEsimb.dateLivraison">
+                </div></td>
+            
+                <div >
+                  <td>Commentaire</td>
+                  </div>
+                  <td><div class="col-sm-10">
+                      <input type="text" 
+                      class="form-control"
+                      id="commentaire"
+                      required
+                      [(ngModel)]="currentEsimb.commentaire"
+                      name="commentaire">
+                    </div></td>
+               </tr>
+            <br>
+            
+    
+            
+            <tr >
+                <td>Motif</td>
+                <td>
+                    <div class="col-sm-10">
+                        <select name="pets" id="pet-select" [(ngModel)]="currentEsimb.motif"><option value="">
+                            --Please choose an option--  </option>
+                        <option value="ORT" >ORT</option>
+                        <option value="Hist">Historique</option>
+                        <option value="Immeuble">Immeuble</option>
+                        <option value="Inexistence IMB Optimum">Inexistence IMB optimum</option>
+                        <option value="Inexistence IMB Banbou">Inexistence IMB Banbou</option>
+                        <option value="incohérence">Incohérence</option>
+                        <option value="rami">Rami</option>
+                        <option value="PB inexistant GFI">Pb inexistant GFI</option>
+                        <option value="Blocage Optimum">Blocage Optimum</option>
+                        <option value="IMB Raccordable Optimum">IMB Raccordable  Optimum</option>
+                        <option value="Clé en main Client">Clé en main Client</option>
+                        <option value="PB Saturé">PB saturé</option>
+                        <option value="Inexistence IMB Ipon">Inexistence IMB Ipon</option>
+                        <option value="Position IMB introuvable">Position IMB introuvable</option>
+                        <option value="PB inexistant Ipon">PB inexistant Ipon</option>
+                        <option value="Non evolution statut IMB">Non evolution statut IMB</option>
+                        <option value="En attente">En attente</option>
+                        <option value="traitée"></option>
+                      </select>
+                      <div class="alert alert-danger" role="alert" *ngIf="motif_err == 1">
+                        Please Select an option
+                       </div>
+                    </div>    
+                </td>
+                
+                        
+            </tr>
+            <br>
+            </table>
+        </fieldset>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" (click)="saveEsimb()" >Add IMB</button>
+        
+        
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+    </div>
+  
+  </div>
+</div>
+
 </body>
 
 </html>

@@ -62,9 +62,7 @@ const baseUrl= 'http://localhost:8080/api/bpus';
     return this.http.get<Bpu[]>(baseUrl);
   }
 
-  updateBp(id: number, bpu: Bpu): Observable<Bpu> {
-    return this.http.put<Bpu>('/bpus/' + id, bpu);
-  }
+
 
   updateBPU(id: number, newBPU: Bpu): Observable<Bpu> {
     return this.http.put<Bpu>(`${this.baseUrl}/${id}`, newBPU);
